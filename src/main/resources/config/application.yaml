@@ -15,3 +15,16 @@ spring:
             mode: always
             schema-locations: classpath:database/schema-mysql.sql
             data-locations: classpath:database/data-mysql.sql
+
+springdoc:
+    packages-to-scan: com.boardapi.jdbcnamedtemplate
+    swagger-ui:
+        path: /swagger-ui.html              # Swagger UI page route path
+        tags-sorter: alpha                  # Sort with alphanum
+        operations-sorter: alpha            # Sort with alphanum
+    api-docs:
+        path: /api-docs/json                # API document file route path
+        groups:
+            enabled: true                     #
+    cache:
+        disabled: true                      # Cache disable
