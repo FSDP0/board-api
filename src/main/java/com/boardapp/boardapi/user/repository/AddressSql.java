@@ -6,13 +6,17 @@ public class AddressSql {
                 user_id,
                 user_address,
                 address_zipcode
-            ) VALUES (?, ?, ?)
+            ) VALUES (
+                :userId,
+                :userAddress,
+                :addressZipcode
+            )
             """;
 
     protected final static String UPDATE_ADDRESS_BY_USER_ID = """
             UPDATE users.address
-            SET user_address = ?
-                address_zipcode = ?
-            WHERE user_id = ?
+            SET user_address = :userAddress
+                address_zipcode = :addressZipcode
+            WHERE user_id = :userId
             """;
 }
