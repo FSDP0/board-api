@@ -12,8 +12,8 @@ spring:
     sql:
         init:
             mode: always
-            schema-locations: classpath:schema-mysql.sql
-            data-locations: classpath:data-mysql.sql
+            schema-locations: classpath:database/schema-mysql.sql
+            data-locations: classpath:database/data-mysql.sql
 
 springdoc:
     packages-to-scan: com.boardapp.boardapi
