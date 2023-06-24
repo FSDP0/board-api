@@ -17,7 +17,7 @@ spring:
             data-locations: classpath:database/data-mysql.sql
 
 springdoc:
-    packages-to-scan: com.boardapi.jdbcnamedtemplate
+    packages-to-scan: com.boardapp.board-api
     swagger-ui:
         path: /swagger-ui.html              # Swagger UI page route path
         tags-sorter: alpha                  # Sort with alphanum
