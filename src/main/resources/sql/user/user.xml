@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="user.SELECT_ALL">
+        SELECT A.*, B.user_address, B.address_zipcode
+        FROM users.user A
+        LEFT OUTER JOIN users.address B
+        ON A.user_id = B.user_id
+    </entry>
+    
+    <entry key="user.SELECT_BY_USER_ID">
+        SELECT A.*, B.user_address, B.address_zipcode
+        FROM users.user A
+        LEFT OUTER JOIN users.address B
+        ON A.user_id = B.user_id
+        WHERE A.user_id = ?
+    </entry>
+
+    <entry key="user.INSERT_USER">
+        INSERT INTO users.user(
+            user_id,
+            user_name,
+            user_password,
+            user_tel,
+            created_date
+        ) VALUES (?, ?, ?, ? ,?)
+    </entry>
+
+    <entry key="user.UPDATE_USER_BY_USER_ID">
+        UPDATE users.user
+        SET user_name = ?,
+            user_password = ?,
+            user_tel = ?,
+            modified_date = ?
+        WHERE user_id = ?
+    </entry>
+
+    <entry key="user.DELETE_BY_USER_ID">
+        DELETE
+        FROM users.user
+        WHERE user_id = ?
+    </entry>
+</properties>

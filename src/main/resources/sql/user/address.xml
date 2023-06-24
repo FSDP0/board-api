@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="user.INSERT_ADDRESS">
+        INSERT INTO users.address(
+            user_id,
+            user_address,
+            address_zipcode
+        ) VALUES (?, ?, ?)
+    </entry>
+
+    <entry key="user.UPDATE_ADDRESS_BY_USER_ID">
+        UPDATE users.address
+        SET user_address = ?,
+            address_zipcode = ?
+        WHERE user_id = ?
+    </entry>
+</properties>
