@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS boards.board (
     board_title VARCHAR(50) NOT NULL,
     -- board_author VARCHAR(30) NOT NULL,
     user_id VARCHAR(50) NOT NULL,
-    board_content VARCHAR(200) NULL,
+    board_contents VARCHAR(200) NULL,
     created_date DATETIME NOT NULL,
     modified_date DATETIME NULL,
     PRIMARY KEY (board_id, user_id),
