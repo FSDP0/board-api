@@ -1,11 +1,11 @@
 package com.boardapp.boardapi.board.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.boardapp.boardapi.board.entity.Board;
-import com.boardapp.boardapi.board.model.BoardPayloadDto;
+import com.boardapp.boardapi.board.model.BoardSaveDto;
+import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
 import jakarta.transaction.Transactional;
@@ -33,7 +33,10 @@ public class BoardService {
         for (Board board : boardList) {
             BoardResponseDto dto = BoardResponseDto.builder().id(board.getBoardId()) // 게시글 번호
                     .title(board.getBoardTitle()) // 게시글 제목
-                    .writer(board.getBoardCreator().getUserId()) // 게시글 작성자
+                    .writerId(board.getBoardCreatorId()) // 게시글 작성자 ID
+                    .writer(board.getBoardCreatorName()) // 게시글 작성자 이름
+                    .editorId(board.getBoardEditorId()) // 게시글 수정자 ID
+                    .editor(board.getBoardEditorName())// 게시글 수정자 이름
                     .contents(board.getBoardContents()) // 게시글 내용
                     .createdDate(board.getCreatedDate()) // 게시글 작성일
                     .modifiedDate(board.getModifiedDate()) // 게시글 내용 변경일
@@ -54,7 +57,10 @@ public class BoardService {
 
         BoardResponseDto dto = BoardResponseDto.builder().id(board.getBoardId()) // 게시글 번호
                 .title(board.getBoardTitle()) // 게시글 제목
-                .writer(board.getBoardCreator().getUserId()) // 게시글 작성자
+                .writerId(board.getBoardCreatorId()) // 게시글 작성자 ID
+                .writer(board.getBoardCreatorName()) // 게시글 작성자 이름
+                .editor(board.getBoardEditorId()) // 게시글 수정자 ID
+                .editor(board.getBoardEditorName()) // 게시글 수정자 이름
                 .contents(board.getBoardContents()) // 게시글 내용
                 .createdDate(board.getCreatedDate()) // 게시글 생성일
                 .modifiedDate(board.getModifiedDate()) // 게시글 변경일
@@ -64,17 +70,22 @@ public class BoardService {
     }
 
     @Transactional
-    public void createBoard(BoardPayloadDto payload) {
-        this.boardRepository.save(payload.toEntity());
+    public void createBoard(BoardSaveDto dto) {
+        this.boardRepository.save(dto.toEntity());
     }
 
     @Transactional
-    public void modifyBoard(Long id, BoardPayloadDto payload) {
-        Date createdDate = this.boardRepository.findById(id).get().getCreatedDate();
+    public void modifyBoard(Long id, BoardEditDto dto) {
+        Board prevEntity = this.boardRepository.findById(id).get();
 
-        Board board =
-                Board.builder().id(id).title(payload.getTitle()).author(payload.getWriteName())
-                        .contents(payload.getContents()).createdDate(createdDate).build();
+        Board board = Board.builder().id(id) // 게시글 번호
+                .title(dto.getTitle()) // 게시글 제목
+                .creatorId(prevEntity.getBoardCreatorId()) // 게시글 생성자 ID
+                .creatorName(prevEntity.getBoardCreatorName()) // 게시글 생성자 이름
+                .contents(dto.getContents()) // 게시글 내용
+                .editorId(dto.getEditId()) // 게시글 수정자 ID
+                .editorName(dto.getEditName()) // 게시글 수정자 이름
+                .build();
 
         this.boardRepository.save(board);
     }

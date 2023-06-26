@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.boardapp.boardapi.board.model.BoardPayloadDto;
+import com.boardapp.boardapi.board.model.BoardSaveDto;
+import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,16 +39,16 @@ public class BoardController {
     }
 
     @PostMapping
-    private void createBoard(@RequestBody BoardPayloadDto BoardPayload) {
-        this.boardService.createBoard(BoardPayload);
+    private void createBoard(@RequestBody BoardSaveDto dto) {
+        this.boardService.createBoard(dto);
     }
 
     @PutMapping("/:{id}")
-    private void editBoard(@PathVariable Long id, @RequestBody BoardPayloadDto payload) {
+    private void editBoard(@PathVariable Long id, @RequestBody BoardEditDto dto) {
         log.info("\\... Controller");
         log.info("[ Success Process ] Received parameter : " + id);
 
-        this.boardService.modifyBoard(id, payload);
+        this.boardService.modifyBoard(id, dto);
     }
 
     @DeleteMapping("/:{id}")

@@ -10,20 +10,31 @@ public class BoardResponseDto {
     private Long num;
 
     private String title;
-    private String writeName;
+
+    private String writerId;
+    private String writer;
+
+    private String editorId;
+    private String editor;
+
     private String contents;
 
     private Date writeDate;
     private Date modifyDate;
 
     @Builder
-    public BoardResponseDto(Long id, String title, String writer, String contents, Date createdDate,
-            Date modifiedDate) {
+    public BoardResponseDto(Long id, String title, String writerId, String writer, String editorId,
+            String editor, String contents, Date createdDate, Date modifiedDate) {
         this.num = id;
 
         this.title = title;
-        this.writeName = writer;
         this.contents = contents;
+
+        this.writerId = writerId;
+        this.writer = writer;
+
+        this.editorId = editorId;
+        this.editor = editor;
 
         this.writeDate = createdDate;
         this.modifyDate = modifiedDate;
