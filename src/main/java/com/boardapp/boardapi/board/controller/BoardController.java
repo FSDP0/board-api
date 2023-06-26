@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
+import com.boardapp.boardapi.board.model.BoardUserDto;
+import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.service.BoardService;
@@ -40,8 +42,6 @@ public class BoardController {
 
     @PostMapping
     private void createBoard(@RequestBody BoardSaveDto dto) {
-        log.info("" + dto);
-
         this.boardService.createBoard(dto);
     }
 
@@ -60,4 +60,9 @@ public class BoardController {
 
         this.boardService.removeBoard(id);
     }
+
+    // @GetMapping("/test/:{id}")
+    // private BoardUserDto sample(@PathVariable Long id) {
+    // return this.boardService.sample(id);
+    // }
 }

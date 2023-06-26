@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
+import com.boardapp.boardapi.board.model.BoardUserDto;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
@@ -96,4 +97,9 @@ public class BoardService {
     public void removeBoard(Long id) {
         this.boardRepository.deleteById(id);
     }
+
+    // @Transactional
+    // public BoardUserDto sample(Long id) {
+    // return this.boardRepository.findByBoardId(id);
+    // }
 }
