@@ -52,6 +52,8 @@ public class BoardService {
         Board board = this.boardRepository.findById(boardId).get();
 
         if (board == null) {
+            log.error("Board not found ....");
+
             return null;
         }
 
@@ -85,7 +87,7 @@ public class BoardService {
                 .contents(dto.getContents()) // 게시글 내용
                 .editorId(dto.getEditId()) // 게시글 수정자 ID
                 .editorName(dto.getEditName()) // 게시글 수정자 이름
-                .build();
+                .createdDate(prevEntity.getCreatedDate()).build();
 
         this.boardRepository.save(board);
     }

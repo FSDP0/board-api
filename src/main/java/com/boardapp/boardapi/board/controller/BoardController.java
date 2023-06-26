@@ -40,6 +40,8 @@ public class BoardController {
 
     @PostMapping
     private void createBoard(@RequestBody BoardSaveDto dto) {
+        log.info("" + dto);
+
         this.boardService.createBoard(dto);
     }
 
