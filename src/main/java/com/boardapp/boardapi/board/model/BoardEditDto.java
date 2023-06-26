@@ -9,8 +9,10 @@ public class BoardEditDto {
     private Long num;
 
     private String title;
+
     private String editId;
     private String editName;
+
     private String contents;
 
     public Board toEntity() {

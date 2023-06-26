@@ -10,8 +10,10 @@ public class BoardSaveDto {
     private Long num;
 
     private String title;
+
     private String writeId;
     private String writeName;
+
     private String contents;
 
     public Board toEntity() {
