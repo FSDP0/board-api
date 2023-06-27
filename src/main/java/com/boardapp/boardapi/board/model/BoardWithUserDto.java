@@ -2,7 +2,7 @@ package com.boardapp.boardapi.board.model;
 
 import java.util.Date;
 
-public interface BoardUserDto {
+public interface BoardWithUserDto {
     // Board Id
     Long getNum();
 
