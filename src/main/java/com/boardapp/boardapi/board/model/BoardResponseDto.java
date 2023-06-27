@@ -3,8 +3,10 @@ package com.boardapp.boardapi.board.model;
 import java.util.Date;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 // Matching with Tymeleaf template variables
+@NoArgsConstructor
 @Getter
 public class BoardResponseDto {
     private Long num;
