@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.boardapp.boardapi.user.entity.User;
+import com.boardapp.boardapi.user.model.UserEditDto;
 import com.boardapp.boardapi.user.model.UserResponseDto;
 import com.boardapp.boardapi.user.model.UserSaveDto;
 import com.boardapp.boardapi.user.repository.UserRepository;
@@ -67,7 +68,7 @@ public class UserService {
     }
 
     @Transactional
-    public void modifyUser(String userId, UserSaveDto dto) {
+    public void modifyUser(String userId, UserEditDto dto) {
         User prevEntity = this.userRepository.findById(userId).get();
 
         User user = User.builder().index(prevEntity.getId()).id(userId).name(dto.getName())

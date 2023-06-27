@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.boardapp.boardapi.user.model.UserEditDto;
 import com.boardapp.boardapi.user.model.UserResponseDto;
 import com.boardapp.boardapi.user.model.UserSaveDto;
 import com.boardapp.boardapi.user.service.UserService;
@@ -38,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping("/:{userId}")
-    private void editUserInfo(@PathVariable String userId, @RequestBody UserSaveDto dto) {
+    private void editUserInfo(@PathVariable String userId, @RequestBody UserEditDto dto) {
         this.userService.modifyUser(userId, dto);
     }
 

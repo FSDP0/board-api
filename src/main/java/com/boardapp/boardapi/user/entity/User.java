@@ -1,9 +1,12 @@
 package com.boardapp.boardapi.user.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.boardapp.boardapi.board.entity.Board;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -43,6 +46,12 @@ public class User {
     @LastModifiedDate
     @Column(name = "modified_date", nullable = true)
     private Date modifiedDate; // 사용자 계정 정보 수정일
+
+    @OneToMany(mappedBy = "creatorId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Board> createBoards = new ArrayList<Board>();
+
+    @OneToMany(mappedBy = "editorId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Board> editBoards = new ArrayList<Board>();
 
     @Builder
     public User(Long index, String id, String name, String password, String phoneNumber,
