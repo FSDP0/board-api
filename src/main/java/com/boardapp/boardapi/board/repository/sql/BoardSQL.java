@@ -1,5 +1,6 @@
-package com.boardapp.boardapi.board.repository;
+package com.boardapp.boardapi.board.repository.sql;
 
+// Native Queries
 public class BoardSQL {
     public static final String SELECT_ALL = """
             SELECT *

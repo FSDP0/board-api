@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public class BoardSaveDto {
     private String title;
+    private String contents;
 
     private String writeId;
-
-    private String contents;
+    private String writeName;
 }

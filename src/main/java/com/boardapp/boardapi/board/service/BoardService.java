@@ -25,7 +25,6 @@ public class BoardService {
     }
 
     public List<BoardResponseDto> getAllBoards() {
-        // List<Board> boardList = this.boardRepository.findAll();
         List<Board> boardList = this.boardRepository.selectAllBoard();
 
         if (boardList.isEmpty()) {
@@ -33,6 +32,7 @@ public class BoardService {
 
             return null;
         }
+
         List<BoardResponseDto> dtoList = new ArrayList<BoardResponseDto>();
 
         for (Board board : boardList) {

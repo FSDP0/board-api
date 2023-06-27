@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.boardapp.boardapi.board.entity.Board;
+import com.boardapp.boardapi.board.repository.sql.BoardJPQL;
 import jakarta.transaction.Transactional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
@@ -21,11 +22,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Transactional
     @Query(value = BoardJPQL.INSERT_BOARD)
     public void saveBoard(@Param("boardObj") Board board);
-
-    @Modifying
-    @Query(value = BoardSQL.INSERT_BOARD, nativeQuery = true)
-    public void saveBoard(@Param("title") String title, @Param("contents") String contents,
-            @Param("creatorId") String creatorId);
 
     // 객체를 파라미터로 전달
     @Modifying
