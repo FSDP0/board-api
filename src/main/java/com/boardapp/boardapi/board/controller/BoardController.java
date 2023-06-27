@@ -58,4 +58,9 @@ public class BoardController {
 
         this.boardService.removeBoard(id);
     }
+
+    @GetMapping("/test2")
+    private List<BoardResponseDto> sample2() {
+        return this.boardService.getAll();
+    }
 }
