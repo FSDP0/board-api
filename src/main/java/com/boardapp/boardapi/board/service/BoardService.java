@@ -2,29 +2,28 @@ package com.boardapp.boardapi.board.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
-import com.boardapp.boardapi.board.model.BoardWithUserDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
-import com.boardapp.boardapi.board.repository.BoardWithUserRepository;
 
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
-    private final BoardWithUserRepository boardWithUserRepository;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public BoardService(BoardRepository boardRepository,
-            BoardWithUserRepository boardWithUserRepository) {
+            NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.boardRepository = boardRepository;
-        this.boardWithUserRepository = boardWithUserRepository;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     public List<BoardResponseDto> getAllBoard() {
-        List<Board> boardList = this.boardRepository.findAllBoards();
+        List<Board> boardList = this.boardRepository.selectAllBoards();
 
         if (boardList.isEmpty()) {
             return null;
@@ -46,7 +45,7 @@ public class BoardService {
     }
 
     public BoardResponseDto getBoardById(Long id) {
-        Board board = this.boardRepository.findBoardById(id);
+        Board board = this.boardRepository.selectBoardById(id);
 
         if (board == null) {
             return null;
@@ -59,10 +58,6 @@ public class BoardService {
                 .writeDate(board.getCreatedDate()).modifyDate(board.getModifiedDate()).build();
 
         return dto;
-    }
-
-    public BoardWithUserDto getBoardWithUserById(Long id) {
-        return this.boardWithUserRepository.findBoardWithUserById(id);
     }
 
     @Transactional

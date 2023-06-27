@@ -1,18 +1,10 @@
 package com.boardapp.boardapi.board.controller;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
-import com.boardapp.boardapi.board.model.BoardWithUserDto;
 import com.boardapp.boardapi.board.service.BoardService;
 
 @RestController
@@ -32,11 +24,6 @@ public class BoardController {
     @GetMapping("/:{id}")
     private BoardResponseDto findBoardById(@PathVariable Long id) {
         return this.boardService.getBoardById(id);
-    }
-
-    @GetMapping("/users/:{id}")
-    private BoardWithUserDto findBoardWithUserById(@PathVariable Long id) {
-        return this.boardService.getBoardWithUserById(id);
     }
 
     @PostMapping

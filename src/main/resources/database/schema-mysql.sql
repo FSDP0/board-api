@@ -1,5 +1,14 @@
 CREATE DATABASE IF NOT EXISTS boards;
 
+-- ALTER TABLE board DROP CONSTRAINT creator_id;
+-- ALTER TABLE board DROP CONSTRAINT editor_id;
+
+-- DELETE FROM board;
+-- DELETE FROM user;
+
+-- ALTER TABLE board DROP FOREIGN KEY creator_id;
+-- ALTER TABLE board DROP FOREIGN KEY editor_id;
+
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS board;
 
