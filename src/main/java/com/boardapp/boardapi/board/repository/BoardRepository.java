@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.boardapp.boardapi.board.entity.Board;
-import com.boardapp.boardapi.board.model.BoardUserDto;
+import com.boardapp.boardapi.board.model.BoardWithUserDto;
 import com.boardapp.boardapi.board.repository.sql.BoardJPQL;
 import jakarta.transaction.Transactional;
 
@@ -33,6 +33,9 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query(value = BoardJPQL.DELETE_BY_ID)
     public void deleteBoard(@Param("id") Long id);
 
-    @Query(value = BoardJPQL.SELECT_ALL_BU)
-    List<BoardUserDto> getAll();
+    @Query(value = BoardJPQL.SELECT_ALL_WITH_JOIN)
+    List<BoardWithUserDto> selectAllBoardWithUser();
+
+    @Query(value = BoardJPQL.SELECT_BY_ID_WITH_JOIN)
+    BoardWithUserDto selectBoardWithUserById(@Param("id") Long id);
 }

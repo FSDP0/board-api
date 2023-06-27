@@ -59,8 +59,13 @@ public class BoardController {
         this.boardService.removeBoard(id);
     }
 
-    @GetMapping("/test2")
-    private List<BoardResponseDto> sample2() {
-        return this.boardService.getAll();
+    @GetMapping("/join")
+    private List<BoardResponseDto> findAllBoardsWithUser() {
+        return this.boardService.getAllBoardsWithUser();
+    }
+
+    @GetMapping("/join/:{id}")
+    private BoardResponseDto findBoardWithUserById(@PathVariable Long id) {
+        return this.boardService.getBoardWithUserById(id);
     }
 }

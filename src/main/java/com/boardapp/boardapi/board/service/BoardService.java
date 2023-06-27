@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
-import com.boardapp.boardapi.board.model.BoardUserDto;
+import com.boardapp.boardapi.board.model.BoardWithUserDto;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
@@ -87,8 +87,8 @@ public class BoardService {
         this.boardRepository.deleteById(id);
     }
 
-    public List<BoardResponseDto> getAll() {
-        List<BoardUserDto> dataList = this.boardRepository.getAll();
+    public List<BoardResponseDto> getAllBoardsWithUser() {
+        List<BoardWithUserDto> dataList = this.boardRepository.selectAllBoardWithUser();
 
         if (dataList.isEmpty()) {
             log.error("Data list empty ...");
@@ -98,7 +98,7 @@ public class BoardService {
 
         List<BoardResponseDto> dtoList = new ArrayList<BoardResponseDto>();
 
-        for (BoardUserDto data : dataList) {
+        for (BoardWithUserDto data : dataList) {
             BoardResponseDto dto = BoardResponseDto.builder().id(data.getNum())
                     .title(data.getTitle()).contents(data.getContents())
                     .writerId(data.getWriterId()).writer(data.getWriter())
@@ -113,5 +113,26 @@ public class BoardService {
         }
 
         return dtoList;
+    }
+
+    public BoardResponseDto getBoardWithUserById(Long id) {
+        BoardWithUserDto data = this.boardRepository.selectBoardWithUserById(id);
+
+        if (data == null) {
+            log.error("Data is not exist");
+
+            return null;
+        }
+
+        BoardResponseDto dto = BoardResponseDto.builder().id(data.getNum()).title(data.getTitle())
+                .contents(data.getContents()).writerId(data.getWriterId()).writer(data.getWriter())
+                .writerTel(data.getWriterTel()).writerAddress(data.getWriterAddress())
+                .writerAddressZipcode(data.getWriterAddressZipcode()).editorId(data.getEditorId())
+                .editor(data.getEditor()).editorTel(data.getEditorTel())
+                .editorAddress(data.getEditorAddress())
+                .editorAddressZipcode(data.getEditorAddressZipcode())
+                .createdDate(data.getWriteDate()).modifiedDate(data.getModifyDate()).build();
+
+        return dto;
     }
 }
