@@ -42,6 +42,14 @@ public class BoardSQL {
                         WHERE board_id = :id
                         """;
 
+        protected static final String SELECT_BOARD_WITH_USER = """
+                        SELECT A.*,B.user_address,B.address_zipcode
+                        FROM board A
+                        LEFT OUTER JOIN user B
+                        ON A.creator_id = B.user_id
+                        WHERE A.board_id = :id
+                        """;
+
         protected static final String search(String query) {
                 StringBuilder queryString = new StringBuilder(SELECT_ALL);
 

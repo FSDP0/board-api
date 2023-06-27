@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
+import com.boardapp.boardapi.board.model.BoardWithUserDto;
 import com.boardapp.boardapi.board.service.BoardService;
 
 @RestController
@@ -31,6 +32,11 @@ public class BoardController {
     @GetMapping("/:{id}")
     private BoardResponseDto findBoardById(@PathVariable Long id) {
         return this.boardService.getBoardById(id);
+    }
+
+    @GetMapping("/users/:{id}")
+    private BoardWithUserDto findBoardWithUserById(@PathVariable Long id) {
+        return this.boardService.getBoardWithUserById(id);
     }
 
     @PostMapping

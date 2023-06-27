@@ -8,14 +8,19 @@ import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
+import com.boardapp.boardapi.board.model.BoardWithUserDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
+import com.boardapp.boardapi.board.repository.BoardWithUserRepository;
 
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final BoardWithUserRepository boardWithUserRepository;
 
-    public BoardService(BoardRepository boardRepository) {
+    public BoardService(BoardRepository boardRepository,
+            BoardWithUserRepository boardWithUserRepository) {
         this.boardRepository = boardRepository;
+        this.boardWithUserRepository = boardWithUserRepository;
     }
 
     public List<BoardResponseDto> getAllBoard() {
@@ -54,6 +59,10 @@ public class BoardService {
                 .writeDate(board.getCreatedDate()).modifyDate(board.getModifiedDate()).build();
 
         return dto;
+    }
+
+    public BoardWithUserDto getBoardWithUserById(Long id) {
+        return this.boardWithUserRepository.findBoardWithUserById(id);
     }
 
     @Transactional

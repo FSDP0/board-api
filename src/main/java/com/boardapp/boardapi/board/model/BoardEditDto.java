@@ -1,7 +1,6 @@
 package com.boardapp.boardapi.board.model;
 
 import com.boardapp.boardapi.board.entity.Board;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -17,14 +16,5 @@ public class BoardEditDto {
                 .editorName(this.editName).contents(this.contents).build();
 
         return board;
-    }
-
-    @Builder
-    public BoardEditDto(String title, String contents, String editId, String editName) {
-        this.title = title;
-        this.contents = contents;
-
-        this.editId = editId;
-        this.editName = editName;
     }
 }

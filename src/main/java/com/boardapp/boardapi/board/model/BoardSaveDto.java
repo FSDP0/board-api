@@ -1,7 +1,6 @@
 package com.boardapp.boardapi.board.model;
 
 import com.boardapp.boardapi.board.entity.Board;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -17,14 +16,5 @@ public class BoardSaveDto {
                 .creatorName(this.writeName).contents(this.contents).build();
 
         return board;
-    }
-
-    @Builder
-    public BoardSaveDto(String title, String contents, String writeId, String writeName) {
-        this.title = title;
-        this.contents = contents;
-
-        this.writeId = writeId;
-        this.writeName = writeName;
     }
 }
