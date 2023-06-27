@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
+import com.boardapp.boardapi.board.model.BoardResponseWithUserDto;
 import com.boardapp.boardapi.board.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,12 +61,12 @@ public class BoardController {
     }
 
     @GetMapping("/join")
-    private List<BoardResponseDto> findAllBoardsWithUser() {
+    private List<BoardResponseWithUserDto> findAllBoardsWithUser() {
         return this.boardService.getAllBoardsWithUser();
     }
 
     @GetMapping("/join/:{id}")
-    private BoardResponseDto findBoardWithUserById(@PathVariable Long id) {
+    private BoardResponseWithUserDto findBoardWithUserById(@PathVariable Long id) {
         return this.boardService.getBoardWithUserById(id);
     }
 }

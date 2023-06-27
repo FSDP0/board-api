@@ -8,6 +8,7 @@ import com.boardapp.boardapi.board.model.BoardSaveDto;
 import com.boardapp.boardapi.board.model.BoardWithUserDto;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
+import com.boardapp.boardapi.board.model.BoardResponseWithUserDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -87,7 +88,7 @@ public class BoardService {
         this.boardRepository.deleteById(id);
     }
 
-    public List<BoardResponseDto> getAllBoardsWithUser() {
+    public List<BoardResponseWithUserDto> getAllBoardsWithUser() {
         List<BoardWithUserDto> dataList = this.boardRepository.selectAllBoardWithUser();
 
         if (dataList.isEmpty()) {
@@ -96,10 +97,10 @@ public class BoardService {
             return null;
         }
 
-        List<BoardResponseDto> dtoList = new ArrayList<BoardResponseDto>();
+        List<BoardResponseWithUserDto> dtoList = new ArrayList<BoardResponseWithUserDto>();
 
         for (BoardWithUserDto data : dataList) {
-            BoardResponseDto dto = BoardResponseDto.builder().id(data.getNum())
+            BoardResponseWithUserDto dto = BoardResponseWithUserDto.builder().id(data.getNum())
                     .title(data.getTitle()).contents(data.getContents())
                     .writerId(data.getWriterId()).writer(data.getWriter())
                     .writerTel(data.getWriterTel()).writerAddress(data.getWriterAddress())
@@ -115,7 +116,7 @@ public class BoardService {
         return dtoList;
     }
 
-    public BoardResponseDto getBoardWithUserById(Long id) {
+    public BoardResponseWithUserDto getBoardWithUserById(Long id) {
         BoardWithUserDto data = this.boardRepository.selectBoardWithUserById(id);
 
         if (data == null) {
@@ -124,7 +125,7 @@ public class BoardService {
             return null;
         }
 
-        BoardResponseDto dto = BoardResponseDto.builder().id(data.getNum()).title(data.getTitle())
+        BoardResponseWithUserDto dto = BoardResponseWithUserDto.builder().id(data.getNum()).title(data.getTitle())
                 .contents(data.getContents()).writerId(data.getWriterId()).writer(data.getWriter())
                 .writerTel(data.getWriterTel()).writerAddress(data.getWriterAddress())
                 .writerAddressZipcode(data.getWriterAddressZipcode()).editorId(data.getEditorId())
