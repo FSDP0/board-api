@@ -31,4 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
-api.http
+boardApi.http
+userApi.http
