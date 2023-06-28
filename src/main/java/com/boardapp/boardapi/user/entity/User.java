@@ -47,10 +47,10 @@ public class User {
     @Column(name = "modified_date", nullable = true)
     private Date modifiedDate; // 사용자 계정 정보 수정일
 
-    @OneToMany(mappedBy = "creatorId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Board> createBoards = new ArrayList<Board>();
 
-    @OneToMany(mappedBy = "editorId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Board> editBoards = new ArrayList<Board>();
 
     @Builder
