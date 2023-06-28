@@ -4,14 +4,12 @@ public class BoardJPQL {
     public static final String SELECT_ALL = """
             SELECT A
             FROM Board A
-            JOIN FETCH A.creatorId B
             ORDER BY A.boardId ASC
             """;
 
     public static final String SELECT_BY_ID = """
             SELECT A
             FROM Board A
-            JOIN FETCH A.creatorId B
             WHERE A.boardId = :id
             """;
 
@@ -20,11 +18,13 @@ public class BoardJPQL {
             INTO Board(
                 boardTitle,
                 boardContents,
-                creatorId
+                creatorId,
+                createdDate
             ) VALUES (
                 :#{#boardObj.boardTitle},
                 :#{#boardObj.boardContents},
-                :#{#boardObj.creatorId}
+                :#{#boardObj.creatorId},
+                :#{#boardObj.createdDate}
             )
             """;
 
@@ -32,7 +32,8 @@ public class BoardJPQL {
             UPDATE Board A
             SET boardTitle = :#{#boardObj.boardTitle},
                 boardContents = :#{#boardObj.boardContents},
-                editorId = :#{#boardObj.editorId}
+                editorId = :#{#boardObj.editorId},
+                modifiedDate = :#{#boardObj.modifiedDate}
             WHERE A.boardId = :id
             """;
 

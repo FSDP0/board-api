@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Entity
@@ -25,39 +26,35 @@ public class Board {
     @Column(name = "board_title", length = 50, nullable = false)
     private String boardTitle;
 
-    // @Column(name = "creator_id", length = 50, nullable = false)
-    // private String boardCreatorId;
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", nullable = false, insertable = false, updatable = false)
+    private User creator;
 
-    // @Column(name = "creator_name", length = 50, nullable = false)
-    // private String boardCreatorName;
-
-    @ManyToOne
-    @JoinColumn(name = "creator_id", nullable = false)
-    private User creatorId;
+    @Setter
+    @Column(name = "creator_id")
+    private String creatorId;
 
     @Column(name = "board_contents", length = 200, nullable = true)
     private String boardContents;
 
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "editor_id", nullable = true, insertable = false, updatable = false)
+    private User editor;
+
+    @Setter
+    @Column(name = "editor_id")
+    private String editorId;
+
     @CreatedDate
     @Column(name = "created_date", nullable = false)
     private Date createdDate;
-
-    // @Column(name = "editor_id", length = 50, nullable = true)
-    // private String boardEditorId;
-
-    // @Column(name = "editor_name", length = 50, nullable = true)
-    // private String boardEditorName;
-
-    @ManyToOne()
-    @JoinColumn(name = "editor_id", nullable = true)
-    private User editorId;
 
     @LastModifiedDate
     @Column(name = "modified_date", nullable = true)
     private Date modifiedDate;
 
     @Builder
-    public Board(Long id, String title, User creatorId, User editorId, String contents,
+    public Board(Long id, String title, String creatorId, String editorId, String contents,
             Date createdDate, Date modifiedDate) {
         this.boardId = id;
 
@@ -66,12 +63,6 @@ public class Board {
 
         this.creatorId = creatorId;
         this.editorId = editorId;
-
-        // this.boardCreatorId = creatorId;
-        // this.boardCreatorName = creatorName;
-
-        // this.boardEditorId = editorId;
-        // this.boardEditorName = editorName;
 
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
