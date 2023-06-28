@@ -1,7 +1,5 @@
 package com.boardapp.boardapi.board.service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -35,11 +33,16 @@ public class BoardService {
         List<BoardResponseDto> dtoList = new ArrayList<BoardResponseDto>();
 
         for (Board board : boardList) {
-            if (board.getEditor() == null) {
+            if (board.getEditorId() == null) {
+                log.warn("Board Editor Id is null ...");
+
                 BoardResponseDto dto = BoardResponseDto.builder().id(board.getBoardId()) // 게시글 번호
                         .title(board.getBoardTitle()) // 게시글 제목
-                        .writerId(board.getCreator().getUserId()) // 게시글 작성자
-                        .writer(board.getCreator().getUserName()) // 게시글 작성자 이름
+                        .writerId(board.getCreator().getUserId()) // 작성자 ID
+                        .writerName(board.getCreator().getUserName()) // 작성자 이름
+                        .writerTel(board.getCreator().getUserTel()) // 작성자 전화번호
+                        .writerAddress(board.getCreator().getUserAddress()) // 작성자 주소
+                        .writerAddressZipcode(board.getCreator().getAddressZipcode()) // 작성자 ZipCode
                         .contents(board.getBoardContents()) // 게시글 내용
                         .createdDate(board.getCreatedDate()) // 게시글 작성일
                         .modifiedDate(board.getModifiedDate()) // 게시글 내용 변경일
@@ -47,12 +50,20 @@ public class BoardService {
 
                 dtoList.add(dto);
             } else {
+                log.info("Board Editor Id is not null ...");
+
                 BoardResponseDto dto = BoardResponseDto.builder().id(board.getBoardId()) // 게시글 번호
                         .title(board.getBoardTitle()) // 게시글 제목
-                        .writerId(board.getCreator().getUserId()) // 게시글 작성자 ID
-                        .writer(board.getCreator().getUserName()) // 게시글 작성자 이름
-                        .editorId(board.getEditor().getUserId()) // 게시글 수정자 ID
-                        .editor(board.getEditor().getUserName()) // 게시글 수정자 이름
+                        .writerId(board.getCreator().getUserId()) // 작성자 ID
+                        .writerName(board.getCreator().getUserName()) // 작성자 이름
+                        .writerTel(board.getCreator().getUserTel()) // 작성자 전화번호
+                        .writerAddress(board.getCreator().getUserAddress()) // 작성자 주소
+                        .writerAddressZipcode(board.getCreator().getAddressZipcode()) // 작성자 ZipCode
+                        .editorId(board.getEditor().getUserId()) // 수정자 ID
+                        .editorName(board.getEditor().getUserName()) // 수정자 이름
+                        .editorTel(board.getEditor().getUserTel()) // 수정자 전화번호
+                        .editorAddress(board.getEditor().getUserAddress()) // 수정자 주소
+                        .editorAddressZipcode(board.getEditor().getAddressZipcode()) // 수정자 ZipCode
                         .contents(board.getBoardContents()) // 게시글 내용
                         .createdDate(board.getCreatedDate()) // 게시글 작성일
                         .modifiedDate(board.getModifiedDate()) // 게시글 내용 변경일
@@ -67,7 +78,7 @@ public class BoardService {
 
     @Transactional
     public BoardResponseDto getBoardById(Long boardId) {
-        Board board = this.boardRepository.selectBoardById(boardId);
+        Board board = this.boardRepository.findById(boardId).get();
 
         if (board == null) {
             log.error("Board not found ....");
@@ -75,47 +86,56 @@ public class BoardService {
             return null;
         }
 
-        if (board.getEditor() == null) {
-            log.warn("Board editor not exist ...");
+        if (board.getEditorId() == null) {
+            log.warn("Board Editor Id is not exist ...");
 
             BoardResponseDto dto = BoardResponseDto.builder().id(board.getBoardId()) // 게시글 번호
                     .title(board.getBoardTitle()) // 게시글 제목
                     .writerId(board.getCreator().getUserId()) // 게시글 작성자 ID
-                    .writer(board.getCreator().getUserName()) // 게시글 작성자 이름
+                    .writerName(board.getCreator().getUserName()) // 게시글 작성자 이름
+                    .writerTel(board.getCreator().getUserTel()) // 게시글 작성자 전화번호
+                    .writerAddress(board.getCreator().getUserAddress()) // 게시글 작성자 주소
+                    .writerAddressZipcode(board.getCreator().getAddressZipcode()) // 게시글 작성자 Zip
                     .contents(board.getBoardContents()) // 게시글 내용
-                    .createdDate(board.getCreatedDate()) // 게시글 생성일
-                    .modifiedDate(board.getModifiedDate()) // 게시글 변경일
+                    .createdDate(board.getCreatedDate()) // 게시글 작성일
+                    .modifiedDate(board.getModifiedDate()) // 게시글 내용 변경일
+                    .build();
+
+            return dto;
+        } else {
+            log.info("Board Editor Id is exist ...");
+
+            BoardResponseDto dto = BoardResponseDto.builder().id(board.getBoardId()) // 게시글 번호
+                    .title(board.getBoardTitle()) // 게시글 제목
+                    .writerId(board.getCreator().getUserId()) // 게시글 작성자 ID
+                    .writerName(board.getCreator().getUserName()) // 게시글 작성자 이름
+                    .writerTel(board.getCreator().getUserTel()) // 게시글 작성자 전화번호
+                    .writerAddress(board.getCreator().getUserAddress()) // 게시글 작성자 주소
+                    .writerAddressZipcode(board.getCreator().getAddressZipcode()) // 게시글 작성자 Zip
+                    // Code
+                    .editorId(board.getEditor().getUserId()) // 게시글 수정자 ID
+                    .editorName(board.getEditor().getUserName()) // 게시글 수정자 이름
+                    .editorTel(board.getEditor().getUserTel()) // 게시글 수정자 전화번호
+                    .editorAddress(board.getEditor().getUserAddress()) // 게시글 수정자 주소
+                    .editorAddressZipcode(board.getEditor().getAddressZipcode()) // 게시글 수정자 Zip
+                    // Code
+                    .contents(board.getBoardContents()) // 게시글 내용
+                    .createdDate(board.getCreatedDate()) // 게시글 작성일
+                    .modifiedDate(board.getModifiedDate()) // 게시글 내용 변경일
                     .build();
 
             return dto;
         }
-
-        BoardResponseDto dto = BoardResponseDto.builder().id(board.getBoardId()) // 게시글 번호
-                .title(board.getBoardTitle()) // 게시글 제목
-                .writerId(board.getCreator().getUserId()) // 게시글 작성자 ID
-                .writer(board.getCreator().getUserName()) // 게시글 작성자 이름
-                .editorId(board.getEditor().getUserId()) // 게시글 수정자 ID
-                .editor(board.getEditor().getUserName()) // 게시글 수정자 이름
-                .contents(board.getBoardContents()) // 게시글 내용
-                .createdDate(board.getCreatedDate()) // 게시글 생성일
-                .modifiedDate(board.getModifiedDate()) // 게시글 변경일
-                .build();
-
-        return dto;
     }
 
+    @Transactional
     public void createBoard(BoardSaveDto dto) {
         this.boardRepository.saveBoard(dto.toEntity());
     }
 
     @Transactional
     public void modifyBoard(Long id, BoardEditDto dto) {
-
-        Board board = Board.builder().title(dto.getTitle()).contents(dto.getContents())
-                .editorId(dto.getEditId()).modifiedDate(Timestamp.valueOf(LocalDateTime.now()))
-                .build();
-
-        this.boardRepository.updateBoard(board, id);
+        this.boardRepository.updateBoard(dto.toEntity(), id);
     }
 
     @Transactional
