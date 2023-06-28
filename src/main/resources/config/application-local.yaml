@@ -3,17 +3,15 @@ server:
     port: 8000
 
 ### Spring boot logging level
-# logging:
-#     level:
-#         org:
-#             springframework: DEBUG
+logging:
+    level:
+        org:
+            springframework: DEBUG
 
 # HikariPool Connection
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        # driver-class-name: org.mariadb.jdbc.Driver
         url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true
-        # url: jdbc:mariadb://localhost:3306
         username: root
         password: 123456
