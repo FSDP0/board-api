@@ -91,11 +91,11 @@ public class BoardService {
 
             BoardResponseDto dto = BoardResponseDto.builder().id(board.getBoardId()) // 게시글 번호
                     .title(board.getBoardTitle()) // 게시글 제목
-                    .writerId(board.getCreator().getUserId()) // 게시글 작성자 ID
-                    .writerName(board.getCreator().getUserName()) // 게시글 작성자 이름
-                    .writerTel(board.getCreator().getUserTel()) // 게시글 작성자 전화번호
-                    .writerAddress(board.getCreator().getUserAddress()) // 게시글 작성자 주소
-                    .writerAddressZipcode(board.getCreator().getAddressZipcode()) // 게시글 작성자 Zip
+                    .writerId(board.getCreator().getUserId()) // 작성자 ID
+                    .writerName(board.getCreator().getUserName()) // 작성자 이름
+                    .writerTel(board.getCreator().getUserTel()) // 작성자 전화번호
+                    .writerAddress(board.getCreator().getUserAddress()) // 작성자 주소
+                    .writerAddressZipcode(board.getCreator().getAddressZipcode()) // 작성자 ZipCode
                     .contents(board.getBoardContents()) // 게시글 내용
                     .createdDate(board.getCreatedDate()) // 게시글 작성일
                     .modifiedDate(board.getModifiedDate()) // 게시글 내용 변경일
@@ -106,19 +106,17 @@ public class BoardService {
             log.info("Board Editor Id is exist ...");
 
             BoardResponseDto dto = BoardResponseDto.builder().id(board.getBoardId()) // 게시글 번호
-                    .title(board.getBoardTitle()) // 게시글 제목
-                    .writerId(board.getCreator().getUserId()) // 게시글 작성자 ID
-                    .writerName(board.getCreator().getUserName()) // 게시글 작성자 이름
-                    .writerTel(board.getCreator().getUserTel()) // 게시글 작성자 전화번호
-                    .writerAddress(board.getCreator().getUserAddress()) // 게시글 작성자 주소
-                    .writerAddressZipcode(board.getCreator().getAddressZipcode()) // 게시글 작성자 Zip
-                    // Code
-                    .editorId(board.getEditor().getUserId()) // 게시글 수정자 ID
-                    .editorName(board.getEditor().getUserName()) // 게시글 수정자 이름
-                    .editorTel(board.getEditor().getUserTel()) // 게시글 수정자 전화번호
-                    .editorAddress(board.getEditor().getUserAddress()) // 게시글 수정자 주소
-                    .editorAddressZipcode(board.getEditor().getAddressZipcode()) // 게시글 수정자 Zip
-                    // Code
+                    .title(board.getBoardTitle()) // 제목
+                    .writerId(board.getCreator().getUserId()) // 작성자 ID
+                    .writerName(board.getCreator().getUserName()) // 작성자 이름
+                    .writerTel(board.getCreator().getUserTel()) // 작성자 전화번호
+                    .writerAddress(board.getCreator().getUserAddress()) // 작성자 주소
+                    .writerAddressZipcode(board.getCreator().getAddressZipcode()) // 작성자 ZipCode
+                    .editorId(board.getEditor().getUserId()) // 수정자 ID
+                    .editorName(board.getEditor().getUserName()) // 수정자 이름
+                    .editorTel(board.getEditor().getUserTel()) // 수정자 전화번호
+                    .editorAddress(board.getEditor().getUserAddress()) // 수정자 주소
+                    .editorAddressZipcode(board.getEditor().getAddressZipcode()) // 수정자 ZipCode
                     .contents(board.getBoardContents()) // 게시글 내용
                     .createdDate(board.getCreatedDate()) // 게시글 작성일
                     .modifiedDate(board.getModifiedDate()) // 게시글 내용 변경일
