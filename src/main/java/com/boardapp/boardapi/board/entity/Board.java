@@ -10,7 +10,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Entity
@@ -30,7 +29,6 @@ public class Board {
     @JoinColumn(name = "creator_id", nullable = false, insertable = false, updatable = false)
     private User creator;
 
-    @Setter
     @Column(name = "creator_id")
     private String creatorId;
 
@@ -41,7 +39,6 @@ public class Board {
     @JoinColumn(name = "editor_id", nullable = true, insertable = false, updatable = false)
     private User editor;
 
-    @Setter
     @Column(name = "editor_id")
     private String editorId;
 
