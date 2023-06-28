@@ -1,16 +1,19 @@
 CREATE DATABASE IF NOT EXISTS boards;
 
--- ALTER TABLE board DROP CONSTRAINT creator_id;
--- ALTER TABLE board DROP CONSTRAINT editor_id;
 
 -- DELETE FROM board;
 -- DELETE FROM user;
 
--- ALTER TABLE board DROP FOREIGN KEY creator_id;
--- ALTER TABLE board DROP FOREIGN KEY editor_id;
+ALTER TABLE board DROP CONSTRAINT writer;
+ALTER TABLE board DROP CONSTRAINT editor;
+
+-- ALTER TABLE board DROP FOREIGN KEY write_id;
+-- ALTER TABLE board DROP FOREIGN KEY modify_id;
 
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS board;
+
+--------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS user (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -22,7 +25,9 @@ CREATE TABLE IF NOT EXISTS user (
     address_zipcode VARCHAR(30) NOT NULL,
     created_date DATETIME NOT NULL,
     modified_date DATETIME NULL,
+
     PRIMARY KEY (user_id),
+
     UNIQUE KEY (id)
 );
 
@@ -30,11 +35,13 @@ CREATE TABLE IF NOT EXISTS board (
     board_id BIGINT NOT NULL AUTO_INCREMENT,
     board_title VARCHAR(50) NOT NULL,
     board_contents VARCHAR(200) NOT NULL,
-    creator_id VARCHAR(50) NOT NULL,
-    creator_name VARCHAR(40) NOT NULL,
-    editor_id VARCHAR(50) NULL,
-    editor_name VARCHAR(40) NULL,
-    created_date DATETIME NOT NULL,
-    modified_date DATETIME NULL,
-    PRIMARY KEY (board_id)
+    write_id VARCHAR(50) NOT NULL,
+    modify_id VARCHAR(50) NULL,
+    write_date DATETIME NOT NULL,
+    modify_date DATETIME NULL,
+
+    PRIMARY KEY (board_id),
+
+    CONSTRAINT writer FOREIGN KEY (write_id) REFERENCES user(user_id),
+    CONSTRAINT editor FOREIGN KEY (modify_id) REFERENCES user(user_id)
 );

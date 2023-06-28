@@ -67,4 +67,8 @@ public class UserService {
     public void removeUser(String userId) {
         this.userRepository.deleteById(userId);
     }
+
+    public Iterable<Object> sample() {
+        return this.userRepository.sample();
+    }
 }

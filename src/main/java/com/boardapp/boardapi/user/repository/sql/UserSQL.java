@@ -1,19 +1,19 @@
-package com.boardapp.boardapi.user.repository;
+package com.boardapp.boardapi.user.repository.sql;
 
 public class UserSQL {
-    protected final static String SELECT_ALL = """
+    public final static String SELECT_ALL = """
             SELECT *
             FROM user
             ORDER BY id ASC
             """;
 
-    protected final static String SELECT_BY_ID = """
+    public final static String SELECT_BY_ID = """
             SELECT *
             FROM user
             WHERE user_id = :id
             """;
 
-    protected final static String INSERT_USER = """
+    public final static String INSERT_USER = """
             INSERT
             INTO user(
                 user_id,
@@ -32,7 +32,7 @@ public class UserSQL {
             )
             """;
 
-    protected final static String UPDATE_BY_ID = """
+    public final static String UPDATE_BY_ID = """
             UPDATE user
             SET user_name = :name,
                 user_password = :password,
@@ -42,13 +42,18 @@ public class UserSQL {
             WHERE user_id = :id
             """;
 
-    protected final static String DELETE_BY_ID = """
+    public final static String DELETE_BY_ID = """
             DELETE
             FROM user
             WHERE user_id = :id
             """;
 
-    protected static String search(String query) {
+    public final static String SELECT_ALL_TEST = """
+            SELECT *
+            FROM user
+            """;
+
+    public static String search(String query) {
         StringBuilder queryString = new StringBuilder(SELECT_ALL);
 
         queryString.append(query);

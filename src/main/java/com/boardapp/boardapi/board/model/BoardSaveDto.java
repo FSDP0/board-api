@@ -12,8 +12,11 @@ public class BoardSaveDto {
     private String writeName;
 
     public Board toEntity() {
-        Board board = Board.builder().title(this.title).creatorId(this.writeId)
-                .creatorName(this.writeName).contents(this.contents).build();
+        Board board = Board.builder().title(this.title) // 게시글 제목
+                // .writeId(this.writeId) // 게시자 Id
+                // .writeName(this.writeName) // 게시자 이름
+                .contents(this.contents) // 게시글 내용
+                .build();
 
         return board;
     }

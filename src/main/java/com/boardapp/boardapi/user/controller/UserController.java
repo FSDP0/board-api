@@ -47,4 +47,9 @@ public class UserController {
     private void deleteUser(@PathVariable String userId) {
         this.userService.removeUser(userId);
     }
+
+    @GetMapping("/test")
+    private Iterable<Object> sample() {
+        return this.userService.sample();
+    }
 }

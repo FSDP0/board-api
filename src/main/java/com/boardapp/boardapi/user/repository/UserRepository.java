@@ -6,6 +6,7 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import com.boardapp.boardapi.user.entity.User;
+import com.boardapp.boardapi.user.repository.sql.UserSQL;
 
 public interface UserRepository extends CrudRepository<User, String> {
     @Query(value = UserSQL.SELECT_ALL)
@@ -22,4 +23,7 @@ public interface UserRepository extends CrudRepository<User, String> {
     public void updateUser(@Param("name") String name, @Param("password") String password,
             @Param("tel") String tel, @Param("address") String address,
             @Param("zipcode") String zipcode, @Param("id") String id);
+
+    @Query(value = UserSQL.SELECT_ALL_TEST)
+    public Iterable<Object> sample();
 }

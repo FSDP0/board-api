@@ -1,10 +1,6 @@
 package com.boardapp.boardapi.board.controller;
 
-import java.util.List;
 import org.springframework.web.bind.annotation.*;
-import com.boardapp.boardapi.board.model.BoardEditDto;
-import com.boardapp.boardapi.board.model.BoardResponseDto;
-import com.boardapp.boardapi.board.model.BoardSaveDto;
 import com.boardapp.boardapi.board.service.BoardService;
 
 @RestController
@@ -17,25 +13,34 @@ public class BoardController {
     }
 
     @GetMapping
-    private List<BoardResponseDto> findAllBoard() {
-        return this.boardService.getAllBoard();
-    }
+    private void findAllBoard() {}
+
+    @GetMapping("/detail")
+    private void findAllBoardDetail() {}
 
     @GetMapping("/:{id}")
-    private BoardResponseDto findBoardById(@PathVariable Long id) {
-        return this.boardService.getBoardById(id);
-    }
+    private void findBoardById(@PathVariable Long id) {}
+
+    @GetMapping("/detail/:{id}")
+    private void findBoardByIdDetail(@PathVariable Long id) {}
 
     @PostMapping
-    private void saveBoard(@RequestBody BoardSaveDto dto) {
-        this.boardService.createBoard(dto);
-    }
+    private void saveBoard(
+    // @RequestBody BoardSaveDto dto
+    ) {}
 
     @PutMapping("/:{id}")
-    private void Board(@PathVariable Long id, @RequestBody BoardEditDto dto) {}
+    private void Board(
+    // @PathVariable Long id, @RequestBody BoardEditDto dto
+    ) {
+
+    }
 
     @DeleteMapping("/:{id}")
-    private void deleteByBoardId(@PathVariable Long id) {
-        this.boardService.removeBoard(id);
+    private void deleteByBoardId(@PathVariable Long id) {}
+
+    @GetMapping("/test")
+    private Iterable<Object> sample() {
+        return this.boardService.sample();
     }
 }
