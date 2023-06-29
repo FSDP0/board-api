@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
+import com.boardapp.boardapi.board.model.BoardWithUserReponseDto;
 import com.boardapp.boardapi.board.service.BoardService;
 
 @RestController
@@ -23,7 +24,9 @@ public class BoardController {
     }
 
     @GetMapping("/detail")
-    private void findAllBoardDetail() {}
+    private List<BoardWithUserReponseDto> findAllBoardDetail() {
+        return this.boardService.getAllBoardsDetail();
+    }
 
     @GetMapping("/:{id}")
     private BoardResponseDto findBoardById(@PathVariable Long id) {
