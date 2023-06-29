@@ -1,18 +1,22 @@
 package com.boardapp.boardapi.user.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
+import com.boardapp.boardapi.board.entity.Board;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@RequiredArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "user")
 public class User {
     private Long id;
@@ -25,6 +29,22 @@ public class User {
     private String userTel;
     private String userAddress;
     private String addressZipcode;
+
+    @Setter
+    @MappedCollection(idColumn = "write_id", keyColumn = "board_id")
+    private List<Board> createBoards = new ArrayList<Board>();
+
+    @Setter
+    @MappedCollection(idColumn = "modify_id", keyColumn = "board_id")
+    private List<Board> editBoards = new ArrayList<Board>();
+
+    public void addCreateBoard(Board board) {
+        createBoards.add(board);
+    }
+
+    public void addEditBoard(Board board) {
+        editBoards.add(board);
+    }
 
     @CreatedDate
     private Date createdDate;

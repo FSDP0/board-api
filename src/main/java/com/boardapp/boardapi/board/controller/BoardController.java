@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
-import com.boardapp.boardapi.board.model.BoardWithUserReponseDto;
 import com.boardapp.boardapi.board.service.BoardService;
 
 @RestController
@@ -23,18 +22,10 @@ public class BoardController {
         return this.boardService.getAllBoards();
     }
 
-    @GetMapping("/detail")
-    private List<BoardWithUserReponseDto> findAllBoardDetail() {
-        return this.boardService.getAllBoardsDetail();
-    }
-
     @GetMapping("/:{id}")
     private BoardResponseDto findBoardById(@PathVariable Long id) {
         return this.boardService.getBoardById(id);
     }
-
-    @GetMapping("/detail/:{id}")
-    private void findBoardByIdDetail(@PathVariable Long id) {}
 
     @PostMapping
     private void saveBoard(@RequestBody BoardSaveDto dto) {
@@ -50,5 +41,4 @@ public class BoardController {
     private void deleteByBoardId(@PathVariable Long id) {
         this.boardService.deleteBoard(id);
     }
-
 }

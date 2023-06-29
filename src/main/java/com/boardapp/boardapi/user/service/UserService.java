@@ -74,4 +74,7 @@ public class UserService {
         this.userRepository.deleteById(userId);
     }
 
+    public Iterable<User> getAllDetail() {
+        return this.userRepository.findAll();
+    }
 }

@@ -10,8 +10,6 @@ import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.board.repository.sql.BoardSQL;
 
 public interface BoardRepository extends CrudRepository<Board, Long> {
-    // @Query(value = BoardSQL.SELECT_ALL)
-    // public List<BoardWithUserReponseDto> selectAllBoards();
     @Query(value = "SELECT * FROM board")
     public List<Board> findAllBoards();
 
@@ -20,5 +18,4 @@ public interface BoardRepository extends CrudRepository<Board, Long> {
     public void updateBoard(@Param("title") String title, @Param("contents") String contents,
             @Param("editorId") String modifyId, @Param("modifyDate") Timestamp modifyDate,
             @Param("id") Long id);
-
 }

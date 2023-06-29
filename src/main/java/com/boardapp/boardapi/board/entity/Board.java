@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Setter
 @Getter
 @Table(name = "board")
 public class Board {
@@ -26,10 +25,12 @@ public class Board {
     private String boardContents;
 
     @Transient
+    @Setter
     @Column("write_id")
     private User writeId;
 
     @Transient
+    @Setter
     @Column("modify_id")
     private User editorId;
 

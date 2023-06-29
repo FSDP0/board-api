@@ -10,17 +10,20 @@ import org.springframework.transaction.annotation.Transactional;
 import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
-import com.boardapp.boardapi.board.model.BoardWithUserReponseDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
+import com.boardapp.boardapi.user.entity.User;
+import com.boardapp.boardapi.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
 
-    public BoardService(BoardRepository boardRepository) {
+    public BoardService(BoardRepository boardRepository, UserRepository userRepository) {
         this.boardRepository = boardRepository;
+        this.userRepository = userRepository;
     }
 
     public List<BoardResponseDto> getAllBoards() {
@@ -46,38 +49,6 @@ public class BoardService {
         return dtoList;
     }
 
-    public List<BoardWithUserReponseDto> getAllBoardsDetail() {
-        List<Board> boardList = this.boardRepository.findAllBoards();
-
-        if (boardList.isEmpty()) {
-            log.error("Board list is empty ...");
-
-            return null;
-        }
-
-        List<BoardWithUserReponseDto> dtoList = new ArrayList<BoardWithUserReponseDto>();
-
-        for (Board board : boardList) {
-            BoardWithUserReponseDto dto = BoardWithUserReponseDto.builder().id(board.getBoardId())
-                    .title(board.getBoardTitle()).contents(board.getBoardContents())
-                    .writeId(board.getCreator())
-                    // .writeName(board.getWriteId().getUserName())
-                    // .writeTel(board.getWriteId().getUserTel())
-                    // .writeAddress(board.getWriteId().getUserAddress())
-                    // .writeAddressZipcode(board.getWriteId().getAddressZipcode())
-                    .modifyId(board.getEditor())
-                    // .modifyName(board.getEditorId().getUserName())
-                    // .modifyTel(board.getEditorId().getUserTel())
-                    // .modifyAddress(board.getEditorId().getUserAddress())
-                    // .modifyAddressZipcode(board.getEditorId().getAddressZipcode())
-                    .writeDate(board.getWriteDate()).modifyDate(board.getModifyDate()).build();
-
-            dtoList.add(dto);
-        }
-
-        return dtoList;
-    }
-
     public BoardResponseDto getBoardById(Long id) {
         Board board = this.boardRepository.findById(id).get();
 
@@ -95,11 +66,20 @@ public class BoardService {
 
     @Transactional
     public void saveBoard(BoardSaveDto dto) {
+
+        User user = this.userRepository.findById(dto.getWriteId()).get();
+
+        user.addCreateBoard(dto.toEntity());
+
         this.boardRepository.save(dto.toEntity());
     }
 
     @Transactional
     public void updateBoard(Long id, BoardEditDto dto) {
+        User user = this.userRepository.findById(dto.getEditId()).get();
+
+        user.addEditBoard(dto.toEntity());
+
         this.boardRepository.updateBoard(dto.getTitle(), dto.getContents(), dto.getEditId(),
                 Timestamp.valueOf(LocalDateTime.now()), id);
     }

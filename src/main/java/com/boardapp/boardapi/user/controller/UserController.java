@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.boardapp.boardapi.user.entity.User;
 import com.boardapp.boardapi.user.model.UserEditDto;
 import com.boardapp.boardapi.user.model.UserResponseDto;
 import com.boardapp.boardapi.user.model.UserSaveDto;
@@ -46,5 +47,10 @@ public class UserController {
     @DeleteMapping("/:{userId}")
     private void deleteUser(@PathVariable String userId) {
         this.userService.removeUser(userId);
+    }
+
+    @GetMapping("/detail")
+    private Iterable<User> getAllDetail() {
+        return this.userService.getAllDetail();
     }
 }
