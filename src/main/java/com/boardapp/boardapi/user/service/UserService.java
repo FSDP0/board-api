@@ -3,6 +3,7 @@ package com.boardapp.boardapi.user.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.boardapp.boardapi.user.entity.User;
 import com.boardapp.boardapi.user.model.UserEditDto;
 import com.boardapp.boardapi.user.model.UserResponseDto;
@@ -40,7 +41,7 @@ public class UserService {
     }
 
     public UserResponseDto getUserById(String userId) {
-        User user = this.userRepository.findUserById(userId);
+        User user = this.userRepository.findById(userId).get();
 
         if (user == null) {
             return null;
@@ -59,16 +60,15 @@ public class UserService {
         this.userRepository.save(dto.toEntity());
     }
 
+    @Transactional
     public void modifyUser(String userId, UserEditDto dto) {
         this.userRepository.updateUser(dto.getUserName(), dto.getUserPassword(), dto.getUserTel(),
                 dto.getUserAddress(), dto.getAddressZipcode(), userId);
     }
 
+    @Transactional
     public void removeUser(String userId) {
         this.userRepository.deleteById(userId);
     }
 
-    public Iterable<Object> sample() {
-        return this.userRepository.sample();
-    }
 }

@@ -11,11 +11,4 @@ public class UserEditDto {
     private String userAddress;
     private String addressZipcode;
 
-    // public User toEntity(String userId) {
-    // User user = User.builder().id(userId).name(this.userName).password(this.userPassword)
-    // .phoneNumber(this.userTel).adress(this.userAddress).zipCode(this.addressZipcode)
-    // .build();
-
-    // return user;
-    // }
 }
