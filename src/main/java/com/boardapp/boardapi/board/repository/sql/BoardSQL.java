@@ -28,15 +28,9 @@ public class BoardSQL {
        public static final String UPDATE_BY_ID = """
                      UPDATE board
                      SET board_title = :title,
-                     board_contents = :contents,
-                     modify_id = :editorId,
-                     modify_name = :editorName,
+                         board_contents = :contents,
+                         modify_id = :editorId,
+                         modify_name = :editorName,
                      WHERE board_id = :id
-                     """;
-
-       public static final String SELECT_ALL_TEST = """
-                     SELECT *
-                     FROM board
-                     ORDER BY board_id ASC
                      """;
 }

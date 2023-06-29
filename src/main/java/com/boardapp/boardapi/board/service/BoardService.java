@@ -2,12 +2,12 @@ package com.boardapp.boardapi.board.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import com.boardapp.boardapi.board.entity.Board;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.boardapp.boardapi.board.entity.Board;
+import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardResponseDto;
-import com.boardapp.boardapi.board.model.BoardWithUserReponseDto;
+import com.boardapp.boardapi.board.model.BoardSaveDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,84 +20,57 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    // public List<BoardResponseDto> getAllBoard() {
-    // Iterable<Board> boardList = this.boardRepository.findAll();
+    public List<BoardResponseDto> getAllBoards() {
+        List<Board> boardList = this.boardRepository.findAllBoards();
 
-    // // if (boardList.isEmpty()) {
-    // // return null;
-    // // }
+        if (boardList.isEmpty()) {
+            log.error("Board list is empty ...");
 
-    // List<BoardResponseDto> dtoList = new ArrayList<BoardResponseDto>();
+            return null;
+        }
 
-    // // for (BoardWithUserReponseDto board : boardList) {
-    // // log.info(board.toString());
-    // // log.info(board.getWritePhoneNumber());
+        List<BoardResponseDto> dtoList = new ArrayList<BoardResponseDto>();
 
-    // // BoardResponseDto dto = BoardResponseDto.builder().num(board.getBoardId()) // 게시글 번호
-    // // .title(board.getBoardTitle()) // 게시글 제목
-    // // .contents(board.getBoardContents()) // 게시글 내용
-    // // .writeId(board.getWriteId()) // 게시자 Id
-    // // .writeName(board.getWriteName()) // 게시자 이름
-    // // .writePhoneNumber(board.getWritePhoneNumber()).modifyId(board.getModifyId()) // 수정자
-    // // // Id
-    // // .modifyName(board.getModifyName()) // 수정자 이름
-    // // .writeDate(board.getWriteDate()) // 게시일
-    // // .modifyDate(board.getModifyDate()) // 수정일
-    // // .build();
+        for (Board board : boardList) {
+            BoardResponseDto dto = BoardResponseDto.builder().num(board.getBoardId())
+                    .title(board.getBoardTitle()).contents(board.getBoardContents())
+                    .writeId(board.getCreator()).modifyId(board.getEditor())
+                    .writeDate(board.getWriteDate()).modifyDate(board.getModifyDate()).build();
 
-    // // dtoList.add(dto);
-    // // }
+            dtoList.add(dto);
+        }
 
-    // return dtoList;
-    // }
+        return dtoList;
+    }
 
-    // public List<BoardWithUserReponseDto> getAllBoardDetail() {
-    // return this.boardRepository.selectAllBoards();
-    // }
+    public BoardResponseDto getBoardById(Long id) {
+        Board board = this.boardRepository.findById(id).get();
 
-    // public BoardResponseDto getBoardById(Long id) {
-    // // Board board = this.boardRepository.selectBoardById(id);
-    // Board board = this.boardRepository.findById(id).get();
+        if (board == null) {
+            return null;
+        }
 
-    // if (board == null) {
-    // return null;
-    // }
+        BoardResponseDto dto = BoardResponseDto.builder().num(board.getBoardId())
+                .title(board.getBoardTitle()).contents(board.getBoardContents())
+                .writeId(board.getCreator()).modifyId(board.getEditor())
+                .writeDate(board.getWriteDate()).modifyDate(board.getModifyDate()).build();
 
-    // BoardResponseDto dto = BoardResponseDto.builder().num(board.getBoardId()) // 게시글 번호
-    // .title(board.getBoardTitle()) // 게시글 제목
-    // .contents(board.getBoardContents()) // 게시글 내용
-    // .writeId(board.getWriteId()) // 게시자 Id
-    // .writeName(board.getWriteName()) // 게시자 이름
-    // .modifyId(board.getModifyId()) // 수정자 Id
-    // .modifyName(board.getModifyName()) // 수정자 이름
-    // .writeDate(board.getWriteDate()) // 게시일
-    // .modifyDate(board.getModifyDate()) // 수정일
-    // .build();
+        return dto;
+    }
 
-    // return dto;
-    // }
+    @Transactional
+    public void saveBoard(BoardSaveDto dto) {
+        this.boardRepository.save(dto.toEntity());
+    }
 
-    // public BoardWithUserReponseDto getBoardByIdDetail(Long id) {
-    // return this.boardRepository.selectBoardById(id);
-    // }
+    @Transactional
+    public void updateBoard(Long id, BoardEditDto dto) {
+        this.boardRepository.updateBoard(dto.getTitle(), dto.getContents(), dto.getEditId(),
+                dto.getEditName(), id);
+    }
 
-    // @Transactional
-    // public void createBoard(BoardSaveDto dto) {
-    // this.boardRepository.save(dto.toEntity());
-    // }
-
-    // @Transactional
-    // public void updateBoard(Long id, BoardEditDto dto) {
-    // this.boardRepository.updateBoard(dto.getTitle(), dto.getContents(), dto.getEditId(),
-    // dto.getEditName(), id);
-    // }
-
-    // @Transactional
-    // public void removeBoard(Long id) {
-    // this.boardRepository.deleteById(id);
-    // }
-
-    public Iterable<Object> sample() {
-        return this.boardRepository.sample();
+    @Transactional
+    public void deleteBoard(Long id) {
+        this.boardRepository.deleteById(id);
     }
 }
