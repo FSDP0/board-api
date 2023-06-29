@@ -1,5 +1,7 @@
 package com.boardapp.boardapi.user.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -63,7 +65,8 @@ public class UserService {
     @Transactional
     public void modifyUser(String userId, UserEditDto dto) {
         this.userRepository.updateUser(dto.getUserName(), dto.getUserPassword(), dto.getUserTel(),
-                dto.getUserAddress(), dto.getAddressZipcode(), userId);
+                dto.getUserAddress(), dto.getAddressZipcode(),
+                Timestamp.valueOf(LocalDateTime.now()), userId);
     }
 
     @Transactional

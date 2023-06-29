@@ -22,7 +22,7 @@ public class UserSQL {
                             :password,
                             :tel,
                             :address,
-                            :zipcode
+                            :zipcode,
                         )
                         """;
 
@@ -32,7 +32,8 @@ public class UserSQL {
                             user_password = :password,
                             user_tel = :tel,
                             user_address = :address,
-                            address_zipcode = :zipcode
+                            address_zipcode = :zipcode,
+                            modified_date = :modifyDate
                         WHERE user_id = :id
                         """;
 }
