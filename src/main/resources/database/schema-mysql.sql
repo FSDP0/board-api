@@ -42,6 +42,11 @@ CREATE TABLE IF NOT EXISTS board (
 
     PRIMARY KEY (board_id),
 
-    CONSTRAINT writer FOREIGN KEY (write_id) REFERENCES user(user_id),
+    CONSTRAINT writer FOREIGN KEY (write_id) REFERENCES user(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+
     CONSTRAINT editor FOREIGN KEY (modify_id) REFERENCES user(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
