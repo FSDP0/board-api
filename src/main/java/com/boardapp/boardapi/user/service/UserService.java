@@ -77,4 +77,5 @@ public class UserService {
     public Iterable<User> getAllDetail() {
         return this.userRepository.findAll();
     }
+
 }
