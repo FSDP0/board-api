@@ -1,11 +1,10 @@
-INSERT INTO user(user_id) VALUES(6);
-INSERT INTO user(user_id) VALUES(7);
-INSERT INTO user(user_id) VALUES(8);
-INSERT INTO user(user_id) VALUES(9);
-INSERT INTO user(user_id) VALUES(10);
-
-INSERT INTO board(board_id) VALUES(1);
-INSERT INTO board(board_id) VALUES(2);
-INSERT INTO board(board_id) VALUES(3);
-INSERT INTO board(board_id) VALUES(4);
-INSERT INTO board(board_id) VALUES(5);
+INSERT INTO address(address,address_zipcode) VALUES ("서울 서초구 잠원로8길 35","06518");
+INSERT INTO address(address,address_zipcode) VALUES ("서울 서초구 나루터로12길 18 수인빌딩","06527");
+INSERT INTO address(address,address_zipcode) VALUES ("서울 서초구 강남대로95길 19-4","06530");
+INSERT INTO address(address,address_zipcode) VALUES ("서울 강남구 학동로12길 18","06113");
+INSERT INTO address(address,address_zipcode) VALUES ("서울 강남구 논현로 627 유현빌딩","06117");
+INSERT INTO address(address,address_zipcode) VALUES ("서울 강남구 언주로 506","06152");
+INSERT INTO address(address,address_zipcode) VALUES ("서울 강남구 영동대로71길 24","06187");
+INSERT INTO address(address,address_zipcode) VALUES ("서울 용산구 대사관로30나길 32","04409");
+INSERT INTO address(address,address_zipcode) VALUES ("서울 용산구 독서당로14길 62","04410");
+INSERT INTO address(address,address_zipcode) VALUES ("서울 용산구 녹사평대로 66","04398");
