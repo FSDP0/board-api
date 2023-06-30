@@ -4,41 +4,32 @@ server:
         encoding:
             charset: UTF-8
 
-logging:
-    level:
-        org:
-            springframework:
-                jdbc:
-                    core: TRACE
+# logging:
+#     level:
+#         jdbc:
+#             sqlonly: off
+#             sqltiming: info
+#             resultsettable: info
+#             audit: off
+#             resultset: off
+#             connection: off
+        
 
 spring:
     datasource:
         # [master] Database Connection Pool
         master:
-            # hikari:
             driver-class-name: com.mysql.cj.jdbc.Driver
-            jdbc-url: jdbc:mysql://localhost:3307/master?allowPublicKeyRetrieval=true
+            jdbc-url: jdbc:mysql://localhost:3307/master?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
             username: root
             password: 123456
-            # sql:
-            #     init:
-            #         mode: always
-            #         schema-locations: classpath:database/schema-master.sql
-            #         data-locations: classpath:database/data-master.sql
-        # [slave]] Database Connection Pool 
+        # [slave] Database Connection Pool 
         slave:
-            # hikari:
             driver-class-name: com.mysql.cj.jdbc.Driver
-            jdbc-url: jdbc:mysql://localhost:3307/slave?allowPublicKeyRetrieval=true
+            jdbc-url: jdbc:mysql://localhost:3307/slave?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
             username: root
             password: 123456
-            sql:
-                init:
-                    mode: always
-                    schema-locations: classpath:database/schema-slave.sql
-                    data-locations: classpath:database/data-master.sql
             
-
 # mybatis:
 #     # config-location: classpath:/mybatis/mybastic-config.xml
 #     type-aliases-package: com.boardapp.boardapi
