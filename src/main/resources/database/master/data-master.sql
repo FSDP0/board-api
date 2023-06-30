@@ -20,12 +20,11 @@ INSERT INTO address(address,address_zipcode) VALUES ("서울 용산구 대사관로30나길
 INSERT INTO address(address,address_zipcode) VALUES ("서울 용산구 독서당로14길 62","04410");
 INSERT INTO address(address,address_zipcode) VALUES ("서울 용산구 녹사평대로 66","04398");
 
-
-INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date) VALUES("Test Board Title 1","Test Board Contents","TestUser1","TestUser10","2023-06-30");
-INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date) VALUES("Test Board Title 2","Test Board Contents","TestUser2","TestUser9","2023-06-30");
-INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date) VALUES("Test Board Title 3","Test Board Contents","TestUser3","TestUser8","2023-06-30");
-INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date) VALUES("Test Board Title 4","Test Board Contents","TestUser4","TestUser7","2023-06-30");
-INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date) VALUES("Test Board Title 5","Test Board Contents","TestUser5","TestUser6","2023-06-30");
+INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date,modify_date) VALUES("Test Board Title 1","Test Board Contents","TestUser1","TestUser10","2023-06-22","2023-06-30");
+INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date,modify_date) VALUES("Test Board Title 2","Test Board Contents","TestUser2","TestUser9","2023-06-16" ,"2023-06-30");
+INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date,modify_date) VALUES("Test Board Title 3","Test Board Contents","TestUser3","TestUser8","2023-06-23" ,"2023-06-30");
+INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date,modify_date) VALUES("Test Board Title 4","Test Board Contents","TestUser4","TestUser7","2023-06-13" ,"2023-06-30");
+INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date,modify_date) VALUES("Test Board Title 5","Test Board Contents","TestUser5","TestUser6","2023-06-21","2023-06-30");
 INSERT INTO board(board_title,board_contents,write_id,write_date) VALUES("Test Board Title 6","Test Board Contents","TestUser6","2023-06-30");
 INSERT INTO board(board_title,board_contents,write_id,write_date) VALUES("Test Board Title 7","Test Board Contents","TestUser7","2023-06-30");
 INSERT INTO board(board_title,board_contents,write_id,write_date) VALUES("Test Board Title 8","Test Board Contents","TestUser9","2023-06-30");
