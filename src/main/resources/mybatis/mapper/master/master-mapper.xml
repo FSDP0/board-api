@@ -3,4 +3,6 @@
 <mapper namespace="com.boardapp.boardapi.common.mapper.master.MasterDatabaseMapper">
     <select id="getAllBoards" resultType="com.boardapp.boardapi.board.model.Board"> SELECT * FROM
         board; </select>
+
+    <select id="getAllUser" resultType="com.boardapp.boardapi.user.model.User"> SELECT * FROM user; </select>
 </mapper>

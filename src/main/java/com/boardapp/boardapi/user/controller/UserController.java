@@ -6,6 +6,7 @@ import com.boardapp.boardapi.user.model.User;
 import com.boardapp.boardapi.user.service.UserService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("users")
@@ -19,6 +20,12 @@ public class UserController {
     @GetMapping
     public List<User> findAllUser() throws Exception {
         return this.userService.getUser();
+    }
+
+    @GetMapping("/:{userId}")
+    public void findUserById(@PathVariable String userId) {
+        // return
+
     }
 
 }

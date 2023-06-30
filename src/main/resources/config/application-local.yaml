@@ -4,27 +4,45 @@ server:
         encoding:
             charset: UTF-8
 
+logging:
+    level:
+        org:
+            springframework:
+                jdbc:
+                    core: TRACE
+
 spring:
     datasource:
-        # MySQL Database Connection Pool
+        # [master] Database Connection Pool
         master:
             # hikari:
             driver-class-name: com.mysql.cj.jdbc.Driver
-            jdbc-url: jdbc:mysql://localhost:3307/board?allowPublicKeyRetrieval=true
+            jdbc-url: jdbc:mysql://localhost:3307/master?allowPublicKeyRetrieval=true
             username: root
             password: 123456
-        # MariaDB Database Connection Pool 
+            # sql:
+            #     init:
+            #         mode: always
+            #         schema-locations: classpath:database/schema-master.sql
+            #         data-locations: classpath:database/data-master.sql
+        # [slave]] Database Connection Pool 
         slave:
             # hikari:
-            driver-class-name: org.mariadb.jdbc.Driver
-            jdbc-url: jdbc:mariadb://localhost:3306/board
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            jdbc-url: jdbc:mysql://localhost:3307/slave?allowPublicKeyRetrieval=true
             username: root
             password: 123456
+            sql:
+                init:
+                    mode: always
+                    schema-locations: classpath:database/schema-slave.sql
+                    data-locations: classpath:database/data-master.sql
+            
 
 # mybatis:
 #     # config-location: classpath:/mybatis/mybastic-config.xml
 #     type-aliases-package: com.boardapp.boardapi
-#     mapper-locations: classpath:mybastis/mapper/**/*.xml
+    # mapper-locations: classpath:mybastis/mapper/*.xml
 
 #     configuration:
 #         cache-enabled: true

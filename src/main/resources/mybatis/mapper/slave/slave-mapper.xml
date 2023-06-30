@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.boardapp.boardapi.common.mapper.slave.SlaveDatabaseMapper">
+    <select id="getAllBoards" resultType="com.boardapp.boardapi.board.model.Board"> SELECT * FROM
+        board; </select>
+
     <select id="getAllUser" resultType="com.boardapp.boardapi.user.model.User"> SELECT * FROM user; </select>
 </mapper>

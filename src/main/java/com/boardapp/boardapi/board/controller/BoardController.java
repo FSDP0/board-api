@@ -18,6 +18,6 @@ public class BoardController {
 
     @GetMapping
     private List<Board> findAllBoards() throws Exception {
-        return this.boardService.getBoards();
+        return this.boardService.getAllBoards();
     }
 }

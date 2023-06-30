@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+// Mapper JAVA file path / 서로 다른 패키지 경로 명을 가져야 함
 @MapperScan(value = "com.boardapp.boardapi.common.mapper.master", sqlSessionFactoryRef = "masterSqlSessionFactory")
 @EnableTransactionManagement
 public class MasterDatabaseConfig {
@@ -37,14 +38,16 @@ public class MasterDatabaseConfig {
         final SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
         sqlSessionFactoryBean.setDataSource(masterDataSource);
-        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResource("classpath:mybatis/mapper/master/mybatis-mapper.xml"));
+
+        // MyBatis XML mapper resource file path
+        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResource("classpath:mybatis/mapper/master/master-mapper.xml"));
 
         return sqlSessionFactoryBean.getObject();
     }
 
     @Primary
     @Bean(name = "masterSqlSessionTemplate")
-    SqlSessionTemplate masterSqlSessionTemplate(SqlSessionFactory masterSessionFactory) throws Exception {
-        return new SqlSessionTemplate(masterSessionFactory);
+    SqlSessionTemplate masterSqlSessionTemplate(SqlSessionFactory masterSqlSessionFactory) throws Exception {
+        return new SqlSessionTemplate(masterSqlSessionFactory);
     }
 }
