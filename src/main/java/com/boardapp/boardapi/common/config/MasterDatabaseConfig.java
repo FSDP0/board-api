@@ -53,11 +53,13 @@ public class MasterDatabaseConfig {
         return new SqlSessionTemplate(masterSqlSessionFactory);
     }
 
+    // Datasource initializer (use .sql script)
     @Primary
     @Bean(name = "masterDataSourceScriptDatabaseInitializer")
     DataSourceInitializer masterDataSourceInitializer(@Qualifier("masterDataSource") DataSource masterDataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 
+        // 순서에 맞게 Script를 추가, schema 생성 -> data 생성
         resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/master/schema-master.sql"));
         resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/master/data-master.sql"));
 

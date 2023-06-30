@@ -49,10 +49,12 @@ public class SlaveDatabaseConfig {
         return new SqlSessionTemplate(slaveSqlSessionFactory);
     }
 
+    // Datasource initializer (use .sql script)
     @Bean(name = "slaveDataSourceScriptDatabaseInitializer")
     DataSourceInitializer slaveDataSourceInitializer(@Qualifier("slaveDataSource") DataSource slaveDataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 
+        // 순서에 맞게 Script를 추가, schema 생성 -> data 생성
         resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/slave/schema-slave.sql"));
         resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/slave/data-slave.sql"));
 

@@ -1,12 +1,10 @@
 package com.boardapp.boardapi.board.model;
 
 import java.util.Date;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor // 모든 멤버 변수를 매개로 받는 생성자 설정
 @Getter
-public class BoardWithEditor {
+public class BoardWithUser {
     private Long boardId;
 
     // 게시글 기본 정보
@@ -18,10 +16,18 @@ public class BoardWithEditor {
     private Date writeDate;
     private Date modifyDate;
 
+    // 게시글 작성자 정보
+    private String creatorName;
+    private String creatorTel;
+    private String creatorAddress;
+    private String creatorDetailAddress;
+    private String creatorAddressZipcode;
+
     // 게시글 수정자 정보
     private String editorName;
     private String editorTel;
     private String editorAddress;
     private String editorDetailAddress;
     private String editorAddressZipcode;
+
 }
