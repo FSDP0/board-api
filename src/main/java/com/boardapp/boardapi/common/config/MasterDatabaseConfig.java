@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -49,5 +51,21 @@ public class MasterDatabaseConfig {
     @Bean(name = "masterSqlSessionTemplate")
     SqlSessionTemplate masterSqlSessionTemplate(SqlSessionFactory masterSqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(masterSqlSessionFactory);
+    }
+
+    @Primary
+    @Bean(name = "masterDataSourceScriptDatabaseInitializer")
+    DataSourceInitializer masterDataSourceInitializer(@Qualifier("masterDataSource") DataSource masterDataSource) {
+        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+
+        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/master/schema-master.sql"));
+        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/master/data-master.sql"));
+
+        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+
+        dataSourceInitializer.setDataSource(masterDataSource);
+        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
+
+        return dataSourceInitializer;
     }
 }

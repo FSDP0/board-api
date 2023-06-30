@@ -11,6 +11,8 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -45,5 +47,20 @@ public class SlaveDatabaseConfig {
     @Bean(name = "slaveSqlSessionTemplate")
     SqlSessionTemplate slaveSqlSessionTemplate(SqlSessionFactory slaveSqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(slaveSqlSessionFactory);
+    }
+
+    @Bean(name = "slaveDataSourceScriptDatabaseInitializer")
+    DataSourceInitializer slaveDataSourceInitializer(@Qualifier("slaveDataSource") DataSource slaveDataSource) {
+        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+
+        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/slave/schema-slave.sql"));
+        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/slave/data-slave.sql"));
+
+        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+
+        dataSourceInitializer.setDataSource(slaveDataSource);
+        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
+
+        return dataSourceInitializer;
     }
 }
