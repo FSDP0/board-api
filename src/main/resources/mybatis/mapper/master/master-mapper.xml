@@ -1,8 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.boardapp.boardapi.common.mapper.master.MasterDatabaseMapper">
+    <!-- Board Table -->
+    <!-- 전체 게시글 조회 -->
     <select id="getAllBoards" resultType="com.boardapp.boardapi.board.model.Board"> SELECT * FROM
-        board; </select>
+        board ORDER BY board_id ASC </select>
 
+    <!-- 특정 번호 게시글 조회 -->
+    <select id="getBoardById" resultType="com.boardapp.boardapi.board.model.Board"> SELECT * FROM
+        board WHERE board_id = ${id} </select>
+
+    <!-- 특정 번호 게시글 관련 사용자까지 조회 -->
+    <!-- <select id="getBoardWithUserById">
+        SELECT A.* 
+        FROM board A 
+        LEFT OUTER JOIN user B 
+        LEFT OUTER
+        JOIN user C ON A.write_id = B.user_id AND A.modify_id = C.user_id WHERE board_id = #{id} </select> -->
+
+    <!-- 특정 번호 게시글 작성자도 같이 조회 -->
+    <select id="getBoardWithCreatorById"
+        resultType="com.boardapp.boardapi.board.model.BoardWithCreator"> SELECT A.*, B.user_name AS
+        creator_name, B.user_tel AS creator_tel, B.user_address AS creator_address, B.detail_address
+        AS creator_detail_address, C.address_zipcode AS creator_address_zipcode FROM board A LEFT
+        OUTER JOIN user B ON A.write_id = B.user_id LEFT OUTER JOIN address C ON B.user_address =
+        C.address WHERE A.board_id = #{id}</select>
+
+
+    <!-- 특정 번호 게시글 수정자도 같이 조회 -->
+    <select id="getBoardWithEditorById"
+        resultType="com.boardapp.boardapi.board.model.BoardWithEditor"> SELECT A.*, B.user_name AS
+        editor_name, B.user_tel AS editor_tel, B.user_address AS editor_address, B.detail_address AS
+        editor_detail_address, C.address_zipcode AS editor_address_zipcode FROM board A LEFT OUTER
+        JOIN user B ON A.modify_id = B.user_id LEFT OUTER JOIN address C ON B.user_address =
+        C.address WHERE A.board_id = #{id} </select>
+
+    <!-- <select id="getBoardWithUserById"
+    resultType="com.boardapp.boardapi.board.model.BoardWithUser">
+        SELECT A.*, B.user_name AS editor_name, B.user_tel AS editor_tel, B.user_address AS
+        editor_address, B.detail_address AS editor_detail_address, C.address_zipcodeAS
+        editor_address_zipcode FROM board A LEFT OUTER JOIN user B ON A.modify_id = B.user_id LEFT
+        OUTER JOIN address C ON B.user_address = C.address WHERE A.board_id = #{id} </select> -->
+
+    <!-- 게시글 작성 -->
+    <insert id="saveBoard" parameterType="com.boardapp.boardapi.board.model.Board"> INSERT INTO
+        board ( board_title, board_contents, write_id, write_date ) VALUES ( #{boardObj.boardTitle},
+        #{boardObj.boardContents}, #{boardObj.writeId}, #{boardObj.writeDate} ) </insert>
+
+    <!-- 게시글 수정 -->
+    <update id="updateBoard" parameterType="com.boardapp.boardapi.board.model.Board"> UPDATE board
+        SET board_title = #{boardObj.boardTitle}, board_contents = #{boardObj.boardContents},
+        modify_id = #{boardObj.modifyId}, modify_date = #{boardObj.modifyDate} WHERE board_id =
+        #{id} </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteBoard"> DELETE FROM board WHERE board_id = #{id} </delete>
+
+    <!-- User Table -->
     <select id="getAllUser" resultType="com.boardapp.boardapi.user.model.User"> SELECT * FROM user; </select>
+
 </mapper>
