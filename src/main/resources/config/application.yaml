@@ -1,0 +1,9 @@
+spring:
+    devtools:
+        livereload:
+            enabled: false
+    profiles:
+        active: local
+    output:
+        ansi:
+            enabled: always
