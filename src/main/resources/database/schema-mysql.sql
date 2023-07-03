@@ -14,12 +14,13 @@ CREATE TABLE IF NOT EXISTS user (
     created_date DATETIME NOT NULL,          -- 사용자 계정정보 생성일
     modified_date DATETIME NULL,             -- 사용자 계정정보 수정일
 
-    PRIMARY KEY (user_id)                    -- user_id Column Set Primary Key
+    PRIMARY KEY (user_id),                   -- user_id Column Set Primary Key
+    UNIQUE KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS address (
     address VARCHAR(100) NOT NULL,           -- 특정 주소 [PK]
-    address_zipcode VARCHAR(20) NOT NULL     -- 주소 ZipCode
+    address_zipcode VARCHAR(20) NOT NULL,    -- 주소 ZipCode
 
     PRIMARY KEY (address)                    -- address Column Set Primary Key
 );

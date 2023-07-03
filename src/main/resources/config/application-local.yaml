@@ -4,6 +4,6 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&connectionTimeZone=UTC
+        url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&connectionTimeZone=UTC&characterEncoding=EUC-KR
         username: root
         password: 123456

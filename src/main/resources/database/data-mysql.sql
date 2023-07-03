@@ -1,25 +1,25 @@
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser1","Merry",    "set0000","010-1234-4132","ì„œìš¸ ì„œì´ˆêµ¬ ì ì›ë¡œ8ê¸¸ 35",            "403í˜¸","2023-06-30");
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser2","John",     "pwd1234","010-2534-4131","ì„œìš¸ ì„œì´ˆêµ¬ ë‚˜ë£¨í„°ë¡œ12ê¸¸ 18 ìˆ˜ì¸ë¹Œë”©","802í˜¸","2023-06-02");
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser3","Petter",   "pwd5674","010-3257-5322","ì„œìš¸ ì„œì´ˆêµ¬ ê°•ë‚¨ëŒ€ë¡œ95ê¸¸ 19-4",       "301í˜¸","2023-06-04");
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser4","Ray",      "pwd0122","010-4356-1331","ì„œìš¸ ê°•ë‚¨êµ¬ í•™ë™ë¡œ12ê¸¸ 18",           "710í˜¸","2023-06-23");
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser5","Christina","pwd4678","010-4536-3112","ì„œìš¸ ê°•ë‚¨êµ¬ ë…¼í˜„ë¡œ 627 ìœ í˜„ë¹Œë”©",     "410í˜¸","2023-06-11");
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser6","Chris",    "pwd4556","010-6436-3213","ì„œìš¸ ê°•ë‚¨êµ¬ ì–¸ì£¼ë¡œ 506",              "101í˜¸","2023-06-20");
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser7","Thomas",   "pwd7983","010-5343-1231","ì„œìš¸ ê°•ë‚¨êµ¬ ì˜ë™ëŒ€ë¡œ71ê¸¸ 24",         "901í˜¸","2023-06-25");
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser8","Jenny",    "pwd10549","010-5435-3127","ì„œìš¸ ìš©ì‚°êµ¬ ëŒ€ì‚¬ê´€ë¡œ30ë‚˜ê¸¸ 32",       "506í˜¸","2023-06-18");
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser9","Jack",     "pwd0524","010-4324-4310","ì„œìš¸ ìš©ì‚°êµ¬ ë…ì„œë‹¹ë¡œ14ê¸¸ 62",         "105í˜¸","2023-06-10");
-INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser10","Parker",  "pwd12394","010-6783-6547","ì„œìš¸ ìš©ì‚°êµ¬ ë…¹ì‚¬í‰ëŒ€ë¡œ 66",           "1002í˜¸","2023-06-14");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser1","Merry",    "set0000","010-1234-4132","¼­¿ï ¼­ÃÊ±¸ Àá¿ø·Î8±æ 35",            "403È£","2023-06-30");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser2","John",     "pwd1234","010-2534-4131","¼­¿ï ¼­ÃÊ±¸ ³ª·çÅÍ·Î12±æ 18 ¼öÀÎºôµù","802È£","2023-06-02");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser3","Petter",   "pwd5674","010-3257-5322","¼­¿ï ¼­ÃÊ±¸ °­³²´ë·Î95±æ 19-4",       "301È£","2023-06-04");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser4","Ray",      "pwd0122","010-4356-1331","¼­¿ï °­³²±¸ ÇĞµ¿·Î12±æ 18",           "710È£","2023-06-23");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser5","Christina","pwd4678","010-4536-3112","¼­¿ï °­³²±¸ ³íÇö·Î 627 À¯Çöºôµù",     "410È£","2023-06-11");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser6","Chris",    "pwd4556","010-6436-3213","¼­¿ï °­³²±¸ ¾ğÁÖ·Î 506",              "101È£","2023-06-20");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser7","Thomas",   "pwd7983","010-5343-1231","¼­¿ï °­³²±¸ ¿µµ¿´ë·Î71±æ 24",         "901È£","2023-06-25");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser8","Jenny",    "pwd10549","010-5435-3127","¼­¿ï ¿ë»ê±¸ ´ë»ç°ü·Î30³ª±æ 32",       "506È£","2023-06-18");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser9","Jack",     "pwd0524","010-4324-4310","¼­¿ï ¿ë»ê±¸ µ¶¼­´ç·Î14±æ 62",         "105È£","2023-06-10");
+INSERT INTO user(user_id,user_name,user_password,user_tel,user_address,detail_address,created_date) VALUES ("TestUser10","Parker",  "pwd12394","010-6783-6547","¼­¿ï ¿ë»ê±¸ ³ì»çÆò´ë·Î 66",           "1002È£","2023-06-14");
 
 
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ì„œì´ˆêµ¬ ì ì›ë¡œ8ê¸¸ 35","06518");
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ì„œì´ˆêµ¬ ë‚˜ë£¨í„°ë¡œ12ê¸¸ 18 ìˆ˜ì¸ë¹Œë”©","06527");
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ì„œì´ˆêµ¬ ê°•ë‚¨ëŒ€ë¡œ95ê¸¸ 19-4","06530");
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ê°•ë‚¨êµ¬ í•™ë™ë¡œ12ê¸¸ 18","06113");
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ê°•ë‚¨êµ¬ ë…¼í˜„ë¡œ 627 ìœ í˜„ë¹Œë”©","06117");
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ê°•ë‚¨êµ¬ ì–¸ì£¼ë¡œ 506","06152");
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ê°•ë‚¨êµ¬ ì˜ë™ëŒ€ë¡œ71ê¸¸ 24","06187");
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ìš©ì‚°êµ¬ ëŒ€ì‚¬ê´€ë¡œ30ë‚˜ê¸¸ 32","04409");
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ìš©ì‚°êµ¬ ë…ì„œë‹¹ë¡œ14ê¸¸ 62","04410");
-INSERT INTO address(address,address_zipcode) VALUES ("ì„œìš¸ ìš©ì‚°êµ¬ ë…¹ì‚¬í‰ëŒ€ë¡œ 66","04398");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï ¼­ÃÊ±¸ Àá¿ø·Î8±æ 35","06518");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï ¼­ÃÊ±¸ ³ª·çÅÍ·Î12±æ 18 ¼öÀÎºôµù","06527");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï ¼­ÃÊ±¸ °­³²´ë·Î95±æ 19-4","06530");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï °­³²±¸ ÇĞµ¿·Î12±æ 18","06113");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï °­³²±¸ ³íÇö·Î 627 À¯Çöºôµù","06117");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï °­³²±¸ ¾ğÁÖ·Î 506","06152");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï °­³²±¸ ¿µµ¿´ë·Î71±æ 24","06187");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï ¿ë»ê±¸ ´ë»ç°ü·Î30³ª±æ 32","04409");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï ¿ë»ê±¸ µ¶¼­´ç·Î14±æ 62","04410");
+INSERT INTO address(address,address_zipcode) VALUES ("¼­¿ï ¿ë»ê±¸ ³ì»çÆò´ë·Î 66","04398");
 
 INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date,modify_date) VALUES("Test Board Title 1","Test Board Contents","TestUser1","TestUser10","2023-06-22","2023-06-30");
 INSERT INTO board(board_title,board_contents,write_id,modify_id,write_date,modify_date) VALUES("Test Board Title 2","Test Board Contents","TestUser2","TestUser9","2023-06-16" ,"2023-06-30");

@@ -14,16 +14,16 @@ import lombok.Setter;
 @Table(name = "board") // * Table Name
 public class Board {
     @Id
-    private Long boardId; // 게시글 번호
+    private Long boardId; // ! 게시글 번호 [PK]
 
-    private String boardTitle; // 게시글 제목
-    private String boardContents; // 게시글 내용
+    private String boardTitle; // ! 게시글 제목
+    private String boardContents; // ! 게시글 내용
 
-    private String writeId; // 게시글 작성자 Id
-    private String modifyId; // 게시글 수정자 Id
+    private String writeId; // ! 게시글 작성자 Id
+    private String modifyId; // ! 게시글 수정자 Id
 
-    private Date writeDate; // 게시글 작성일
-    private Date modifyDate; // 게시글 수정일
+    private Date writeDate; // ! 게시글 작성일
+    private Date modifyDate; // ! 게시글 수정일
 
     @Builder
     public Board(Long id, String title, String contents, String writeId, String modifyId, Date writeDate, Date modifyDate) {
