@@ -16,8 +16,8 @@ import com.boardapp.boardapi.board.service.BoardService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@RestController
-@RequestMapping("boards")
+@RestController // * REST controller annotation
+@RequestMapping("boards") // * 해당 컨트롤러가 기본적으로 사용할 Route 경로
 public class BoardController {
     // ! Service dependency injection
     private final BoardService boardService;
