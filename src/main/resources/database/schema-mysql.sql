@@ -1,3 +1,4 @@
+-- Drop exist tables
 DROP TABLE IF EXISTS board;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS address;
@@ -20,7 +21,7 @@ CREATE TABLE IF NOT EXISTS address (
     address VARCHAR(100) NOT NULL,           -- 특정 주소 [PK]
     address_zipcode VARCHAR(20) NOT NULL     -- 주소 ZipCode
 
-    PRIMARY KEY (address)
+    PRIMARY KEY (address)                    -- address Column Set Primary Key
 );
 
 CREATE TABLE IF NOT EXISTS board (

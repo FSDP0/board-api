@@ -5,7 +5,7 @@ import com.boardapp.boardapi.board.entity.Board;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface BoardRepository extends ReactiveCrudRepository<Board, Long>, BoardCustomRepository {
+public interface BoardRepository extends ReactiveCrudRepository<Board, Long> {
     public Flux<Board> findAllBoard();
 
     public Mono<Board> findBoardById(Long id);

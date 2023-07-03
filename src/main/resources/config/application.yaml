@@ -7,8 +7,8 @@ spring:
     output:
         ansi:
             enabled: always
-    # sql:
-    #     init:
-    #         mode: always
-    #         schema-locations: classpath:database/schema-mysql.sql
-    #         data-locations: classpath:database/data-mysql.sql
+    sql:
+        init:
+            mode: always
+            schema-locations: classpath:database/schema-mysql.sql
+            data-locations: classpath:database/data-mysql.sql

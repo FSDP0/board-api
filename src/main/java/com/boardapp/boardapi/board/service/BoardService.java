@@ -31,25 +31,25 @@ public class BoardService {
         return this.boardRepository.findById(id);
     }
 
-    // * 특정 사용자가 게시한 게시글 전체 조회
-    public Flux<Board> getAllBoardByWriteId(String userId) {
-        return this.boardRepository.findAllBoardsByWriteId(userId);
-    }
+    // // * 특정 사용자가 게시한 게시글 전체 조회
+    // public Flux<Board> getAllBoardByWriteId(String userId) {
+    // return this.boardRepository.findAllBoardsByWriteId(userId);
+    // }
 
-    // * 특정 사용자가 게시한 게시글 단 건 조회
-    public Mono<Board> getBoardByWriteId(String userId) {
-        return this.boardRepository.findBoardByWriteId(userId);
-    }
+    // // * 특정 사용자가 게시한 게시글 단 건 조회
+    // public Mono<Board> getBoardByWriteId(String userId) {
+    // return this.boardRepository.findBoardByWriteId(userId);
+    // }
 
-    // * 특정 사용자가 수정한 게시글 전체 조회
-    public Flux<Board> getAllBoardByModifyId(String userId) {
-        return this.boardRepository.findAllBoardsByModifyId(userId);
-    }
+    // // * 특정 사용자가 수정한 게시글 전체 조회
+    // public Flux<Board> getAllBoardByModifyId(String userId) {
+    // return this.boardRepository.findAllBoardsByModifyId(userId);
+    // }
 
-    // * 특정 사용자가 수정한 게시글 단 건 조회
-    public Mono<Board> getBoardByModifyId(String userId) {
-        return this.boardRepository.findBoardByModifyId(userId);
-    }
+    // // * 특정 사용자가 수정한 게시글 단 건 조회
+    // public Mono<Board> getBoardByModifyId(String userId) {
+    // return this.boardRepository.findBoardByModifyId(userId);
+    // }
 
     // ! 게시글 생성
     @Transactional
