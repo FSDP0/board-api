@@ -1,7 +1,10 @@
 package com.boardapp.boardapi.board.entity;
 
 import java.util.Date;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,13 +19,24 @@ public class Board {
     @Id
     private Long boardId; // ! 게시글 번호 [PK]
 
+    @Column("board_title")
     private String boardTitle; // ! 게시글 제목
+
+    @Column("board_contents")
     private String boardContents; // ! 게시글 내용
 
+    @Column("write_id")
     private String writeId; // ! 게시글 작성자 Id
+
+    @Column("modify_id")
     private String modifyId; // ! 게시글 수정자 Id
 
+    @Column("write_date")
+    @CreatedDate
     private Date writeDate; // ! 게시글 작성일
+
+    @Column("modify_date")
+    @LastModifiedDate
     private Date modifyDate; // ! 게시글 수정일
 
     @Builder

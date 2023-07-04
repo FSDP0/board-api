@@ -10,7 +10,6 @@ import lombok.ToString;
 @Getter
 @ToString
 public class BoardSaveDto {
-
     private String title;
     private String contents;
 
