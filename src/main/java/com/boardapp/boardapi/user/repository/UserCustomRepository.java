@@ -7,4 +7,8 @@ public interface UserCustomRepository {
     List<User> findAllUser();
 
     User findByUserId(String userId);
+
+    Integer saveBoard(User user);
+
+    Integer updateBoard(User user, String userId);
 }

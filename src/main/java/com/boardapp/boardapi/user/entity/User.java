@@ -11,9 +11,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "user")
 public class User {
     @Column("id")
@@ -57,5 +57,10 @@ public class User {
         this.detailAddress = detailAddress;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
+    }
+
+    public String toString() {
+        return "" + this.userId + " " + this.userPassword + " " + this.userTel + " " + this.detailAddress + " " + this.createdDate + " "
+                + this.modifiedDate;
     }
 }
