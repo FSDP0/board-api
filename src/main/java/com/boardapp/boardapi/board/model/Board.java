@@ -12,11 +12,9 @@ public class Board {
     private String boardContents;
 
     private String writeId; // Join Key
-
     private String modifyId; // Join Key
 
     private Date writeDate;
-
     private Date modifyDate;
 
     @Builder

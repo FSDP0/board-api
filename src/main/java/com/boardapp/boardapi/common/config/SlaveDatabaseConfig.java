@@ -16,7 +16,7 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-// Mapper JAVA file package path / 서로 다른 패키지 경로 명을 가져야 함
+// ! Mapper JAVA file package path / 서로 다른 패키지 경로 명을 기준으로 탐색
 @MapperScan(value = "com.boardapp.boardapi.common.mapper.slave", sqlSessionFactoryRef = "slaveSqlSessionFactory")
 @EnableTransactionManagement
 public class SlaveDatabaseConfig {
@@ -49,17 +49,18 @@ public class SlaveDatabaseConfig {
         return new SqlSessionTemplate(slaveSqlSessionFactory);
     }
 
-    // Datasource initializer (use .sql script)
+    // ! Datasource initializer (resources 디렉토리에 존재하는 .sql script를 사용)
     @Bean(name = "slaveDataSourceScriptDatabaseInitializer")
     DataSourceInitializer slaveDataSourceInitializer(@Qualifier("slaveDataSource") DataSource slaveDataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 
-        // 순서에 맞게 Script를 추가, schema 생성 -> data 생성
+        // ! Schema 생성 스크립트 추가 후에 Data 생성 스크립트를 추가 (순서 중요)
         resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/slave/schema-slave.sql"));
         resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/slave/data-slave.sql"));
 
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
 
+        // * DataSourceInitializer에서 사용할 DataSource 설정
         dataSourceInitializer.setDataSource(slaveDataSource);
         dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
 

@@ -1,5 +1,6 @@
 package com.boardapp.boardapi.user.model;
 
+import java.util.Date;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,23 +13,25 @@ public class User {
     private Long index;
 
     private String userId; // PK
-
     private String userName;
-
     private String userPassword;
-
     private String userTel;
-
     private String address;
-
     private String detailAddress;
 
+    private Date createdDate;
+    private Date modifiedDate;
+
     @Builder
-    public User(String id, String name, String password, String tel, String address, String detailAddress) {
+    public User(String id, String name, String password, String tel, String address, String detailAddress, Date createdDate,
+            Date modifiedDate) {
         this.userId = id;
         this.userName = name;
         this.userPassword = password;
         this.userTel = tel;
+        this.address = address;
         this.detailAddress = detailAddress;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
     }
 }
