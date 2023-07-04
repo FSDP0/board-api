@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import com.boardapp.boardapi.board.entity.Board;
@@ -56,6 +57,7 @@ public class BoardHandler {
     }
 
     // * 게시글 등록 Handler
+    @Transactional
     public Mono<ServerResponse> saveBoard(ServerRequest req) {
         log.info("[ Handler ] Request save board");
 
@@ -69,6 +71,7 @@ public class BoardHandler {
     }
 
     // * 특정 게시글 수정 Hadler
+    @Transactional
     public Mono<ServerResponse> updateBoard(ServerRequest req) {
         log.info("[ Handler ] Request update board");
 
@@ -78,17 +81,14 @@ public class BoardHandler {
 
         Mono<BoardEditDto> boardDtoMono = req.bodyToMono(BoardEditDto.class); // * Update Data
 
-        boardDtoMono.flatMap(boardDto -> Mono.fromCallable(() -> this.boardRepository.update(boardDto.getTitle(), boardDto.getContents(),
-                boardDto.getModifyName(), Timestamp.valueOf(LocalDateTime.now()), id)));
-        // .flatMap(board -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(board));
-
-        return Mono.empty();
-
-        // return ServerResponse.status(HttpStatus.NO_CONTENT) // HTTP Status Code 204
-        // .build(Mono.empty()).switchIfEmpty(ServerResponse.notFound().build());
+        return boardDtoMono
+                .flatMap(boardDto -> Mono.fromCallable(() -> this.boardRepository.updateBoard(boardDto.getTitle(), boardDto.getContents(),
+                        boardDto.getModifyName(), Timestamp.valueOf(LocalDateTime.now()), id)))
+                .flatMap(data -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build(Mono.empty()));
     }
 
     // * 특정 게시글 삭제 Handler
+    @Transactional
     public Mono<ServerResponse> deleteBoard(ServerRequest req) {
 
         Long boardId = Long.parseLong(req.pathVariable("id"));

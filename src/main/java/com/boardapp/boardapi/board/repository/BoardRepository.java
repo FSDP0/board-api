@@ -11,6 +11,6 @@ import com.boardapp.boardapi.board.repository.sql.BoardSql;
 public interface BoardRepository extends CrudRepository<Board, Long>, BoardCustomRepository {
     @Modifying
     @Query(value = BoardSql.UPDATE_BY_ID)
-    public Board update(@Param("title") String title, @Param("contents") String contents, @Param("modifyId") String modifyId,
+    public int updateBoard(@Param("title") String title, @Param("contents") String contents, @Param("modifyId") String modifyId,
             @Param("modifyDate") Date modifyDate, @Param("id") Long id);
 }

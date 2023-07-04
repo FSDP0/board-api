@@ -11,6 +11,4 @@ public interface BoardCustomRepository {
     Board findBoardByWriteId(String userId);
 
     Board findBoardByModifyId(String userId);
-
-    // void update(Board board, Long id);
 }
