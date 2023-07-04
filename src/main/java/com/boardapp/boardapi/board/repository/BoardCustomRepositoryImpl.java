@@ -19,6 +19,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
     }
 
     // * 게시자 기준 게시글 전체 조회
+    @Override
     public List<Board> findAllBoardsByWriteId(String userId) {
         String sql = BoardSql.SELECT_BY_WRITER;
 
@@ -26,6 +27,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
     }
 
     // * 게시자 기준 게시글 전체 조회
+    @Override
     public Board findBoardByWriteId(String userId) {
         String sql = BoardSql.SELECT_BY_WRITER;
 
@@ -33,6 +35,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
     }
 
     // * 수정자 기준 게시글 전체 조회
+    @Override
     public List<Board> findAllBoardsByModifyId(String userId) {
         String sql = BoardSql.SELECT_BY_EDITOR;
 
@@ -40,6 +43,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
     }
 
     // * 수정자 기준 게시글 단건 조회
+    @Override
     public Board findBoardByModifyId(String userId) {
         String sql = BoardSql.SELECT_BY_EDITOR;
 
