@@ -3,9 +3,12 @@ package com.boardapp.boardapi.user.Handler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import com.boardapp.boardapi.user.entity.User;
+import com.boardapp.boardapi.user.model.UserEditDto;
+import com.boardapp.boardapi.user.model.UserSaveDto;
 import com.boardapp.boardapi.user.repository.UserRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -39,14 +42,25 @@ public class UserHandler {
 
     }
 
+    @Transactional
     public Mono<ServerResponse> saveUser(ServerRequest req) {
-        return Mono.empty();
+
+        Mono<UserSaveDto> userDtoMono = req.bodyToMono(UserSaveDto.class);
+
+        return userDtoMono.flatMap(userDto -> Mono.fromCallable(() -> this.userRepository.save(userDto.toEntity())))
+                .flatMap(user -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(user));
     }
 
+    @Transactional
     public Mono<ServerResponse> updateUser(ServerRequest req) {
-        return Mono.empty();
+        String userId = req.pathVariable("userId");
+
+        Mono<UserEditDto> userDtoMono = req.bodyToMono(UserEditDto.class);
+
+        return userDtoMono.flatMap(null);
     }
 
+    @Transactional
     public Mono<ServerResponse> deleteUser(ServerRequest req) {
         String userId = req.pathVariable("userId");
 
