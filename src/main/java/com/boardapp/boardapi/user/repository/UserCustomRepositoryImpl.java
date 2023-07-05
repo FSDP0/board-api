@@ -1,6 +1,5 @@
 package com.boardapp.boardapi.user.repository;
 
-import java.util.List;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -17,16 +16,6 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
 
     public UserCustomRepositoryImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
-
-    @Override
-    public List<User> findAllUser() {
-        throw new UnsupportedOperationException("Unimplemented method 'findAllUser'");
-    }
-
-    @Override
-    public User findByUserId(String userId) {
-        throw new UnsupportedOperationException("Unimplemented method 'findByUserId'");
     }
 
     @Override
