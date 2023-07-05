@@ -11,13 +11,11 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.init.DataSourceInitializer;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 // ! Mapper JAVA file package path / 서로 다른 패키지 경로 명을 기준으로 탐색
-@MapperScan(value = "com.boardapp.boardapi.common.mapper.slave", sqlSessionFactoryRef = "slaveSqlSessionFactory")
+@MapperScan(value = "com.boardapp.boardapi.**.mapper.slave", sqlSessionFactoryRef = "slaveSqlSessionFactory")
 @EnableTransactionManagement
 public class SlaveDatabaseConfig {
     private final ApplicationContext applicationContext;
@@ -38,8 +36,10 @@ public class SlaveDatabaseConfig {
 
         sqlSessionFactoryBean.setDataSource(slaveDataSource);
 
+        // Set base package alias path
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.boardapp.boardapi");
         // MyBatis XML mapper resource file path
-        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResources("classpath:mybatis/mapper/slave/slave-mapper.xml"));
+        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResources("classpath:mybatis/mapper/slave/**/*.xml"));
 
         return sqlSessionFactoryBean.getObject();
     }
@@ -47,23 +47,5 @@ public class SlaveDatabaseConfig {
     @Bean(name = "slaveSqlSessionTemplate")
     SqlSessionTemplate slaveSqlSessionTemplate(SqlSessionFactory slaveSqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(slaveSqlSessionFactory);
-    }
-
-    // ! Datasource initializer (resources 디렉토리에 존재하는 .sql script를 사용)
-    @Bean(name = "slaveDataSourceScriptDatabaseInitializer")
-    DataSourceInitializer slaveDataSourceInitializer(@Qualifier("slaveDataSource") DataSource slaveDataSource) {
-        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-
-        // ! Schema 생성 스크립트 추가 후에 Data 생성 스크립트를 추가 (순서 중요)
-        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/slave/schema-slave.sql"));
-        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/slave/data-slave.sql"));
-
-        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
-
-        // * DataSourceInitializer에서 사용할 DataSource 설정
-        dataSourceInitializer.setDataSource(slaveDataSource);
-        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
-
-        return dataSourceInitializer;
     }
 }

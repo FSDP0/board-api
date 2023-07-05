@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boardapp.boardapi.user.mapper.master.MasterDatabaseUserMapper">
+    <insert id="saveUser" parameterType="User">
+        INSERT
+        INTO user (
+            user_id,
+            user_name,
+            user_password,
+            user_tel,
+            user_address,
+            detail_address,
+            created_date
+        ) VALUES (
+            #{userObj.userId},
+            #{userObj.userName},
+            #{userObj.userPassword},
+            #{userObj.userTel},
+            #{userObj.userAddress},
+            #{userObj.detailAddress},
+            #{userObj.createdDate}
+        )
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE user
+        SET user_name = #{userObj.userName},
+            user_password = #{userObj.userPassword},
+            user_tel = #{userObj.userTel},
+            user_address = #{userObj.userAddress},
+            detail_address = #{userObj.detailAddress},
+            modified_date = #{userObj.modifiedDate}
+        WHERE user_id = #{userId}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE
+        FROM user
+        WHERE user_id = #{userId}
+    </delete>
+</mapper>

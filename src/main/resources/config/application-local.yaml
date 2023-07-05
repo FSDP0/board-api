@@ -4,15 +4,15 @@ server:
         encoding:
             charset: UTF-8
 
-# logging:
-#     level:
-#         jdbc:
-#             sqlonly: off
-#             sqltiming: info
-#             resultsettable: info
-#             audit: off
-#             resultset: off
-#             connection: off
+logging:
+    level:
+        jdbc:
+            sqlonly: off
+            sqltiming: info
+            resultsettable: info
+            audit: off
+            resultset: off
+            connection: off
         
 
 spring:
@@ -20,29 +20,22 @@ spring:
         # [master] Database Connection Pool
         master:
             driver-class-name: com.mysql.cj.jdbc.Driver
-            jdbc-url: jdbc:mysql://localhost:3307/master?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
+            jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
             username: root
             password: 123456
         # [slave] Database Connection Pool 
         slave:
             driver-class-name: com.mysql.cj.jdbc.Driver
-            jdbc-url: jdbc:mysql://localhost:3307/slave?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
+            jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
             username: root
             password: 123456
             
-# mybatis:
-#     # config-location: classpath:/mybatis/mybastic-config.xml
-#     type-aliases-package: com.boardapp.boardapi
-    # mapper-locations: classpath:mybastis/mapper/*.xml
+mybatis:
+    type-aliases-package: com.boardapp.boardapi
+    mapper-locations:
+    - classpath:mybatis/mapper/master/**/*.xml
+    - classpath:mybatis/mapper/slave/**/*.xml
 
-#     configuration:
-#         cache-enabled: true
-#         lazy-loading-enabled: false
-#         aggressive-lazy-loading: false
-#         # multiple-result-sets-enabled: true
-#         use-column-label: true
-#         use-generated-keys: true
-#         default-statement-timeout: 500
-#         # default-fetch-size: 500
-#         map-underscore-to-camel-case: true  
-#         jdbc-type-for-null: NULL
+    configuration:
+        map-underscore-to-camel-case: true
+        jdbc-type-for-null: NULL

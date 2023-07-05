@@ -15,7 +15,6 @@ public class UserResponseDto {
     private String tel;
     private String address;
     private String detailAddress;
-    private String addressZipcode;
 
     private Date createdDate;
     private Date modifiedDate;

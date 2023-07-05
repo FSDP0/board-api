@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 // ! Mapper JAVA file path / 서로 다른 패키지 경로 명을 기준으로 탐색
-@MapperScan(value = "com.boardapp.boardapi.common.mapper.master", sqlSessionFactoryRef = "masterSqlSessionFactory")
+@MapperScan(value = "com.boardapp.boardapi.**.mapper.master", sqlSessionFactoryRef = "masterSqlSessionFactory")
 @EnableTransactionManagement
 public class MasterDatabaseConfig {
     private final ApplicationContext applicationContext;
@@ -41,8 +41,10 @@ public class MasterDatabaseConfig {
 
         sqlSessionFactoryBean.setDataSource(masterDataSource);
 
+        // Set base package alias path
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.boardapp.boardapi");
         // MyBatis XML mapper resource file path
-        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResource("classpath:mybatis/mapper/master/master-mapper.xml"));
+        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResources("classpath:mybatis/mapper/master/**/*.xml"));
 
         return sqlSessionFactoryBean.getObject();
     }
@@ -60,8 +62,8 @@ public class MasterDatabaseConfig {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 
         // ! Schema 생성 스크립트 추가 후에 Data 생성 스크립트를 추가 (순서 중요)
-        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/master/schema-master.sql"));
-        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/master/data-master.sql"));
+        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/schema-master.sql"));
+        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/data-master.sql"));
 
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
 

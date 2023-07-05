@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS address;
 DROP TABLE IF EXISTS board;
 
 CREATE TABLE IF NOT EXISTS user (
-    id BIGINT NOT NULL AUTO_INCREMENT,
+    index_id BIGINT NOT NULL AUTO_INCREMENT,
     user_id VARCHAR(50) NOT NULL,
     user_name VARCHAR(40) NOT NULL,
     user_password VARCHAR(60) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS user (
 
     PRIMARY KEY (user_id),
 
-    UNIQUE KEY (id)
+    UNIQUE KEY (index_id)
 );
 
 CREATE TABLE IF NOT EXISTS address(
