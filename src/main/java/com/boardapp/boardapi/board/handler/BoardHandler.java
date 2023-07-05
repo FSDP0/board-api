@@ -1,5 +1,7 @@
 package com.boardapp.boardapi.board.handler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.board.model.BoardEditDto;
+import com.boardapp.boardapi.board.model.BoardReponseDto;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -31,11 +34,22 @@ public class BoardHandler {
     public Mono<ServerResponse> getAllBoards(ServerRequest req) {
         log.info("[ Handler ] Request find all boards");
 
-        Flux<Board> boardFlux = Flux.fromIterable(this.boardRepository.findAll());
+
+        Iterable<Board> boardList = this.boardRepository.findAll();
+
+        List<BoardReponseDto> boardDtoList = new ArrayList<BoardReponseDto>();
+
+        for(Board board : boardList){
+            BoardReponseDto dto = BoardReponseDto.builder().id(board.getBoardId()).title(board.getBoardTitle()).contents(board.getBoardContents()).writeId(board.getWriteId()).writeDate(board.getWriteDate()).modifyId(board.getModifyId()).modifyDate(board.getModifyDate()).build();
+
+            boardDtoList.add(dto);
+        }
+
+        Flux<BoardReponseDto> boardFlux = Flux.fromIterable(boardDtoList);
 
         return ServerResponse.ok()// HTTP Status Code 200 [OK]
                 .contentType(MediaType.APPLICATION_JSON) // Content Type
-                .body(boardFlux, Board.class) // Reponse Body
+                .body(boardFlux, BoardReponseDto.class) // Reponse Body
                 .switchIfEmpty(ServerResponse.notFound().build()); // Response 404, IfEmpty
     }
 
@@ -48,11 +62,16 @@ public class BoardHandler {
 
         log.info("[ Handler ] Received parameter : " + boardId);
 
-        Mono<Board> board = Mono.just(this.boardRepository.findById(boardId).get());
+
+        Board board = this.boardRepository.findById(boardId).get();
+
+        BoardReponseDto dto = BoardReponseDto.builder().id(board.getBoardId()).title(board.getBoardTitle()).contents(board.getBoardContents()).writeId(board.getWriteId()).writeDate(board.getWriteDate()).modifyId(board.getModifyId()).modifyDate(board.getModifyDate()).build();
+
+        Mono<BoardReponseDto> boardDtoMono = Mono.just(dto);
 
         return ServerResponse.ok() // HTTP Status Code 200 [OK]
                 .contentType(MediaType.APPLICATION_JSON) // Conetent Type
-                .body(board, Board.class) // Response Body
+                .body(boardDtoMono, BoardReponseDto.class) // Response Body
                 .switchIfEmpty(ServerResponse.notFound().build()); // Response 404, IfEmpty
     }
 
