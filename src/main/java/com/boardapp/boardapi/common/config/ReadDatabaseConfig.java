@@ -21,41 +21,41 @@ import lombok.RequiredArgsConstructor;
 // @MapperScan(value = "com.boardapp.boardapi.**.mapper.master", sqlSessionFactoryRef = "masterSqlSessionFactory")
 @EnableTransactionManagement
 @RequiredArgsConstructor
-public class ReadOnlyDatabaseConfig {
+public class ReadDatabaseConfig {
     private final ApplicationContext applicationContext;
 
     @Primary
-    @Bean(name = "readOnlyDataSource")
+    @Bean(name = "readDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.read-only")
-    DataSource readOnlyDataSource() {
+    DataSource readDataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Primary
-    @Bean(name = "readOnlySqlSessionFactory")
-    SqlSessionFactory readOnlySqlSessionFactory(@Qualifier("readOnlyDataSource") DataSource readOnlyDataSource) throws Exception {
+    @Bean(name = "readSqlSessionFactory")
+    SqlSessionFactory readSqlSessionFactory(@Qualifier("readDataSource") DataSource readDataSource) throws Exception {
         final SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
-        sqlSessionFactoryBean.setDataSource(readOnlyDataSource);
+        sqlSessionFactoryBean.setDataSource(readDataSource);
 
         // Set base package alias path
         // sqlSessionFactoryBean.setTypeAliasesPackage("com.boardapp.boardapi");
         // MyBatis XML mapper resource file path
-        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResources("classpath:mybatis/mapper/readOnly/**/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResources("classpath:mybatis/mapper/read/**/*.xml"));
 
         return sqlSessionFactoryBean.getObject();
     }
 
     @Primary
-    @Bean(name = "readOnlySqlSessionTemplate")
-    SqlSessionTemplate readOnlySqlSessionTemplate(SqlSessionFactory readOnlySqlSessionFactory) throws Exception {
-        return new SqlSessionTemplate(readOnlySqlSessionFactory);
+    @Bean(name = "readSqlSessionTemplate")
+    SqlSessionTemplate readSqlSessionTemplate(SqlSessionFactory readSqlSessionFactory) throws Exception {
+        return new SqlSessionTemplate(readSqlSessionFactory);
     }
 
     // ! Datasource initializer (resources 디렉토리에 존재하는 .sql script를 사용)
     @Primary
-    @Bean(name = "readOnlyDataSourceScriptDatabaseInitializer")
-    DataSourceInitializer readOnlyDataSourceInitializer(@Qualifier("readOnlyDataSource") DataSource readOnlyDataSource) {
+    @Bean(name = "readDataSourceScriptDatabaseInitializer")
+    DataSourceInitializer readDataSourceInitializer(@Qualifier("readDataSource") DataSource readDataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 
         // ! Schema 생성 스크립트 추가 후에 Data 생성 스크립트를 추가 (순서 중요)
@@ -65,7 +65,7 @@ public class ReadOnlyDatabaseConfig {
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
 
         // * DataSourceInitializer에서 사용할 DataSource 설정
-        dataSourceInitializer.setDataSource(readOnlyDataSource);
+        dataSourceInitializer.setDataSource(readDataSource);
         dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
 
         return dataSourceInitializer;

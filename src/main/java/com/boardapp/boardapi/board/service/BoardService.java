@@ -10,22 +10,16 @@ import com.boardapp.boardapi.board.model.dto.BoardSaveDto;
 import com.boardapp.boardapi.board.model.dto.BoardUpdateDto;
 import com.boardapp.boardapi.board.repository.master.MasterDatabaseBoardMapper;
 import com.boardapp.boardapi.board.repository.slave.SlaveDatabaseBoardMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class BoardService {
     // ! [ Master ] Database mapper dependency injection
     private final MasterDatabaseBoardMapper masterDatabaseBoardMapper;
     private final SlaveDatabaseBoardMapper slaveDatabaseBoardMapper;
-
-    public BoardService(
-        MasterDatabaseBoardMapper masterDatabaseBoardMapper,
-        SlaveDatabaseBoardMapper slaveDatabaseBoardMapper
-    ) {
-        this.masterDatabaseBoardMapper = masterDatabaseBoardMapper;
-        this.slaveDatabaseBoardMapper = slaveDatabaseBoardMapper;
-    }
     // !
 
     // * 모든 게시글 조회

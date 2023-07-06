@@ -13,17 +13,14 @@ import com.boardapp.boardapi.board.model.dto.BoardResponseDto;
 import com.boardapp.boardapi.board.model.dto.BoardSaveDto;
 import com.boardapp.boardapi.board.model.dto.BoardUpdateDto;
 import com.boardapp.boardapi.board.service.BoardService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("boards")
+@RequiredArgsConstructor
 public class BoardController {
     // ! Dependency injection
     private final BoardService boardService;
-
-    private BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
-    // !
 
     @GetMapping // * 모든 게시글 조회
     private List<BoardResponseDto> findAllBoards() throws Exception {

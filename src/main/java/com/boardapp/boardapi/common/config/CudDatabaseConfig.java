@@ -18,20 +18,20 @@ import lombok.RequiredArgsConstructor;
 // @MapperScan(value = "com.boardapp.boardapi.**.mapper.slave", sqlSessionFactoryRef = "slaveSqlSessionFactory")
 @EnableTransactionManagement
 @RequiredArgsConstructor
-public class CudOnlyDatabaseConfig {
+public class CudDatabaseConfig {
     private final ApplicationContext applicationContext;
 
-    @Bean(name = "cudOnlyDataSource")
+    @Bean(name = "cudDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.cud-only")
-    public DataSource cudOnlyDataSource() {
+    public DataSource cudDataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "cudOnlySqlSessionFactory")
-    SqlSessionFactory cudOnlySqlSessionFactory(@Qualifier("cudOnlyDataSource") DataSource cudOnlyDataSource) throws Exception {
+    @Bean(name = "cudSqlSessionFactory")
+    SqlSessionFactory cudSqlSessionFactory(@Qualifier("cudDataSource") DataSource cudDataSource) throws Exception {
         final SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
-        sqlSessionFactoryBean.setDataSource(cudOnlyDataSource);
+        sqlSessionFactoryBean.setDataSource(cudDataSource);
 
         // Set base package alias path
         // sqlSessionFactoryBean.setTypeAliasesPackage("com.boardapp.boardapi");
@@ -41,8 +41,8 @@ public class CudOnlyDatabaseConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean(name = "cudOnlySqlSessionTemplate")
-    SqlSessionTemplate cudOnlySqlSessionTemplate(SqlSessionFactory cudOnlySqlSessionFactory) throws Exception {
-        return new SqlSessionTemplate(cudOnlySqlSessionFactory);
+    @Bean(name = "cudSqlSessionTemplate")
+    SqlSessionTemplate cudSqlSessionTemplate(SqlSessionFactory cudSqlSessionFactory) throws Exception {
+        return new SqlSessionTemplate(cudSqlSessionFactory);
     }
 }
