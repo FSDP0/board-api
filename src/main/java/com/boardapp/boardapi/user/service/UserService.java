@@ -1,5 +1,11 @@
 package com.boardapp.boardapi.user.service;
 
-public class UserService {
+import org.springframework.stereotype.Service;
+import com.boardapp.boardapi.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 
+@Service
+@RequiredArgsConstructor
+public class UserService {
+    private final UserRepository userRepository;
 }
