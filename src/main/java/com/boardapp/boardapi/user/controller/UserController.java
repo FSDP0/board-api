@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.boardapp.boardapi.user.model.UserEditDto;
 import com.boardapp.boardapi.user.model.UserResonseDto;
@@ -16,7 +17,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-// @RequestMapping("users")
+@RequestMapping("users")
 @RequiredArgsConstructor
 public class UserController {
     // ! Dependency injection
