@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import com.boardapp.boardapi.user.mapper.master.MasterDatabaseUserMapper;
-import com.boardapp.boardapi.user.mapper.slave.SlaveDatabaseUserMapper;
 import com.boardapp.boardapi.user.model.User;
 import com.boardapp.boardapi.user.model.dto.UserEditDto;
 import com.boardapp.boardapi.user.model.dto.UserResponseDto;
 import com.boardapp.boardapi.user.model.dto.UserSaveDto;
+import com.boardapp.boardapi.user.repository.master.MasterDatabaseUserMapper;
+import com.boardapp.boardapi.user.repository.slave.SlaveDatabaseUserMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

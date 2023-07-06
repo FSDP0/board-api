@@ -1,9 +1,11 @@
-package com.boardapp.boardapi.board.mapper.master;
+package com.boardapp.boardapi.board.repository.master;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.boardapp.boardapi.board.model.Board;
 
 // ! INSERT / UPDATE / DELETE
+@Mapper
 public interface MasterDatabaseBoardMapper {
     void saveBoard(@Param("boardObj") Board board) throws Exception;
 

@@ -1,4 +1,4 @@
-package com.boardapp.boardapi.user.mapper.master;
+package com.boardapp.boardapi.user.repository.master;
 
 import org.apache.ibatis.annotations.Param;
 import com.boardapp.boardapi.user.model.User;

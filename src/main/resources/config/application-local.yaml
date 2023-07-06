@@ -18,13 +18,13 @@ logging:
 spring:
     datasource:
         # [master] Database Connection Pool
-        master:
+        read-only:
             driver-class-name: com.mysql.cj.jdbc.Driver
             jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
             username: root
             password: 123456
         # [slave] Database Connection Pool 
-        slave:
+        cud-only:
             driver-class-name: com.mysql.cj.jdbc.Driver
             jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
             username: root

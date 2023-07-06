@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.boardapp.boardapi.board.mapper.master.MasterDatabaseBoardMapper;
-import com.boardapp.boardapi.board.mapper.slave.SlaveDatabaseBoardMapper;
 import com.boardapp.boardapi.board.model.Board;
 import com.boardapp.boardapi.board.model.dto.BoardResponseDto;
 import com.boardapp.boardapi.board.model.dto.BoardSaveDto;
 import com.boardapp.boardapi.board.model.dto.BoardUpdateDto;
+import com.boardapp.boardapi.board.repository.master.MasterDatabaseBoardMapper;
+import com.boardapp.boardapi.board.repository.slave.SlaveDatabaseBoardMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

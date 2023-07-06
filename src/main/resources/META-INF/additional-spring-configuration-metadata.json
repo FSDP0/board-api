@@ -1,35 +1,35 @@
 {"properties": [{
-  "name": "spring.datasource.master.driver-class-name",
+  "name": "spring.datasource.read-only.driver-class-name",
   "type": "java.lang.String",
-  "description": "[ Master ] Database driver class name"
+  "description": "[ ReadOnly ] Database driver class name"
 },{
-    "name":"spring.datasource.master.jdbc-url",
+    "name":"spring.datasource.read-only.jdbc-url",
     "type":"java.lang.String",
-    "description":"[ Master ] Database connection url"
+    "description":"[ ReadOnly ] Database connection url"
 },{
-    "name":"spring.datasource.master.username",
+    "name":"spring.datasource.read-only.username",
     "type":"java.lang.String",
-    "description":"[ Master ] Database connection username"
+    "description":"[ ReadOnly ] Database connection username"
 },{
-    "name":"spring.datasource.master.password",
+    "name":"spring.datasource.read-only.password",
     "type":"java.lang.String",
-    "description":"[ Master ] Database connection password"
+    "description":"[ ReadOnly ] Database connection password"
 },
 {
-  "name": "spring.datasource.slave.driver-class-name",
+  "name": "spring.datasource.cud-only.driver-class-name",
   "type": "java.lang.String",
-  "description": "[ Slave ] Database driver class name"
+  "description": "[ CudOnly ] Database driver class name"
 },{
-    "name":"spring.datasource.slave.jdbc-url",
+    "name":"spring.datasource.cud-only.jdbc-url",
     "type":"java.lang.String",
-    "description":"[ Slave ] Database connection url"
+    "description":"[ CudOnly ] Database connection url"
 },{
-    "name":"spring.datasource.slave.username",
+    "name":"spring.datasource.cud-only.username",
     "type":"java.lang.String",
-    "description":"[ Slave ] Database connection username"
+    "description":"[ CudOnly ] Database connection username"
 },{
-    "name":"spring.datasource.slave.password",
+    "name":"spring.datasource.cud-only.password",
     "type":"java.lang.String",
-    "description":"[ Slave ] Database connection password"
+    "description":"[ CudOnly ] Database connection password"
 }
 ]}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.boardapp.boardapi.board.mapper.master.MasterDatabaseBoardMapper">
-    <insert id="saveBoard" parameterType="Board">
+    <insert id="saveBoard" parameterType="com.boardapp.boardapi.board.model.Board">
         INSERT
         INTO board(
             board_title,
@@ -16,7 +16,7 @@
         )
     </insert>
 
-    <update id="updateBoard" parameterType="Board">
+    <update id="updateBoard" parameterType="com.boardapp.boardapi.board.model.Board">
         UPDATE board
         SET board_title = #{boardObj.boardTitle},
             board_contents = #{boardObj.boardContents},

@@ -4,7 +4,6 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -15,60 +14,58 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 // ! Mapper JAVA file path / 서로 다른 패키지 경로 명을 기준으로 탐색
-@MapperScan(value = "com.boardapp.boardapi.**.mapper.master", sqlSessionFactoryRef = "masterSqlSessionFactory")
+// @MapperScan(value = "com.boardapp.boardapi.**.mapper.master", sqlSessionFactoryRef = "masterSqlSessionFactory")
 @EnableTransactionManagement
-public class MasterDatabaseConfig {
+@RequiredArgsConstructor
+public class ReadOnlyDatabaseConfig {
     private final ApplicationContext applicationContext;
 
-    public MasterDatabaseConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
     @Primary
-    @Bean(name = "masterDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.master")
-    DataSource masterDataSource() {
+    @Bean(name = "readOnlyDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.read-only")
+    DataSource readOnlyDataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Primary
-    @Bean(name = "masterSqlSessionFactory")
-    SqlSessionFactory masterSqlSessionFactory(@Qualifier("masterDataSource") DataSource masterDataSource) throws Exception {
+    @Bean(name = "readOnlySqlSessionFactory")
+    SqlSessionFactory readOnlySqlSessionFactory(@Qualifier("readOnlyDataSource") DataSource readOnlyDataSource) throws Exception {
         final SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
-        sqlSessionFactoryBean.setDataSource(masterDataSource);
+        sqlSessionFactoryBean.setDataSource(readOnlyDataSource);
 
         // Set base package alias path
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.boardapp.boardapi");
+        // sqlSessionFactoryBean.setTypeAliasesPackage("com.boardapp.boardapi");
         // MyBatis XML mapper resource file path
-        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResources("classpath:mybatis/mapper/master/**/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResources("classpath:mybatis/mapper/readOnly/**/*.xml"));
 
         return sqlSessionFactoryBean.getObject();
     }
 
     @Primary
-    @Bean(name = "masterSqlSessionTemplate")
-    SqlSessionTemplate masterSqlSessionTemplate(SqlSessionFactory masterSqlSessionFactory) throws Exception {
-        return new SqlSessionTemplate(masterSqlSessionFactory);
+    @Bean(name = "readOnlySqlSessionTemplate")
+    SqlSessionTemplate readOnlySqlSessionTemplate(SqlSessionFactory readOnlySqlSessionFactory) throws Exception {
+        return new SqlSessionTemplate(readOnlySqlSessionFactory);
     }
 
     // ! Datasource initializer (resources 디렉토리에 존재하는 .sql script를 사용)
     @Primary
-    @Bean(name = "masterDataSourceScriptDatabaseInitializer")
-    DataSourceInitializer masterDataSourceInitializer(@Qualifier("masterDataSource") DataSource masterDataSource) {
+    @Bean(name = "readOnlyDataSourceScriptDatabaseInitializer")
+    DataSourceInitializer readOnlyDataSourceInitializer(@Qualifier("readOnlyDataSource") DataSource readOnlyDataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 
         // ! Schema 생성 스크립트 추가 후에 Data 생성 스크립트를 추가 (순서 중요)
-        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/schema-master.sql"));
-        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/data-master.sql"));
+        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/schema-mysql.sql"));
+        resourceDatabasePopulator.addScript(this.applicationContext.getResource("classpath:database/data-mysql.sql"));
 
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
 
         // * DataSourceInitializer에서 사용할 DataSource 설정
-        dataSourceInitializer.setDataSource(masterDataSource);
+        dataSourceInitializer.setDataSource(readOnlyDataSource);
         dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
 
         return dataSourceInitializer;

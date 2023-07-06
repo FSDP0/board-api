@@ -1,4 +1,4 @@
-package com.boardapp.boardapi.user.mapper.slave;
+package com.boardapp.boardapi.user.repository.slave;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
