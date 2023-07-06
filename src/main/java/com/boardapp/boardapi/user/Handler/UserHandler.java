@@ -24,7 +24,7 @@ public class UserHandler {
     // !
 
     public Mono<ServerResponse> getAllUser(ServerRequest req) {
-        Flux<User> userFlux = Flux.fromIterable(this.userRepository.findAllOrderByBoardId());
+        Flux<User> userFlux = Flux.fromIterable(this.userRepository.findAll());
 
         return ServerResponse.ok() // HTTP Status Code 200 [OK]
                 .contentType(MediaType.APPLICATION_JSON) // Response Content Type
@@ -62,7 +62,7 @@ public class UserHandler {
 
         Mono<UserEditDto> userDtoMono = req.bodyToMono(UserEditDto.class);
 
-        return userDtoMono.flatMap(userDto -> Mono.fromCallable(() -> this.userRepository.updateBoard(userDto.toEntity(), userId)))
+        return userDtoMono.flatMap(userDto -> Mono.fromCallable(() -> this.userRepository.updateBoard(userDto.toEntity(userId))))
                 .flatMap(data -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue("Effected Row : " + data));
     }
 

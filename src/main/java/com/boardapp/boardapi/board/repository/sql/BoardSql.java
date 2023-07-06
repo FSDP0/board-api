@@ -8,19 +8,19 @@ public class BoardSql {
 
     public static final String SELECT_ALL_ORDERBY = searchOption("ORDER BY", "board_id ASC");
 
-    public static final String SELECT_BY_ID = searchOption("WHERE", "board_id = ?");
+    public static final String SELECT_BY_ID = searchOption("WHERE", "board_id = :boardId");
 
-    public static final String SELECT_BY_WRITER = searchOption("WHERE", "write_id = ?");
+    public static final String SELECT_BY_WRITER = searchOption("WHERE", "write_id = :writeId");
 
-    public static final String SELECT_BY_EDITOR = searchOption("WHERE", "modify_id = ?");
+    public static final String SELECT_BY_EDITOR = searchOption("WHERE", "modify_id = :modifyId");
 
     public static final String UPDATE_BY_ID = """
             UPDATE board
-            SET board_title = :title,
-                board_contents = :contents,
+            SET board_title = :boardTitle,
+                board_contents = :boardContents,
                 modify_id = :modifyId,
                 modify_date = :modifyDate
-            WHERE board_id = :id
+            WHERE board_id = :boardId
             """;
 
     public static String searchOption(String command, String query) {

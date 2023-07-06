@@ -15,8 +15,14 @@ public class UserSaveDto {
     private String detailAddress;
 
     public User toEntity() {
-        User user = User.builder().id(this.id).name(this.name).password(this.password).tel(this.tel).address(this.address)
-                .detailAddress(this.detailAddress).createdDate(Timestamp.valueOf(LocalDateTime.now())).build();
+        User user = User.builder()
+                        .id(this.id)
+                        .name(this.name)
+                        .password(this.password)
+                        .tel(this.tel)
+                        .address(this.address)
+                        .detailAddress(this.detailAddress)
+                        .createdDate(Timestamp.valueOf(LocalDateTime.now())).build();
 
         return user;
     }

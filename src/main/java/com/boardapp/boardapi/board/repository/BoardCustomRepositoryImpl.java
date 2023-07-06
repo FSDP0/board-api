@@ -1,22 +1,28 @@
 package com.boardapp.boardapi.board.repository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.board.repository.sql.BoardSql;
+import lombok.RequiredArgsConstructor;
 
 @Repository
+@RequiredArgsConstructor
 public class BoardCustomRepositoryImpl implements BoardCustomRepository {
+    // ! Dependency injection
     private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    // ! RowMapper with Entity 
     private final RowMapper<Board> boardRowMapper = BeanPropertyRowMapper.newInstance(Board.class);
-
-    public BoardCustomRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     // * 게시자 기준 게시글 전체 조회
     @Override
@@ -52,4 +58,13 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
         return this.jdbcTemplate.queryForObject(sql, boardRowMapper, userId);
     }
 
+    // ! Update with Named JDBC Template Native Query
+    @Override
+    public Integer updateBoard(Board board) {
+        String sql = BoardSql.UPDATE_BY_ID;
+
+        SqlParameterSource namedParameterSource = new BeanPropertySqlParameterSource(board);
+
+        return this.namedParameterJdbcTemplate.update(sql, namedParameterSource);
+    }
 }

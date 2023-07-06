@@ -9,14 +9,13 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import com.boardapp.boardapi.board.handler.BoardHandler;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
+@RequiredArgsConstructor
 public class BoardRouterConfig {
+    // ! Dependency Injection
     private final BoardHandler boardHandler;
-
-    public BoardRouterConfig(BoardHandler boardHandler) {
-        this.boardHandler = boardHandler;
-    }
 
     // ! Board routes configuration Bean
     @Bean

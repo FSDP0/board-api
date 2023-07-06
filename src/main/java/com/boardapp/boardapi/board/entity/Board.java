@@ -6,17 +6,20 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+import com.boardapp.boardapi.board.model.BoardReponseDto;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
 @Table(name = "board") // * Table Name
 public class Board {
     @Id
+    @Column("board_id")
     private Long boardId; // ! 게시글 번호 [PK]
 
     @Column("board_title")
@@ -38,6 +41,18 @@ public class Board {
     @Column("modify_date")
     @LastModifiedDate
     private Date modifyDate; // ! 게시글 수정일
+
+    public BoardReponseDto toDto(Board board){
+        return BoardReponseDto.builder()
+                                .id(this.boardId)
+                                .title(this.boardTitle)
+                                .contents(this.boardContents)
+                                .writeId(this.writeId)
+                                .modifyId(this.modifyId)
+                                .writeDate(this.writeDate)
+                                .modifyDate(this.modifyDate)
+                                .build();
+    }
 
     @Builder
     public Board(Long id, String title, String contents, String writeId, String modifyId, Date writeDate, Date modifyDate) {

@@ -28,10 +28,8 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     @Override
-    public Integer updateBoard(User user, String userId) {
+    public Integer updateBoard(User user) {
         String sql = UserSql.UPDATE_BY_ID;
-
-        user.setUserId(userId);
 
         SqlParameterSource namedParameterSource = new BeanPropertySqlParameterSource(user);
 

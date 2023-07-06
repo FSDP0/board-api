@@ -1,7 +1,6 @@
 package com.boardapp.boardapi.board.handler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
@@ -15,42 +14,25 @@ import com.boardapp.boardapi.board.model.BoardEditDto;
 import com.boardapp.boardapi.board.model.BoardReponseDto;
 import com.boardapp.boardapi.board.model.BoardSaveDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class BoardHandler {
-    // ! Service dependency injection
+    // ! Dependency injection
     private final BoardRepository boardRepository;
-
-    public BoardHandler(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
-    }
-    // !
 
     // * 전체 게시글 조회 Handler
     public Mono<ServerResponse> getAllBoards(ServerRequest req) {
         log.info("[ Handler ] Request find all boards");
 
-
-        Iterable<Board> boardList = this.boardRepository.findAll();
-
-        List<BoardReponseDto> boardDtoList = new ArrayList<BoardReponseDto>();
-
-        for(Board board : boardList){
-            BoardReponseDto dto = BoardReponseDto.builder().id(board.getBoardId()).title(board.getBoardTitle()).contents(board.getBoardContents()).writeId(board.getWriteId()).writeDate(board.getWriteDate()).modifyId(board.getModifyId()).modifyDate(board.getModifyDate()).build();
-
-            boardDtoList.add(dto);
-        }
-
-        Flux<BoardReponseDto> boardFlux = Flux.fromIterable(boardDtoList);
-
-        return ServerResponse.ok()// HTTP Status Code 200 [OK]
-                .contentType(MediaType.APPLICATION_JSON) // Content Type
-                .body(boardFlux, BoardReponseDto.class) // Reponse Body
-                .switchIfEmpty(ServerResponse.notFound().build()); // Response 404, IfEmpty
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(Flux.fromIterable(this.boardRepository.findAll()).map(board -> board.toDto(board)), BoardReponseDto.class)
+                .switchIfEmpty(ServerResponse.notFound().build());
     }
 
     // * 특정 게시글 조회 Handler
@@ -62,17 +44,10 @@ public class BoardHandler {
 
         log.info("[ Handler ] Received parameter : " + boardId);
 
-
-        Board board = this.boardRepository.findById(boardId).get();
-
-        BoardReponseDto dto = BoardReponseDto.builder().id(board.getBoardId()).title(board.getBoardTitle()).contents(board.getBoardContents()).writeId(board.getWriteId()).writeDate(board.getWriteDate()).modifyId(board.getModifyId()).modifyDate(board.getModifyDate()).build();
-
-        Mono<BoardReponseDto> boardDtoMono = Mono.just(dto);
-
-        return ServerResponse.ok() // HTTP Status Code 200 [OK]
-                .contentType(MediaType.APPLICATION_JSON) // Conetent Type
-                .body(boardDtoMono, BoardReponseDto.class) // Response Body
-                .switchIfEmpty(ServerResponse.notFound().build()); // Response 404, IfEmpty
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.fromCallable(() -> this.boardRepository.findById(boardId).get()).map(board -> board.toDto(board)),
+                        BoardReponseDto.class)
+                .switchIfEmpty(ServerResponse.notFound().build());
     }
 
     // * 게시글 등록 Handler
@@ -80,13 +55,13 @@ public class BoardHandler {
     public Mono<ServerResponse> saveBoard(ServerRequest req) {
         log.info("[ Handler ] Request save board");
 
-        Mono<BoardSaveDto> boardDtoMono = req.bodyToMono(BoardSaveDto.class);
+        return Mono.empty();
 
-        return boardDtoMono.flatMap(boardDto -> Mono.fromCallable(() -> this.boardRepository.save(boardDto.toEntity())))
-                .flatMap(board -> ServerResponse.ok() // HTTP Status Code 200
-                        .contentType(MediaType.APPLICATION_JSON) // Content Type
-                        .bodyValue(board) // Response Body
-                );
+        // return boardDtoMono.flatMap(boardDto -> Mono.fromCallable(() -> this.boardRepository.save(boardDto.toEntity())))
+        //         .flatMap(board -> ServerResponse.ok() // HTTP Status Code 200
+        //                 .contentType(MediaType.APPLICATION_JSON) // Content Type
+        //                 .bodyValue(board) // Response Body
+        //         );
     }
 
     // * 특정 게시글 수정 Hadler
@@ -96,26 +71,46 @@ public class BoardHandler {
 
         Long id = Long.parseLong(req.pathVariable("id")); // * 게시글 번호
 
-        log.info("[ Handler ] Receivev parameter : " + id);
+        // log.info("[ Handler ] Receivev parameter : " + id);
 
-        Mono<BoardEditDto> boardDtoMono = req.bodyToMono(BoardEditDto.class); // * Update Data
+        // Mono<BoardEditDto> boardDtoMono = req.bodyToMono(BoardEditDto.class); // * Update Data
 
-        return boardDtoMono
-                .flatMap(boardDto -> Mono.fromCallable(() -> this.boardRepository.updateBoard(boardDto.getTitle(), boardDto.getContents(),
-                        boardDto.getModifyName(), Timestamp.valueOf(LocalDateTime.now()), id)))
-                .flatMap(data -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build(Mono.empty()));
+        // return boardDtoMono
+        // .flatMap(boardDto -> Mono.fromCallable(() ->
+        // this.boardRepository.updateBoard(boardDto.getTitle(), boardDto.getContents(),
+        // boardDto.getModifyName(), Timestamp.valueOf(LocalDateTime.now()), id)))
+        // .flatMap(data ->
+        // ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build(Mono.empty()));
+
+        Mono<BoardEditDto> boardDtoMono = req.bodyToMono(BoardEditDto.class);
+
+        // Mono.fromCallable(()->boardDtoMono.map(dto ->
+        // this.boardRepository.save(dto.toEntity(id))).map(board -> ServerResponse.ok().build()));
+
+        // return ServerResponse.noContent()
+        // .build(Mono.fromRunnable(() -> boardDtoMono.map(dto ->
+        // this.boardRepository.save(dto.toEntity(id)))))
+        // .log("[ Reactor ] Update board data",Level.INFO)
+        // .switchIfEmpty(ServerResponse.notFound().build()); // Reponse HTTP status code 404 with empty
+        // body
+
+        // Mono.fromRunnable(() -> boardDtoMono.map(dto -> this.boardRepository.save(dto.toEntity(id))));
+
+        Mono<Board> boardMono = req.bodyToMono(BoardEditDto.class).map(dto -> dto.toEntity(id));
+
+        return ServerResponse.ok().build();
     }
 
-    // * 특정 게시글 삭제 Handler
+    // ! Delete board handler
     @Transactional
     public Mono<ServerResponse> deleteBoard(ServerRequest req) {
-
         Long boardId = Long.parseLong(req.pathVariable("id"));
 
-        this.boardRepository.deleteById(boardId);
-
         return ServerResponse.status(HttpStatus.NO_CONTENT) // HTTP Status Code 204
-                .build(Mono.empty()) // Publisher<Void>
+                .build(Mono.from(Mono.fromRunnable(() -> this.boardRepository.deleteById(boardId)))) // Publisher required empty emit after
+                                                                                                     // onComplete [ Mono<Void> ]
+                .log("[ Reactor ] Delete board data", Level.INFO)
+                .doOnError(error -> log.error("[ Reactor ] Error occured when delete board data"))
                 .switchIfEmpty(ServerResponse.notFound().build()); // Response 404, IfEmpty
     }
 }

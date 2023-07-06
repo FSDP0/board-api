@@ -8,7 +8,7 @@ public class UserSql {
 
     public static final String SELECT_ALL_ORDERBY = searchOption("ORDER BY", "id ASC");
 
-    public static final String SELECT_BY_ID = searchOption("WHERE", "user_id = ?");
+    public static final String SELECT_BY_ID = searchOption("WHERE", "user_id = :userId");
 
     public static final String UPDATE_BY_ID = """
             UPDATE user
