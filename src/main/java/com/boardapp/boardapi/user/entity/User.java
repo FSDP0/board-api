@@ -1,18 +1,17 @@
 package com.boardapp.boardapi.user.entity;
 
 import java.util.Date;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+import com.boardapp.boardapi.user.model.UserDto;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Table("user")
 public class User {
-    @Column("index")
+    @Column("id")
     private Long id;
 
     @Id
@@ -34,13 +33,26 @@ public class User {
     @Column("detail_address")
     private String detailAddress;
 
-    @CreatedDate
     @Column("created_date")
     private Date createdDate;
 
-    @LastModifiedDate
     @Column("modified_date")
     private Date modifiedDate;
+
+    public UserDto toDto(){
+        return UserDto.builder()
+                        .index(this.id)
+                        .id(this.userId)
+                        .name(this.userName)
+                        .password(this.userPassword)
+                        .tel(this.userTel)
+                        .address(this.userAddress)
+                        .detailAddress(this.detailAddress)
+                        .createdDate(this.createdDate)
+                        .modifiedDate(this.modifiedDate)
+                        .build();
+    }
+
 
     @Builder
     public User(String id, String name, String password, String tel, String addess, String detailAddress, Date createdDate,
