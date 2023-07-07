@@ -1,5 +1,6 @@
 package com.boardapp.boardapi.board.service;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -33,14 +34,14 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public Mono<Void> saveBoard(Mono<BoardSaveDto> boardDtoMono) {
         return boardDtoMono.map(dto -> this.boardRepository.save(dto.toEntity()))   // * Save
-                            .and(ServerResponse.ok().build());    // * HTTP Status Code 200 [OK] with return empty body
+                            .and(ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build());    // * HTTP Status Code 200 [OK] with return empty body
     }
 
     @Override
     @Transactional
     public Mono<Void> updateBoard(Long id, Mono<BoardEditDto> dtoMono) {
         return dtoMono.map(dto -> this.boardRepository.updateBoard(dto.toEntity(id)))  // * Update with id
-                        .and(ServerResponse.ok().build()); // * HTTP Status Code 200 [OK] with return empty body
+                        .and(ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build()); // * HTTP Status Code 200 [OK] with return empty body
     }
 
     @Override

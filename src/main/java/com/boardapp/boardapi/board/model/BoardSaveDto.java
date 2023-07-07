@@ -4,8 +4,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import com.boardapp.boardapi.board.entity.Board;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 // * 게시글 작성관련 데이터 전송객체
+@Slf4j
 @Getter
 public class BoardSaveDto {
     private String title;
@@ -14,6 +16,10 @@ public class BoardSaveDto {
     private String writeName;
 
     public Board toEntity() {
+        log.warn("[ Board Title ] : "+title);
+        log.warn("[ Board Contents ] : "+ contents);
+        log.warn("[ Write Id ] : "+writeName);
+
         return Board.builder()
                         .title(this.title)
                         .contents(this.contents)

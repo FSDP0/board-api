@@ -1,6 +1,8 @@
 package com.boardapp.boardapi.board.model;
 
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import lombok.Builder;
 import lombok.Getter;
 
