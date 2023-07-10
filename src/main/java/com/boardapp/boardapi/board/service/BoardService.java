@@ -20,7 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    @Cacheable(value = "boards", cacheManager = "boardCacheManager")
+    @Cacheable(
+        value = "boards",
+        cacheNames = "boardList",
+        cacheManager = "boardCacheManager")
     public List<BoardDto> getAllBoards() {
         log.warn("Cache data not found ...");
 
@@ -45,7 +48,7 @@ public class BoardService {
     }
 
     @Transactional
-    @CachePut(value = "boards", key = "#dto.num")
+    @CachePut(value = "boards", key = "#dto?.num")
     public Board saveBoard(BoardDto dto) {
         return this.boardRepository.save(dto.toEntity());
     }
