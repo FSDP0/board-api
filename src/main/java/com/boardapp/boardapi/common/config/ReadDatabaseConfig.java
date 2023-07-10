@@ -11,14 +11,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
-// ! Mapper JAVA file path / 서로 다른 패키지 경로 명을 기준으로 탐색
-// @MapperScan(value = "com.boardapp.boardapi.**.mapper.master", sqlSessionFactoryRef = "masterSqlSessionFactory")
 @EnableTransactionManagement
 @RequiredArgsConstructor
 public class ReadDatabaseConfig {
@@ -29,6 +29,12 @@ public class ReadDatabaseConfig {
     @ConfigurationProperties(prefix = "spring.datasource.read-only")
     DataSource readDataSource() {
         return DataSourceBuilder.create().build();
+    }
+
+    @Primary
+    @Bean(name="readTransactionManager")
+    public PlatformTransactionManager readTransactionManager(@Qualifier("readDataSource") DataSource readDataSource) {
+        return new DataSourceTransactionManager(readDataSource);
     }
 
     @Primary

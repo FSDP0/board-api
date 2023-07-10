@@ -1,8 +1,8 @@
 package com.boardapp.boardapi.board.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import com.boardapp.boardapi.board.model.Board;
 import jakarta.annotation.Resource;
@@ -12,11 +12,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardDaoImpl implements BoardDao{
     // ! SqlSessionTemplate dependency injection
-    @Resource(name="cudSqlSessionTemplate")
-    private final SqlSessionTemplate cudSqlSessionTemplate;
-
     @Resource(name="readSqlSessionTemplate")
     private final SqlSessionTemplate readSqlSessionTemplate;
+
+    @Qualifier("cudSqlSessionTemplate")
+    @Resource(name="cudSqlSessionTemplate")
+    private final SqlSessionTemplate cudSqlSessionTemplate;
     // !
 
     private final String findAllBoards  = "com.boardapp.boardapi.board.mapper.BoardReadMapper.getAllBoards";

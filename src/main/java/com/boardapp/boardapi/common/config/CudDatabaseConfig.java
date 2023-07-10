@@ -16,10 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Configuration
-// ! Mapper JAVA file package path / 서로 다른 패키지 경로 명을 기준으로 탐색
-// @MapperScan(value = "com.boardapp.boardapi.**.mapper.slave", sqlSessionFactoryRef = "slaveSqlSessionFactory")
 @EnableTransactionManagement
 @RequiredArgsConstructor
 public class CudDatabaseConfig {
@@ -47,8 +44,6 @@ public class CudDatabaseConfig {
         // sqlSessionFactoryBean.setTypeAliasesPackage("com.boardapp.boardapi");
         // ! MyBatis .xml mapper file locations
         sqlSessionFactoryBean.setMapperLocations(this.applicationContext.getResources("classpath:mybatis/mapper/cud/**/*.xml"));
-
-        log.info(this.applicationContext.getResources("classpath:mybatis/mapper/cud/**/*.xml").toString());
 
         return sqlSessionFactoryBean.getObject();
     }

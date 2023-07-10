@@ -32,7 +32,6 @@ spring:
             password: 123456
             
 mybatis:
-    # type-aliases-package: com.boardapp.boardapi
     mapper-locations:
     - classpath:mybatis/mapper/read/**/*.xml
     - classpath:mybatis/mapper/cud/**/*.xml

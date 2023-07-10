@@ -56,20 +56,18 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public void saveBoard(BoardDto saveDto) {
         this.boardDao.saveBoard(saveDto.toEntity());
-        // this.masterDatabaseBoardMapper.saveBoard(saveDto.toEntity());
     }
 
     // * 특정 게시글 수정
     @Override
     @Transactional
     public void updateBoard(Long id, BoardDto updateDto) {
-        // this.masterDatabaseBoardMapper.updateBoard(updateDto.toEntity(id));
     }
 
     // * 특정 게시글 삭제
     @Override
     @Transactional
     public void deleteBoard(Long id) {
-        // this.masterDatabaseBoardMapper.deleteBoard(id);
+        this.boardDao.deleteBoard(id);
     }
 }
