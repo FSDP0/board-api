@@ -45,19 +45,19 @@ public class BoardService {
     }
 
     @Transactional
-    @CachePut(value = "boards", key = "#dto")
-    public void saveBoard(BoardDto dto) {
-        this.boardRepository.save(dto.toEntity());
+    @CachePut(value = "boards", key = "#dto.num")
+    public Board saveBoard(BoardDto dto) {
+        return this.boardRepository.save(dto.toEntity());
     }
 
     @Transactional
-    @Caching(evict = @CacheEvict(value = "boards", key = "#id"), put = @CachePut(value = "boards", key = "#dto"))
+    @Caching(evict = @CacheEvict(value = "boards", key = "#id"), put = @CachePut(value = "boards", key = "#id"))
     public void updateBoard(Long id, BoardDto dto) {
         this.boardRepository.updateBoard(dto.toEntity(id));
     }
 
     @Transactional
-    @CacheEvict(value = "boards", key = "#id", beforeInvocation = false)
+    @CacheEvict(value = "boards", key = "#id", beforeInvocation = false) // ! 메소드 실행 이후에 CacheEvict
     public void deleteBoard(Long id) {
         this.boardRepository.deleteById(id);
     }
