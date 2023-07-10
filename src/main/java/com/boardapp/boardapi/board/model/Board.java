@@ -1,6 +1,7 @@
 package com.boardapp.boardapi.board.model;
 
 import java.util.Date;
+import com.boardapp.boardapi.board.model.dto.BoardDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,6 +17,18 @@ public class Board {
 
     private Date writeDate;
     private Date modifyDate;
+
+    public BoardDto toDto(){
+        return BoardDto.builder()
+                        .num(this.boardId)
+                        .title(this.boardTitle)
+                        .contents(this.boardContents)
+                        .writeName(this.writeId)
+                        .modifyName(this.modifyId)
+                        .writeDate(this.writeDate)
+                        .modifyDate(this.modifyDate)
+                        .build();
+    }
 
     @Builder
     public Board(Long id, String title, String contents, String writeId, String modifyId, Date writeDate, Date modifyDate) {

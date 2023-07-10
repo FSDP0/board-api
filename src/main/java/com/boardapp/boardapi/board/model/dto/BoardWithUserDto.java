@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class BoardWithUserResponseDto {
+public class BoardWithUserDto {
     private Long num;
 
     private String title;

@@ -48,7 +48,7 @@ public class ReadDatabaseConfig {
 
     @Primary
     @Bean(name = "readSqlSessionTemplate")
-    SqlSessionTemplate readSqlSessionTemplate(SqlSessionFactory readSqlSessionFactory) throws Exception {
+    public SqlSessionTemplate readSqlSessionTemplate(SqlSessionFactory readSqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(readSqlSessionFactory);
     }
 

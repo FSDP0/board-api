@@ -34,4 +34,5 @@ public class BoardWithUser {
     private String editorAddress;
     private String editorDetailAddress;
     private String editorAddressZipcode;
+
 }

@@ -13,28 +13,29 @@ logging:
             audit: off
             resultset: off
             connection: off
-        
+        org:
+            springframework: INFO
 
 spring:
     datasource:
-        # [master] Database Connection Pool
+        # [READ ONLY] Database Connection Pool
         read-only:
             driver-class-name: com.mysql.cj.jdbc.Driver
-            jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
+            jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
             username: root
             password: 123456
-        # [slave] Database Connection Pool 
+        # [CUD ONLY] Database Connection Pool 
         cud-only:
             driver-class-name: com.mysql.cj.jdbc.Driver
-            jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=EUC-KR
+            jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
             username: root
             password: 123456
             
 mybatis:
-    type-aliases-package: com.boardapp.boardapi
+    # type-aliases-package: com.boardapp.boardapi
     mapper-locations:
-    - classpath:mybatis/mapper/master/**/*.xml
-    - classpath:mybatis/mapper/slave/**/*.xml
+    - classpath:mybatis/mapper/read/**/*.xml
+    - classpath:mybatis/mapper/cud/**/*.xml
 
     configuration:
         map-underscore-to-camel-case: true

@@ -1,16 +1,21 @@
 package com.boardapp.boardapi.user.model;
 
 import java.util.Date;
+import com.boardapp.boardapi.user.model.dto.UserDto;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 // 동일한 패키지 내에서만 매개변수가 없는 생성자로 Class Object 생성 가능
-// @NoArgsConstructor
-@AllArgsConstructor
 @Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
-    private Long indexId;
+    private Long indexId; // UK 
 
     private String userId; // PK
     private String userName;
@@ -22,6 +27,20 @@ public class User {
     
     private Date createdDate;
     private Date modifiedDate;
+
+    public UserDto toDto() {
+        return UserDto.builder()
+                        .index(this.indexId)
+                        .id(this.userId)
+                        .name(this.userName)
+                        .password(this.userPassword)
+                        .tel(this.userTel)
+                        .address(this.userAddress)
+                        .detailAddress(this.detailAddress)
+                        .createdDate(this.createdDate)
+                        .modifiedDate(this.modifiedDate)
+                        .build();
+    }
 
     @Builder
     public User(String id, String name, String password, String tel, String address, String detailAddress, Date createdDate,

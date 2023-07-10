@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.boardapp.boardapi.user.mapper.master.MasterDatabaseUserMapper">
+<mapper namespace="com.boardapp.boardapi.user.mapper.UserCudMapper">
     <insert id="saveUser" parameterType="com.boardapp.boardapi.user.model.User">
         INSERT
         INTO user (
@@ -30,10 +30,10 @@
             user_address = #{userObj.userAddress},
             detail_address = #{userObj.detailAddress},
             modified_date = #{userObj.modifiedDate}
-        WHERE user_id = #{userId}
+        WHERE user_id = #{userObj.userId}
     </update>
 
-    <delete id="deleteUser">
+    <delete id="deleteUser" parameterType="java.lang.String">
         DELETE
         FROM user
         WHERE user_id = #{userId}
