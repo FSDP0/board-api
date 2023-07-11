@@ -4,9 +4,11 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import com.boardapp.boardapi.board.entity.Board;
 import lombok.Getter;
+import lombok.Setter;
 
 // * 게시글 수정관련 데이터 전송객체
 @Getter
+@Setter
 public class BoardEditDto {
     private String title;
     private String contents;

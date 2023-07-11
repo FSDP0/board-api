@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.boardapp.boardapi.user.model.UserEditDto;
-import com.boardapp.boardapi.user.model.UserResonseDto;
+import com.boardapp.boardapi.user.model.UserResponseDto;
 import com.boardapp.boardapi.user.model.UserSaveDto;
 import com.boardapp.boardapi.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +24,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    private Flux<UserResonseDto> getAllUser(){
+    private Flux<UserResponseDto> getAllUser(){
         return this.userService.getAllUser();
     }
     
     @GetMapping("/:{userId}")
-    private Mono<UserResonseDto> getByUserId(@PathVariable String userId){
+    private Mono<UserResponseDto> getByUserId(@PathVariable String userId){
         return this.userService.getByUserId(userId);
     }
 

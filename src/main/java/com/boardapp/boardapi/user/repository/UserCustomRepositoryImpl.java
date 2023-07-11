@@ -19,7 +19,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     @Override
-    public Integer saveBoard(User user) {
+    public Integer saveUser(User user) {
         String sql = UserSql.INSERT_USER;
 
         SqlParameterSource namedParameterSource = new BeanPropertySqlParameterSource(user);
@@ -28,7 +28,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     }
 
     @Override
-    public Integer updateBoard(User user) {
+    public Integer updateUser(User user) {
         String sql = UserSql.UPDATE_BY_ID;
 
         SqlParameterSource namedParameterSource = new BeanPropertySqlParameterSource(user);

@@ -4,7 +4,7 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
-import com.boardapp.boardapi.user.model.UserResonseDto;
+import com.boardapp.boardapi.user.model.UserResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,8 +43,8 @@ public class User {
     @Column("modified_date")
     private Date modifiedDate;
 
-    public UserResonseDto toDto(User user){
-        return UserResonseDto.builder()
+    public UserResponseDto toDto(User user){
+        return UserResponseDto.builder()
                                 .index(user.getId())
                                 .id(user.getUserId())
                                 .name(user.getUserName())

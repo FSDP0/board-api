@@ -3,7 +3,7 @@ package com.boardapp.boardapi.user.repository;
 import com.boardapp.boardapi.user.entity.User;
 
 public interface UserCustomRepository {
-    Integer saveBoard(User user);
+    Integer saveUser(User user);
 
-    Integer updateBoard(User user);
+    Integer updateUser(User user);
 }

@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class UserResonseDto {
+public class UserResponseDto {
     private Long index;
 
     private String id;

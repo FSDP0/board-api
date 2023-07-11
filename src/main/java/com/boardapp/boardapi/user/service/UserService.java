@@ -1,15 +1,15 @@
 package com.boardapp.boardapi.user.service;
 
 import com.boardapp.boardapi.user.model.UserEditDto;
-import com.boardapp.boardapi.user.model.UserResonseDto;
+import com.boardapp.boardapi.user.model.UserResponseDto;
 import com.boardapp.boardapi.user.model.UserSaveDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface UserService {
-    Flux<UserResonseDto> getAllUser();
+    Flux<UserResponseDto> getAllUser();
 
-    Mono<UserResonseDto> getByUserId(String userId);
+    Mono<UserResponseDto> getByUserId(String userId);
 
     Mono<Void> saveUser(Mono<UserSaveDto> dtoMono);
 
