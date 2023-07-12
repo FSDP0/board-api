@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -15,30 +18,37 @@ import lombok.extern.slf4j.Slf4j;
 public class RedisConfig {
     // ! Get Redis Host Name from environment values
     @Value("${spring.data.redis.host}")
-    private String REDIS_HOST = "localhost";
+    private String redisHostname = "localhost";
 
     // ! Get Redis Port Number from environment values
     @Value("${spring.data.redis.port}")
-    private Integer REDIS_PORT = 6379;
+    private Integer redisPort = 6379;
 
     public RedisConfig(){
-        log.info("Redis Host : {}", REDIS_HOST);
-        log.info("Redis Port : {}", REDIS_PORT);
+        log.info("Redis Host : {}", redisHostname);
+        log.info("Redis Port : {}", redisPort);
     }
 
     // ! Redis connection factory
     @Bean
     public RedisConnectionFactory redisConnectionFactory(){
-    return new LettuceConnectionFactory(REDIS_HOST, REDIS_PORT);
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+
+        redisStandaloneConfiguration.setHostName(redisHostname);
+        redisStandaloneConfiguration.setPort(redisPort);
+
+        return new LettuceConnectionFactory(redisStandaloneConfiguration);
     }
 
     // ! Redis connection returned byte data object serialization
     @Bean(name = "redisObjectTemplate")
-    public RedisTemplate<?, ?> redisTemplate() {
-    RedisTemplate<byte[], byte[]> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
+        
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
 
-    redisTemplate.setConnectionFactory(redisConnectionFactory());
-
-    return redisTemplate;
+        return redisTemplate;
     }
 }

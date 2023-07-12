@@ -1,5 +1,7 @@
 package com.boardapp.boardapi.board.model;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import com.boardapp.boardapi.board.entity.Board;
 import lombok.AccessLevel;
@@ -23,18 +25,17 @@ public class BoardDto {
     private String writeName;
     private String modifyName;
 
-    private Date createdDate;
-    private Date modifiedDate;
+    private Date writeDate;
+    private Date modifyDate;
 
     // * Convert DTO to Save Entity
     public Board toEntity() {
         return Board.builder()
                     .boardTitle(this.title)
                     .boardContents(this.contents)
-                    .writeName(this.writeName)
-                    .modifyName(this.modifyName)
-                    .writeDate(this.createdDate)
-                    .modifyDate(this.modifiedDate)
+                    .writeId(this.writeName)
+                    .modifyId(this.modifyName)
+                    .writeDate(Timestamp.valueOf(LocalDateTime.now()))
                     .build();
     }
 
@@ -44,10 +45,9 @@ public class BoardDto {
                     .boardId(boardId)
                     .boardTitle(this.title)
                     .boardContents(this.contents)
-                    .writeName(this.writeName)
-                    .modifyName(this.modifyName)
-                    .writeDate(this.createdDate)
-                    .modifyDate(this.modifiedDate)
+                    .writeId(this.writeName)
+                    .modifyId(this.modifyName)
+                    .modifyDate(Timestamp.valueOf(LocalDateTime.now()))
                     .build();
     }
 }
