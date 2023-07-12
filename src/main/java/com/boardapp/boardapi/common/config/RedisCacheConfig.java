@@ -28,19 +28,18 @@ public class RedisCacheConfig {
 
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
-        return builder -> builder.withCacheConfiguration("cache1", RedisCacheConfiguration.defaultCacheConfig()
-                                                                                            .computePrefixWith(cacheName -> "prefix:"+ cacheName + "::")
-                                                                                            .entryTtl(Duration.ofSeconds(120))
-                                                                                            // .disableCachingNullValues()
-                                                                                            .serializeKeysWith(
-                                                                                                RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())
-                                                                                            )
-                                                                                            .serializeValuesWith(
-                                                                                                RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
-                                                                                            ))
-                                    .withCacheConfiguration("cache2", RedisCacheConfiguration.defaultCacheConfig()
-                                                                                                .entryTtl(Duration.ofHours(2))
-                                                                                                .disableCachingNullValues()
-                                                            );
+        return (builder) -> builder.withCacheConfiguration("boardCache",
+                                                            RedisCacheConfiguration.defaultCacheConfig()
+                                                                                    .computePrefixWith(cacheName -> "prefix:"+ cacheName + "::")
+                                                                                    // .entryTtl(Duration.ofSeconds(120))
+                                                                                    // .disableCachingNullValues()
+                                                                                    .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                                                                                    .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())))
+                                    .withCacheConfiguration("userCache",
+                                                            RedisCacheConfiguration.defaultCacheConfig()
+                                                                                    // .entryTtl(Duration.ofSeconds(120))
+                                                                                    // .disableCachingNullValues()
+                                                                                    .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                                                                                    .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())));
     }
 }
