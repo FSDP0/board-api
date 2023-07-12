@@ -33,7 +33,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional
     public Mono<Void> saveBoard(Mono<BoardSaveDto> boardDtoMono) {
-        return boardDtoMono.map(dto -> this.boardRepository.save(dto.toEntity()))   // * Save
+        return boardDtoMono.map(dto -> this.boardRepository.save (dto.toEntity()))   // * Save
                             .and(ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build());    // * HTTP Status Code 200 [OK] with return empty body
     }
 
