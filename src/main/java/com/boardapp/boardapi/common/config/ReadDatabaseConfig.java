@@ -31,11 +31,11 @@ public class ReadDatabaseConfig {
         return DataSourceBuilder.create().build();
     }
 
-    @Primary
-    @Bean(name="readTransactionManager")
-    public PlatformTransactionManager readTransactionManager(@Qualifier("readDataSource") DataSource readDataSource) {
-        return new DataSourceTransactionManager(readDataSource);
-    }
+    // @Primary
+    // @Bean(name="readTransactionManager")
+    // public PlatformTransactionManager readTransactionManager(@Qualifier("readDataSource") DataSource readDataSource) {
+    //     return new DataSourceTransactionManager(readDataSource);
+    // }
 
     @Primary
     @Bean(name = "readSqlSessionFactory")

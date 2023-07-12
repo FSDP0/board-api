@@ -28,7 +28,7 @@ public class BoardDaoImpl implements BoardDao{
 
     @Override
     public List<Board> findAllBoards() {
-        List<Board> boardList = this.readSqlSessionTemplate.selectList(findAllBoards);
+        List<Board> boardList = this.cudSqlSessionTemplate.selectList(findAllBoards);
 
         return boardList;
     }
