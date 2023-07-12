@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     public List<UserDto> getAllUser(){
         Iterable<User> userList = this.userRepository.findAll();
@@ -29,15 +29,15 @@ public class UserService {
         return this.userRepository.findById(userId).get().toDto();
     }
 
-    public void createUser(){
-
+    public void createUser(UserDto dto){
+        this.userRepository.save(dto.toEntity());
     }
 
-    public void editUser(){
-
+    public void editUser(String userId,UserDto dto){
+        this.userRepository.save(dto.toEntity(userId));
     }
 
-    public void removeUser(){
-
+    public void removeUser(String userId){
+        this.userRepository.deleteById(userId);
     }
 }

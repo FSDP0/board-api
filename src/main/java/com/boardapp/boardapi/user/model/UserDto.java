@@ -38,8 +38,9 @@ public class UserDto {
     }
 
     // * Convert DTO to Update Entity
-    public User toEntiy(){
+    public User toEntity(String userId){
         return User.builder()
+                    .userId(userId)
                     .userName(this.name)
                     .userPassword(this.password)
                     .userTel(this.tel)

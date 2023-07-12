@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-    private final BoardRepository boardRepository;
+    private BoardRepository boardRepository;
 
     public List<BoardDto> getAllBoards() {
         Iterable<Board> boardList = this.boardRepository.findAll();
@@ -34,7 +34,7 @@ public class BoardService {
     }
 
     public void editBoard(Long id, BoardDto dto) {
-        this.boardRepository.updateBoard(dto.toEntity(id));
+        // this.boardRepository.updateBoard(dto.toEntity(id));
     }
 
     public void removeBoard(Long id) {

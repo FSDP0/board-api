@@ -21,5 +21,4 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
 
         this.namedParameterJdbcTemplate.update(sql, namedParameterSource);
     }
-
 }
