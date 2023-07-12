@@ -3,15 +3,16 @@ package com.boardapp.boardapi.board.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.board.model.BoardDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
+import com.boardapp.boardapi.board.repository.BoardCustomRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-// @RequiredArgsConstructor
+@RequiredArgsConstructor
 public class BoardService {
-    // private final BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
+    private final BoardCustomRepository BoardCustomRepository;
 
     public List<BoardDto> getAllBoards() {
         // Iterable<Board> boardList = this.boardRepository.findAll();
