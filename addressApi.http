@@ -1,0 +1,17 @@
+GET http://localhost:8000/addresses
+
+GET http://localhost:8000/addresses/address:{Your Test Address}
+
+GET http://localhost:8000/addresses/zipcode:{Your Test Zipcode}
+
+GET http://localhost:8000/addresses/users:{Your Test Address}
+
+POST http://localhost:8000/addresses
+Content-Type: application/json
+
+{
+    "address": "TestAddress",
+    "zipcode": "TestZipcode"
+}
+
+DELETE http://localhost:8000/addresses/:{Your Test Address}
