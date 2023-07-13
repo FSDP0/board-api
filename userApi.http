@@ -1,0 +1,28 @@
+GET http://localhost:8000/users
+
+GET http://localhost:8000/users/:TestUser1
+
+POST http://localhost:8000/users
+Content-Type: application/json
+
+{
+    "id": "Tester",
+    "name": "Test Name",
+    "password": "Test Password",
+    "tel": "Test Tel",
+    "address": "Test Address",
+    "detailAddress": "Test DetailAddress"
+}
+
+PUT http://localhost:8000/users/:TestUser1
+Content-Type: application/json
+
+{
+    "name": "Test Name",
+    "password": "Test Password",
+    "tel": "Test Tel",
+    "address": "Test Address",
+    "detailAddress": "Test DetailAddress"
+}
+
+DELETE http://localhost:8000/users/:TestUser1

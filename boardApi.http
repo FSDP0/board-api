@@ -1,0 +1,26 @@
+GET http://localhost:8000/boards
+
+GET http://localhost:8000/boards/:2
+
+
+POST http://localhost:8000/boards
+Content-Type: application/json
+
+{
+    "title": "Tester 1",
+    "contents": "Tester Contents",
+    "writeName":"Test User 9"
+}
+
+PUT http://localhost:8000/boards/:2
+Content-Type: application/json
+
+{
+    "title": "Tester 22",
+    "contents": "Tester Contents 2",
+    "modifyName": "Merry"
+}
+
+DELETE http://localhost:8000/boards/:2
+
+GET http://localhost:8000/boards/detail/write/:1
