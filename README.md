@@ -47,7 +47,7 @@ PUT http://localhost:8000/users/:{Your Test UserId}
 
 **특정 사용자 계정 정보 삭제**
 <br>
-DELETE http://localhost:8000/users/:{Your Test UserId}
+DELETE http://localhost:8000/users/:TestUser
 
 
 
@@ -60,17 +60,19 @@ GET http://localhost:8000/addresses
 
 **특정 주소를 기준으로 등록되어있는 주소 정보 조회**
 <br>
-GET http://localhost:8000/addresses/address:{Your Test Address}
+GET http://localhost:8000/addresses/address:TestAddress
+
 
 
 **특정 Zipcode를 가지는 주소 정보 조회**
 <br>
-GET http://localhost:8000/addresses/zipcode:{Your Test Zipcode}
+GET http://localhost:8000/addresses/zipcode:03582
 
 
 **특정 주소를 기준으로 모든 사용자 및 사용자가 관련 되어있는 게시글 조회**
 <br>
-GET http://localhost:8000/addresses/users:{Your Test Address}
+GET http://localhost:8000/addresses/users:TestAddress
+
 
 
 **주소 정보 신규 등록**
@@ -88,7 +90,7 @@ POST http://localhost:8000/addresses
 
 **특정 주소 정보 삭제**
 <br>
-DELETE http://localhost:8000/addresses/:{Your Test Address}
+DELETE http://localhost:8000/addresses/:TestAddress
 
 
 ## Board API Request Test
@@ -99,7 +101,7 @@ GET http://localhost:8000/boards
 
 **특정 게시글 번호로 게시글 정보 조회**
 <br>
-GET http://localhost:8000/boards/:{Board Index Here}
+GET http://localhost:8000/boards/:1
 
 
 **게시글 작성**
@@ -118,18 +120,18 @@ POST http://localhost:8000/boards
 
 **특정 게시글 수정**
 <br>
-PUT http://localhost:8000/boards/:{Board Index Here}
+PUT http://localhost:8000/boards/:1
 ```
-Content-Type: application/json
+    Content-Type: application/json
 
-{
-    "title": "Test Title 2",
-    "contents": "Tester Contents 2",
-    "modifyId": "Test UserId2"
-}
+    {
+        "title": "Test Title 2",
+        "contents": "Tester Contents 2",
+        "modifyId": "Test UserId2"
+    }
 ```
 
 
 **특정 게시글 정보 삭제**
 <br>
-DELETE http://localhost:8000/boards/:{Board Index Here}
+DELETE http://localhost:8000/boards/:1
