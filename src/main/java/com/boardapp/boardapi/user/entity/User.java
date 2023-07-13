@@ -31,7 +31,7 @@ import lombok.Setter;
 @Table(name = "user")
 public class User {
     // * Unique Key Column for Indexing
-    @Column(columnDefinition = "BIGINT NOT NULL AUTO_INCREMENT UNIQUE KEY")
+    @Column(name = "index_id", columnDefinition = "BIGINT NOT NULL AUTO_INCREMENT UNIQUE KEY", nullable = true)
     private Long indexId;
 
     @Id // ! Define PK Column
@@ -50,7 +50,7 @@ public class User {
     @Column(name = "user_address", length = 100)
     private String userAddress;
 
-    @ManyToOne(targetEntity = Address.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Address.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_address", insertable = false, updatable = false)
     private Address address;
 
@@ -73,7 +73,24 @@ public class User {
 
     // * Convert entity data to dto 
     public UserDto toDto() {
+        // * Save & Update Reponse 
+        if(this.address == null) {
+            return UserDto.builder()
+                            .index(this.indexId)
+                            .id(this.userId)
+                            .name(this.userName)
+                            .password(this.userPassword)
+                            .tel(this.userTel)
+                            .address(this.userAddress)
+                            .detailAddress(this.detailAddress)
+                            .createdDate(this.createdDate)
+                            .modifiedDate(this.modifiedDate)
+                            .build();
+        }
+        
+        // * Find Response
         return UserDto.builder()
+                        .index(this.indexId)
                         .id(this.userId)
                         .name(this.userName)
                         .password(this.userPassword)

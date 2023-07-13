@@ -1,5 +1,7 @@
 package com.boardapp.boardapi.user.entity;
 
+import java.util.List;
+import java.util.ArrayList;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,23 +10,26 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 @Getter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "address")
 public class Address {
     @Id
     @Column(name = "address")
-    @OneToMany(
-        mappedBy = "address", // ! Must be matching with N side entity column name
-        fetch = FetchType.LAZY // * Define FetchType
-    ) private String address;
+    private String address;
+
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
+    private List<User> userList = new ArrayList<User>();
 
     @Column(name = "address_zipcode")
     private String addressZipcode;
+
+    @Builder
+    public Address(String address, String addressZipcode) {
+        this.address = address;
+        this.addressZipcode = addressZipcode;
+    }
 }

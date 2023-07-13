@@ -1,6 +1,8 @@
 package com.boardapp.boardapi.board.entity;
 
 import java.util.Date;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,7 +24,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Entity
 @Getter
 @Setter
@@ -54,6 +58,7 @@ public class Board {
     private String editorId;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN) // ! FetchMode.JOIN, editor는 존재하지만 creator는 null인 경우, FetchMode로 해결
     @JoinColumn(name = "editor_id", insertable = false, updatable = false)
     private User editor;
 
@@ -66,6 +71,63 @@ public class Board {
     private Date modifiedDate;
 
     public BoardDto toDto(){
+        log.warn("=============== Board Convert Entity to DTO ===============");
+        log.warn("BoardId : {}", this.boardId);
+        log.warn("BoardTitle : {}", this.boardTitle);
+        log.warn("BoardContents : {}", this.boardContents);
+        log.warn("WriteId : {}", this.creatorId);
+
+        if(this.creator == null) {
+            log.error("Creator Object is Null");
+        }
+
+        log.warn("ModifyId : {}", this.editorId);
+
+        if(this.editor == null) {
+            log.error("Editor Object is Null");
+        }
+
+        log.warn("CreatedDate : {}", this.createdDate);
+        log.warn("ModifiedDate : {}", this.modifiedDate);
+
+        // * Save Response
+        if(this.creatorId != null && this.creator == null) {
+            return BoardDto.builder()
+                            .num(this.boardId)
+                            .title(this.boardTitle)
+                            .contents(this.boardContents)
+                            .writeId(this.creatorId)
+                            .writeDate(this.createdDate)
+                            .modifyDate(this.modifiedDate)
+                            .build();
+        }
+
+        // * Modify Response
+        if(this.editorId != null && this.editor == null) {
+                        return BoardDto.builder()
+                            .num(this.boardId)
+                            .title(this.boardTitle)
+                            .contents(this.boardContents)
+                            .modifyId(this.editorId)
+                            .writeDate(this.createdDate)
+                            .modifyDate(this.modifiedDate)
+                            .build();
+        }
+
+        // * 게시글 작성자가 없는데, 수정자가 있는 경우, 수정자 정보만 변환
+        if(this.creatorId == null) {
+            return BoardDto.builder()
+                            .num(this.boardId)
+                            .title(this.boardTitle)
+                            .contents(this.boardContents)
+                            .modifyId(this.editorId)
+                            .modifyName(this.editor.getUserName())
+                            .modifyTel(this.editor.getUserTel())
+                            .writeDate(this.createdDate)
+                            .modifyDate(this.modifiedDate)
+                            .build();
+        } 
+
         // * 만일 아직 게시글 수정자가 없는 경우, 작성자 정보만 변환
         if (this.editorId == null) {
             return BoardDto.builder()
@@ -79,6 +141,7 @@ public class Board {
                             .modifyDate(this.modifiedDate)
                             .build();
         }
+
         // * 게시글 수정자 정보까지 기본적으로 모두 변환
         return BoardDto.builder()
                         .num(this.boardId)

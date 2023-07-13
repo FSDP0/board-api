@@ -11,7 +11,7 @@ public interface BoardService {
 
     Mono<BoardDto> createBoard(Mono<BoardDto> dtoMono);
 
-    Mono<Void> updateBoard(Long boardId, Mono<BoardDto> dtoMono);
+    Mono<Integer> editBoard(Long boardId, Mono<BoardDto> dtoMono);
 
     Mono<Void> removeBoard(Long boardId);
 }
