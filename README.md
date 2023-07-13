@@ -10,28 +10,32 @@ GET http://localhost:8000/users/:{Your Test UserId}
 
 사용자 계정 정보 등록
 POST http://localhost:8000/users
-Content-Type: application/json
+```
+    Content-Type: application/json
 
-{
-    "id": "Test UserId1",
-    "name": "Test UserName1",
-    "password": "Test UserPassword1",
-    "tel": "Test UserTel1",
-    "address": "Test UserAddress1",
-    "detailAddress": "Test UserDetailAddress1"
-}
+    {
+        "id": "Test UserId1",
+        "name": "Test UserName1",
+        "password": "Test UserPassword1",
+        "tel": "Test UserTel1",
+        "address": "Test UserAddress1",
+        "detailAddress": "Test UserDetailAddress1"
+    }
+```
 
 특정사용자 계정 정보 수정
 PUT http://localhost:8000/users/:{Your Test UserId}
-Content-Type: application/json
+```
+    Content-Type: application/json
 
-{
-    "name": "Test UserName2",
-    "password": "Test UserPassword2",
-    "tel": "Test UserTel2",
-    "address": "Test UserAddress2",
-    "detailAddress": "Test UserDetailAddress2"
+    {
+        "name": "Test UserName2",
+        "password": "Test UserPassword2",
+        "tel": "Test UserTel2",
+        "address": "Test UserAddress2",
+        "detailAddress": "Test UserDetailAddress2"
 }
+```
 
 특정 사용자 계정 정보 삭제
 DELETE http://localhost:8000/users/:{Your Test UserId}
@@ -51,12 +55,14 @@ GET http://localhost:8000/addresses/users:{Your Test Address}
 
 주소 정보 신규 등록
 POST http://localhost:8000/addresses
-Content-Type: application/json
+```
+    Content-Type: application/json
 
-{
-    "address": "TestAddress",
-    "zipcode": "TestZipcode"
-}
+    {
+        "address": "TestAddress",
+        "zipcode": "TestZipcode"
+    }
+```
 
 특정 주소 정보 삭제
 DELETE http://localhost:8000/addresses/:{Your Test Address}
@@ -70,16 +76,19 @@ GET http://localhost:8000/boards/:{Board Index Here}
 
 게시글 작성
 POST http://localhost:8000/boards
-Content-Type: application/json
+```
+    Content-Type: application/json
 
-{
-    "title": "Test Title 1",
-    "contents": "Tester Contents 1",
-    "writeId":"Test UserId1"
-}
+    {
+        "title": "Test Title 1",
+        "contents": "Tester Contents 1",
+        "writeId":"Test UserId1"
+    }
+```
 
 특정 게시글 수정
 PUT http://localhost:8000/boards/:{Board Index Here}
+```
 Content-Type: application/json
 
 {
@@ -87,6 +96,7 @@ Content-Type: application/json
     "contents": "Tester Contents 2",
     "modifyId": "Test UserId2"
 }
+```
 
 특정 게시글 정보 삭제
 DELETE http://localhost:8000/boards/:{Board Index Here}
