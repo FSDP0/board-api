@@ -1,5 +1,7 @@
 package com.boardapp.boardapi.user.model;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import com.boardapp.boardapi.user.entity.User;
 import lombok.AllArgsConstructor;
@@ -45,6 +47,7 @@ public class UserDto {
                     .userTel(this.tel)
                     .userAddress(this.address)
                     .detailAddress(this.detailAddress)
+                    .modifiedDate(Timestamp.valueOf(LocalDateTime.now()))
                     .build();
     }
 }

@@ -1,6 +1,9 @@
-package com.boardapp.boardapi.user.entity;
+package com.boardapp.boardapi.address.entity;
 
 import java.util.List;
+import com.boardapp.boardapi.address.model.AddressDto;
+import com.boardapp.boardapi.user.entity.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,16 +15,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
 
+@Entity
 @Getter
 @NoArgsConstructor
-@Entity
 @Table(name = "address")
 public class Address {
     @Id
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
+    @JsonManagedReference // ? Serailze for JSON [Reference Forward]
+    @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
     private List<User> userList = new ArrayList<User>();
 
     @Column(name = "address_zipcode")
@@ -31,5 +35,12 @@ public class Address {
     public Address(String address, String addressZipcode) {
         this.address = address;
         this.addressZipcode = addressZipcode;
+    }
+
+    public AddressDto toDto(){
+        return AddressDto.builder()
+                            .address(this.address)
+                            .zipcode(this.addressZipcode)
+                            .build();
     }
 }

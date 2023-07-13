@@ -35,12 +35,12 @@ public class BoardDto {
 
     // * Convert DTO to Save Entity
     public Board toEntity(){
-        log.warn("============ Convert DTO to Entity ============");
-        log.warn("Board Title : {}",this.title);
-        log.warn("Board Contents : {}",this.contents);
-        log.warn("Board Creator Id: {}",this.writeId);
-        log.warn("Board Created Date : {}",this.writeDate);
-        log.warn("Board Modified Date : {}",this.modifyDate);
+        log.debug("============ Convert DTO to Entity ============");
+        log.debug("Board Title : {}",this.title);
+        log.debug("Board Contents : {}",this.contents);
+        log.debug("Board Creator Id: {}",this.writeId);
+        log.debug("Board Created Date : {}",this.writeDate);
+        log.debug("Board Modified Date : {}",this.modifyDate);
 
         return Board.builder()
                     .boardTitle(this.title)
@@ -51,14 +51,14 @@ public class BoardDto {
 
     // * Convert DTO to Update Entity
     public Board toEntity(Long boardId){
-        log.warn("============ Convert DTO to Entity ============");
-        log.warn("Board Index Number : {}",boardId);
-        log.warn("Board Title : {}",this.title);
-        log.warn("Board Contents : {}",this.contents);
-        log.warn("Board Creator Id: {}",this.writeId);
-        log.warn("Board Modifier Id : {}", this.modifyId);
-        log.warn("Board Created Date : {}",this.writeDate);
-        log.warn("Board Modified Date : {}",this.modifyDate);
+        log.debug("============ Convert DTO to Entity ============");
+        log.debug("Board Index Number : {}",boardId);
+        log.debug("Board Title : {}",this.title);
+        log.debug("Board Contents : {}",this.contents);
+        log.debug("Board Creator Id: {}",this.writeId);
+        log.debug("Board Modifier Id : {}", this.modifyId);
+        log.debug("Board Created Date : {}",this.writeDate);
+        log.debug("Board Modified Date : {}",this.modifyDate);
 
 
         return Board.builder()

@@ -8,6 +8,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.boardapp.boardapi.board.model.BoardDto;
 import com.boardapp.boardapi.user.entity.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -50,14 +52,16 @@ public class Board {
     @Column(name = "creator_id")
     private String creatorId;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JsonBackReference  // ? Do not serialize for JSON [Reference Backward]
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "creator_id", insertable = false, updatable = false)
     private User creator;
 
     @Column(name = "editor_id", nullable = true)
     private String editorId;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JsonBackReference  // ? Do not serialize for JSON [Reference Backward]
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @Fetch(FetchMode.JOIN) // ! FetchMode.JOIN, editor는 존재하지만 creator는 null인 경우, FetchMode로 해결
     @JoinColumn(name = "editor_id", insertable = false, updatable = false)
     private User editor;
@@ -71,24 +75,24 @@ public class Board {
     private Date modifiedDate;
 
     public BoardDto toDto(){
-        log.warn("=============== Board Convert Entity to DTO ===============");
-        log.warn("BoardId : {}", this.boardId);
-        log.warn("BoardTitle : {}", this.boardTitle);
-        log.warn("BoardContents : {}", this.boardContents);
-        log.warn("WriteId : {}", this.creatorId);
+        log.debug("=============== Board Convert Entity to DTO ===============");
+        log.debug("BoardId : {}", this.boardId);
+        log.debug("BoardTitle : {}", this.boardTitle);
+        log.debug("BoardContents : {}", this.boardContents);
+        log.debug("WriteId : {}", this.creatorId);
 
         if(this.creator == null) {
-            log.error("Creator Object is Null");
+            log.debug("Creator Object is Null");
         }
 
-        log.warn("ModifyId : {}", this.editorId);
+        log.debug("ModifyId : {}", this.editorId);
 
         if(this.editor == null) {
-            log.error("Editor Object is Null");
+            log.debug("Editor Object is Null");
         }
 
-        log.warn("CreatedDate : {}", this.createdDate);
-        log.warn("ModifiedDate : {}", this.modifiedDate);
+        log.debug("CreatedDate : {}", this.createdDate);
+        log.debug("ModifiedDate : {}", this.modifiedDate);
 
         // * Save Response
         if(this.creatorId != null && this.creator == null) {

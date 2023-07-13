@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PutMapping("/:{userId}")
-    private Mono<UserDto> updateUser(@PathVariable String userId, @RequestBody Mono<UserDto> userDtoMono){
+    private Mono<Integer> updateUser(@PathVariable String userId, @RequestBody Mono<UserDto> userDtoMono){
         return this.userService.editUser(userId, userDtoMono);
     }
 

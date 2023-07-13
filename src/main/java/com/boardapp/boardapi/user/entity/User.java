@@ -3,8 +3,11 @@ package com.boardapp.boardapi.user.entity;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.boardapp.boardapi.address.entity.Address;
 import com.boardapp.boardapi.board.entity.Board;
 import com.boardapp.boardapi.user.model.UserDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +53,7 @@ public class User {
     @Column(name = "user_address", length = 100)
     private String userAddress;
 
+    @JsonBackReference
     @ManyToOne(targetEntity = Address.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_address", insertable = false, updatable = false)
     private Address address;
@@ -65,10 +69,12 @@ public class User {
     @Column(name = "modified_date", nullable = true)
     private Date modifiedDate;
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Board> createBoards = new ArrayList<Board>();
 
-    @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "editor", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     private List<Board> editBoards = new ArrayList<Board>();
 
     // * Convert entity data to dto 

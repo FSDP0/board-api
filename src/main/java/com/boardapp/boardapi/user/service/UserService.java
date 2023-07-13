@@ -11,7 +11,7 @@ public interface UserService {
 
     Mono<UserDto> createUser(Mono<UserDto> userDtoMono);
 
-    Mono<UserDto> editUser(String userId, Mono<UserDto> userDtoMono);
+    Mono<Integer> editUser(String userId, Mono<UserDto> userDtoMono);
 
     Mono<Void> removeUser(String userId);
 }
