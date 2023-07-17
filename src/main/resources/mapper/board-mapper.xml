@@ -29,8 +29,8 @@
     </insert>
 
     <update id="updateBoard" parameterType="com.boardapp.boardapi.board.model.Board">
-        UPDATE board
-        SET board_title = #{boardObj.boardTitle}
+        UPDATE board 
+        SET board_title = #{boardObj.boardTitle},
             board_contents = #{boardObj.boardContents},
             modify_id = #{boardObj.modifyId},
             modify_date = #{boardObj.modifyDate}
