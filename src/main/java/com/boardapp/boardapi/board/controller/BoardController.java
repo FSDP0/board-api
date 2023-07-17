@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.boardapp.boardapi.board.model.BoardDto;
+import com.boardapp.boardapi.board.model.Board;
 import com.boardapp.boardapi.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 
@@ -19,53 +19,28 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
     private final BoardService boardService;
 
-    /**
-     * 모든 게시글 조회
-     * @return List<BoardDTO>
-     */
     @GetMapping
-    private List<BoardDto> findAllBoards() {
+    private List<Board> findAllBoards() {
         return this.boardService.findAllBoards();
     }
 
-    /**
-     * 특정 게시글 조회
-     * @param boardId
-     * @return BoardDTO
-     */
     @GetMapping("/:{boardId}")
-    private BoardDto findByBoardId(@PathVariable Long boardId) {
+    private Board findByBoardId(@PathVariable Long boardId) {
         return this.boardService.findByBoardId(boardId);
     }
 
-    /**
-     * 게시글 등록
-     * @param dto
-     * @return Integer
-     */
     @PostMapping
-    private Integer saveBoard(@RequestBody BoardDto dto) {
-        return this.boardService.saveBoard(dto);
+    private String saveBoard(@RequestBody Board dto) {
+        return "Effected Row : " + this.boardService.saveBoard(dto);
     }
 
-    /**
-     * 게시글 수정
-     * @param boardId
-     * @param dto
-     * @return Integer
-     */
     @PutMapping("/:{boardId}")
-    private Integer updateBoard(@PathVariable Long boardId, @RequestBody BoardDto dto) {
-        return this.boardService.updateBoard(boardId, dto);
+    private String updateBoard(@PathVariable Long boardId, @RequestBody Board dto) {
+        return "Effected Row : " + this.boardService.updateBoard(boardId, dto);
     }
 
-    /**
-     * 게시글 삭제
-     * @param boardId
-     * @return Integer
-     */
     @DeleteMapping("/:{boardId}")
-    private Integer deleteBoard(@PathVariable Long boardId) {
-        return this.boardService.deleteBoard(boardId);
+    private String deleteBoard(@PathVariable Long boardId) {
+        return "Effected Row : " + this.boardService.deleteBoard(boardId);
     }
 }

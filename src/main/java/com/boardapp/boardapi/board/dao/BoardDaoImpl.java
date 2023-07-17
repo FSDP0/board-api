@@ -6,12 +6,12 @@ import org.springframework.stereotype.Repository;
 import com.boardapp.boardapi.board.model.Board;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Repository
+@RequiredArgsConstructor
 public class BoardDaoImpl implements BoardDao {
     private final SqlSessionTemplate sqlSessionTemplate;
 
-    private static final String namespace = "com.boardapp.boardapi.mapper.BoardMapper";
+    private static final String namespace = "BoardDao";
 
     @Override
     public List<Board> findAllBoards() {
@@ -20,26 +20,22 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public Board findByBoardId(Long boardId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByBoardId'");
+        return this.sqlSessionTemplate.selectOne(namespace + ".findByBoardId", boardId);
     }
 
     @Override
     public Integer saveBoard(Board board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveBoard'");
+        return this.sqlSessionTemplate.insert(namespace + ".saveBoard", board);
     }
 
     @Override
     public Integer updateBoard(Board board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateBoard'");
+        return this.sqlSessionTemplate.update(namespace + ".updateBoard", board);
     }
 
     @Override
     public Integer deleteBoard(Long boardId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteBoard'");
+        return this.sqlSessionTemplate.delete(namespace + ".deleteBoard", boardId);
     }
 
 }
