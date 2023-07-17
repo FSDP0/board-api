@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class BoardDTO {
+public class BoardDto {
     private Long num;
     
     private String title;

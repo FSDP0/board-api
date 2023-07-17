@@ -19,8 +19,8 @@ public class Board {
     private LocalDateTime modifyDate;
 
     // * Convert entity to dto
-    public BoardDTO toDto() {
-        return BoardDTO.builder()
+    public BoardDto toDto() {
+        return BoardDto.builder()
                         .num(this.boardId)
                         .title(this.boardTitle)
                         .contents(this.boardContents)
