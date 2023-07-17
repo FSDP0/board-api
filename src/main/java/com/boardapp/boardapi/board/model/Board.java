@@ -3,8 +3,10 @@ package com.boardapp.boardapi.board.model;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Builder
 public class Board {
     private Long boardId;
@@ -12,22 +14,9 @@ public class Board {
     private String boardTitle;
     private String boardContents;
 
-    private String writeName;
-    private String modifyName;
+    private String writeId;
+    private String modifyId;
 
     private LocalDateTime writeDate;
     private LocalDateTime modifyDate;
-
-    // * Convert entity to dto
-    public BoardDto toDto() {
-        return BoardDto.builder()
-                        .num(this.boardId)
-                        .title(this.boardTitle)
-                        .contents(this.boardContents)
-                        .writeId(this.writeName)
-                        .writeDate(this.writeDate)
-                        .modifyId(this.modifyName)
-                        .modifyDate(this.modifyDate)
-                        .build();
-    }
 }

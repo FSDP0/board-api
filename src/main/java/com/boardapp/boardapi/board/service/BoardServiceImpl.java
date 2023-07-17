@@ -1,10 +1,10 @@
 package com.boardapp.boardapi.board.service;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.boardapp.boardapi.board.mapper.BoardMapper;
-import com.boardapp.boardapi.board.model.BoardDto;
+import com.boardapp.boardapi.board.model.Board;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -13,23 +13,28 @@ public class BoardServiceImpl implements BoardService{
     private final BoardMapper boardMapper;
 
     @Override
-    public List<BoardDto> findAllBoards() {
-        return new ArrayList<BoardDto>();
+    public List<Board> findAllBoards() {
+        return this.boardMapper.findAllBoards();
     }
 
     @Override
-    public BoardDto findByBoardId(Long boardId) {
-        return this.boardMapper.findByBoardId(boardId).toDto();
+    public Board findByBoardId(Long boardId) {
+        return this.boardMapper.findByBoardId(boardId);
     }
 
     @Override
-    public Integer saveBoard(BoardDto dto) {
-        return this.boardMapper.saveBoard(dto.toEntity());
+    public Integer saveBoard(Board dto) {
+        dto.setWriteDate(LocalDateTime.now());
+
+        return this.boardMapper.saveBoard(dto);
     }
 
     @Override
-    public Integer updateBoard(Long boardId, BoardDto dto) {
-        return this.boardMapper.updateBoard(dto.toEntity(boardId));
+    public Integer updateBoard(Long boardId, Board dto) {
+        dto.setBoardId(boardId);
+        dto.setModifyDate(LocalDateTime.now());
+
+        return this.boardMapper.updateBoard(dto);
     }
 
     @Override
