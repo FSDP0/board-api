@@ -1,4 +1,4 @@
-# MyBatis의 SqlSessionTemplate을 이용한 Demo Application API 예제입니다.
+### MyBatis의 SqlSessionTemplate을 이용한 Demo Application API 예제입니다.
 
 ```
 GET http://localhost:8000/boards
