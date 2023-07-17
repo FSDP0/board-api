@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS board;
+DROP TABLE IF EXISTS user;
 
 CREATE TABLE IF NOT EXISTS board(
     board_id BIGINT NOT NULL AUTO_INCREMENT,
@@ -13,4 +14,18 @@ CREATE TABLE IF NOT EXISTS board(
     modify_date DATETIME NULL,
 
     PRIMARY KEY (board_id)
+);
+
+CREATE TABLE IF NOT EXISTS user (
+    index_id BIGINT NOT NULL AUTO_INCREMENT,
+    user_id VARCHAR(50) NOT NULL,
+    user_name VARCHAR(40) NOT NULL,
+    user_password VARCHAR(60) NOT NULL,
+    user_phonenumber VARCHAR(50) NOT NULL,
+    created_date DATETIME NOT NULL,
+    modified_date DATETIME NULL,
+
+    PRIMARY KEY (user_id),
+
+    UNIQUE KEY (index_id)
 );
