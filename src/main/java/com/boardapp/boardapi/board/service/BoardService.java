@@ -1,17 +1,16 @@
 package com.boardapp.boardapi.board.service;
 
 import java.util.List;
-import com.boardapp.boardapi.board.model.dto.BoardDto;
+import com.boardapp.boardapi.board.model.BoardDTO;
 
 public interface BoardService {
+    List<BoardDTO> findAllBoards();
 
-    List<BoardDto> getAllBoards();
+    BoardDTO findByBoardId(Long boardId);
 
-    BoardDto getByBoardId(Long boardId);
+    Integer saveBoard(BoardDTO dto);
 
-    void saveBoard(BoardDto boardDto);
+    Integer updateBoard(Long boardId, BoardDTO dto);
 
-    void updateBoard(Long boardId, BoardDto boardDto);
-
-    void deleteBoard(Long boardId);
+    Integer deleteBoard(Long boardId);
 }

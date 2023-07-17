@@ -18,23 +18,14 @@ logging:
 
 spring:
     datasource:
-        # [READ ONLY] Database Connection Pool
-        read-only:
-            driver-class-name: com.mysql.cj.jdbc.Driver
-            jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
-            username: root
-            password: 123456
-        # [CUD ONLY] Database Connection Pool 
-        cud-only:
-            driver-class-name: com.mysql.cj.jdbc.Driver
-            jdbc-url: jdbc:mysql://localhost:3307/boards?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
-            username: root
-            password: 123456
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3307/mybatis?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+        username: root
+        password: 123456
             
 mybatis:
     mapper-locations:
-    - classpath:mybatis/mapper/read/**/*.xml
-    - classpath:mybatis/mapper/cud/**/*.xml
+    - classpath:mapper/**/*.xml
 
     configuration:
         map-underscore-to-camel-case: true

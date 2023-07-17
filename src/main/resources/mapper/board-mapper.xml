@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.boardapp.boardapi.board.mapper.BoardCudMapper">
+<mapper namespace="com.boardapp.boardapi.board.mapper.BoardMapper">
+    <select id="findAllBoards" resultType="com.boardapp.boardapi.board.model.Board">
+        SELECT *
+        FROM board
+        ORDER BY board_id ASC
+    </select>
+
+    <select id="findByBoardId" resultType="com.boardapp.boardapi.board.model.Board">
+        SELECT *
+        FROM board
+        WHERE board_id = #{boardId}
+    </select>
+
     <insert id="saveBoard" parameterType="com.boardapp.boardapi.board.model.Board">
         INSERT
         INTO board(
@@ -18,17 +30,16 @@
 
     <update id="updateBoard" parameterType="com.boardapp.boardapi.board.model.Board">
         UPDATE board
-        SET board_title = #{boardObj.boardTitle},
+        SET board_title = #{boardObj.boardTitle}
             board_contents = #{boardObj.boardContents},
             modify_id = #{boardObj.modifyId},
             modify_date = #{boardObj.modifyDate}
         WHERE board_id = #{boardObj.boardId}
     </update>
-
-    <delete id="deleteBoard" parameterType="java.lang.Long">
+    
+    <delete id="deleteBoard">
         DELETE
         FROM board
         WHERE board_id = #{boardId}
     </delete>
 </mapper>
-    

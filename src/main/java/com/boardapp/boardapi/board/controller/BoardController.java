@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.boardapp.boardapi.board.model.dto.BoardDto;
+import com.boardapp.boardapi.board.model.BoardDTO;
 import com.boardapp.boardapi.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 
@@ -17,31 +17,55 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("boards")
 @RequiredArgsConstructor
 public class BoardController {
-    // ! Dependency injection
     private final BoardService boardService;
 
-    @GetMapping // * 모든 게시글 조회
-    private List<BoardDto> findAllBoards() throws Exception {
-        return this.boardService.getAllBoards();
+    /**
+     * 모든 게시글 조회
+     * @return List<BoardDTO>
+     */
+    @GetMapping
+    private List<BoardDTO> findAllBoards() {
+        return this.boardService.findAllBoards();
     }
 
-    @GetMapping("/:{id}") // * 특정 게시글 번호를 기준으로 게시글 조회
-    private BoardDto findByBoardId(@PathVariable Long id) throws Exception {
-        return this.boardService.getByBoardId(id);
+    /**
+     * 특정 게시글 조회
+     * @param boardId
+     * @return BoardDTO
+     */
+    @GetMapping("/:{boardId}")
+    private BoardDTO findByBoardId(@PathVariable Long boardId) {
+        return this.boardService.findByBoardId(boardId);
     }
 
-    @PostMapping // * 게시글 등록
-    private void writeBoard(@RequestBody BoardDto dto) throws Exception {
-        this.boardService.saveBoard(dto);
+    /**
+     * 게시글 등록
+     * @param dto
+     * @return Integer
+     */
+    @PostMapping
+    private Integer saveBoard(@RequestBody BoardDTO dto) {
+        return this.boardService.saveBoard(dto);
     }
 
-    @PutMapping("/:{id}") // * 특정 게시글 수정
-    private void modifyBoard(@PathVariable Long id, @RequestBody BoardDto dto) throws Exception {
-        this.boardService.updateBoard(id, dto);
+    /**
+     * 게시글 수정
+     * @param boardId
+     * @param dto
+     * @return Integer
+     */
+    @PutMapping("/:{boardId}")
+    private Integer updateBoard(@PathVariable Long boardId, @RequestBody BoardDTO dto) {
+        return this.boardService.updateBoard(boardId, dto);
     }
 
-    @DeleteMapping("/:{id}") // * 특정 게시글 삭제
-    private void removeBoard(@PathVariable Long id) throws Exception {
-        this.boardService.deleteBoard(id);
+    /**
+     * 게시글 삭제
+     * @param boardId
+     * @return Integer
+     */
+    @DeleteMapping("/:{boardId}")
+    private Integer deleteBoard(@PathVariable Long boardId) {
+        return this.boardService.deleteBoard(boardId);
     }
 }
