@@ -1,4 +1,7 @@
-### MyBatis의 SqlSessionTemplate을 이용한 Demo Application API 예제입니다.
+# MyBatis with Spring
+해당 프로젝트는 Spring Boot 기반의 MyBatis를 활용한 simple-api project입니다.
+
+빌드 및 실행을 위해서 JDK는 사전에 설치되어 있어야 하며, MySQL이 구성되어 있다는 가정하에 진행되어야합니다.
 
 ```
 GET http://localhost:8000/boards
