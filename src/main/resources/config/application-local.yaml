@@ -22,7 +22,7 @@ spring:
         url: jdbc:mysql://${MYSQL_CONNECTION_IP}:${MYSQL_CONNECTION_PORT}/${MYSQL_CONNECTION_DATABASE}?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
         username: ${MYSQL_USERNAME}
         password: ${MYSQL_USER_PASSWORD}
-            
+        
 mybatis:
     mapper-locations:
     - classpath:mapper/**/*.xml
