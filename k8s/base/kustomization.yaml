@@ -1,0 +1,17 @@
+apiVersion: kustomization.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - board-api-deployment.yaml
+  - board-api-svc.yaml
+
+# Common Namespace
+namespace: board-api
+
+images:
+  - name: fsdp/board-api
+    newName: docker.io/fsdp/board-api
+    newTag: 1.0.0.prod
+
+commonLabels:
+  app: board-api
