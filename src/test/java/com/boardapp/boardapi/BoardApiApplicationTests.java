@@ -15,20 +15,17 @@ class BoardApiApplicationTests {
 	@Autowired
 	BoardDao boardDao;	
 
-	@DisplayName("게시글 전체 조회")
 	@Test
 	void findAll() {
 		// 전체 게시글 리스트 조회
 		List<Board> entityList = this.boardDao.findAllBoards();
 	}
 
-	@DisplayName("특정 게시글 조회")
 	@Test
 	void findById() {
 		Board entity = this.boardDao.findByBoardId(Long.valueOf(1));
 	}
 
-	@DisplayName("게시글 등록")
 	@Test
 	void save() {
 		Board params = Board.builder()
@@ -47,7 +44,6 @@ class BoardApiApplicationTests {
 		assertThat(entity.getWriteId()).isEqualTo("User1");
 	}
 
-	@DisplayName("특정 게시글 수정")
 	@Test
 	void update() {
 		Board params = Board.builder()
@@ -67,7 +63,6 @@ class BoardApiApplicationTests {
 		assertThat(entity.getModifyId()).isEqualTo("User2");
 	}
 
-	@DisplayName("특정 게시글 삭제")
 	@Test
 	void delete() {
 		this.boardDao.deleteBoard(Long.valueOf(1));
