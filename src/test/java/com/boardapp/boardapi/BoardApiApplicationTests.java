@@ -35,7 +35,7 @@ class BoardApiApplicationTests {
 
 		this.boardMapper.saveBoard(params);
 
-		Board entity = this.boardMapper.findByBoardId(Long.valueOf(1));
+		Board entity = this.boardMapper.findByBoardId(Long.valueOf(11));
 
 		assertThat(entity.getBoardTitle()).isEqualTo("1번 게시글 제목");
 		assertThat(entity.getBoardContents()).isEqualTo("1번 게시글 내용");
