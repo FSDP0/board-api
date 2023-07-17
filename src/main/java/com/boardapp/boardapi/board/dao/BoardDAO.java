@@ -3,7 +3,7 @@ package com.boardapp.boardapi.board.dao;
 import java.util.List;
 import com.boardapp.boardapi.board.model.Board;
 
-public interface BoardDao {
+public interface BoardDao { 
     public List<Board> findAllBoards();
 
     public Board findByBoardId(Long boardId);
