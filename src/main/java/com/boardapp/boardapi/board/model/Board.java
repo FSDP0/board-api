@@ -12,21 +12,21 @@ public class Board {
     private String boardTitle;
     private String boardContents;
 
-    private String writeName;
-    private String modifyName;
+    private String writeId;
+    private String modifyId;
 
     private LocalDateTime writeDate;
     private LocalDateTime modifyDate;
 
     // * Convert entity to dto
-    public BoardDTO toDto() {
-        return BoardDTO.builder()
+    public BoardDto toDto() {
+        return BoardDto.builder()
                         .num(this.boardId)
                         .title(this.boardTitle)
                         .contents(this.boardContents)
-                        .writeId(this.writeName)
+                        .writeId(this.writeId)
                         .writeDate(this.writeDate)
-                        .modifyId(this.modifyName)
+                        .modifyId(this.modifyId)
                         .modifyDate(this.modifyDate)
                         .build();
     }

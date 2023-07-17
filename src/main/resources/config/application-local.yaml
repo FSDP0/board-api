@@ -19,13 +19,13 @@ logging:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3307/mybatis?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+        url: jdbc:mysql://localhost:3307/mybatis?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
         username: root
         password: 123456
             
 mybatis:
-    mapper-locations:
-    - classpath:mapper/**/*.xml
+    # mapper-locations:
+    # - classpath:mapper/**/*.xml
 
     configuration:
         map-underscore-to-camel-case: true

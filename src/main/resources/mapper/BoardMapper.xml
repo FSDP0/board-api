@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.boardapp.boardapi.board.mapper.BoardMapper">
-    <select id="findAllBoards" resultType="com.boardapp.boardapi.board.model.Board">
+<mapper namespace="BoardMapper">
+    <resultMap id="boardResultMap" type="com.boardapp.boardapi.board.model.Board">
+        <id property="id" column="board_id"/>
+        <result property="boardTitle" column="board_title"/>
+        <result property="boardContents" column="board_contents"/>
+        <result property="writeId" column="write_id"/>
+        <result property="modifyId" column="modify_id"/>
+        <result property="writeDate" column="write_date"/>
+        <result property="modifyDate" column="modify_date"/>
+    </resultMap>
+
+    <select id="findAllBoards" resultMap="boardResultMap">
         SELECT *
         FROM board
         ORDER BY board_id ASC
     </select>
 
-    <select id="findByBoardId" resultType="com.boardapp.boardapi.board.model.Board">
+    <select id="findByBoardId" resultMap="boardResultMap">
         SELECT *
         FROM board
         WHERE board_id = #{boardId}

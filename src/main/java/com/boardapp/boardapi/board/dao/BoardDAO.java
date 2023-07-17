@@ -1,33 +1,18 @@
 package com.boardapp.boardapi.board.dao;
 
 import java.util.List;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 import com.boardapp.boardapi.board.model.Board;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Repository
-public class BoardDAO {
-    private final SqlSessionTemplate sqlSessionTemplate;
+public interface BoardDao {
 
-    public List<Board> findAllBoards() {
-        return this.sqlSessionTemplate.selectList(null);
-    }
+    public List<Board> findAllBoards();
 
-    public Board findByBoardId(){
-        return this.sqlSessionTemplate.selectOne(null);
-    }
+    public Board findByBoardId(@Param("boardId") Long boardId);
 
-    public Integer saveBoard() {
-        return this.sqlSessionTemplate.update(null);
-    }
+    public Integer saveBoard(@Param("boardObj") Board board);
 
-    public Integer updateBoard() {
-        return this.sqlSessionTemplate.update(null);
-    }
+    public Integer updateBoard(@Param("boardObj") Board board);
 
-    public Integer deleteBoard() {
-        return this.sqlSessionTemplate.delete(null);
-    }
+    public Integer deleteBoard(@Param("boardId") Long boardId);
 }

@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class BoardDTO {
+public class BoardDto {
     private Long num;
     
     private String title;
@@ -23,7 +23,7 @@ public class BoardDTO {
         return Board.builder()
                     .boardTitle(this.title)
                     .boardContents(this.contents)
-                    .writeName(this.writeId)
+                    .writeId(this.writeId)
                     .writeDate(LocalDateTime.now())
                     .build();
     }
@@ -34,7 +34,7 @@ public class BoardDTO {
                     .boardId(boardId)
                     .boardTitle(this.title)
                     .boardContents(this.contents)
-                    .modifyName(this.modifyId)
+                    .modifyId(this.modifyId)
                     .modifyDate(LocalDateTime.now())
                     .build();
     }

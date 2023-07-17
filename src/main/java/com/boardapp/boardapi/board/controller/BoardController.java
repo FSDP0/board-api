@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.boardapp.boardapi.board.model.BoardDTO;
+import com.boardapp.boardapi.board.model.BoardDto;
 import com.boardapp.boardapi.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +24,7 @@ public class BoardController {
      * @return List<BoardDTO>
      */
     @GetMapping
-    private List<BoardDTO> findAllBoards() {
+    private List<BoardDto> findAllBoards() {
         return this.boardService.findAllBoards();
     }
 
@@ -34,7 +34,7 @@ public class BoardController {
      * @return BoardDTO
      */
     @GetMapping("/:{boardId}")
-    private BoardDTO findByBoardId(@PathVariable Long boardId) {
+    private BoardDto findByBoardId(@PathVariable Long boardId) {
         return this.boardService.findByBoardId(boardId);
     }
 
@@ -44,7 +44,7 @@ public class BoardController {
      * @return Integer
      */
     @PostMapping
-    private Integer saveBoard(@RequestBody BoardDTO dto) {
+    private Integer saveBoard(@RequestBody BoardDto dto) {
         return this.boardService.saveBoard(dto);
     }
 
@@ -55,7 +55,7 @@ public class BoardController {
      * @return Integer
      */
     @PutMapping("/:{boardId}")
-    private Integer updateBoard(@PathVariable Long boardId, @RequestBody BoardDTO dto) {
+    private Integer updateBoard(@PathVariable Long boardId, @RequestBody BoardDto dto) {
         return this.boardService.updateBoard(boardId, dto);
     }
 
