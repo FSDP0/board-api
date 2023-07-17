@@ -1,0 +1,37 @@
+server:
+    port: 8000
+
+logging:
+    level:
+        jdbc:
+            sqlonly: off
+            sqltiming: info
+            resultsettable: info
+            audit: off
+            resultset: off
+            connection: off
+        org:
+            springframework: INFO
+        com:
+            zaxxer:
+                hikari: TRACE
+
+spring:
+    datasource:
+        # [READ ONLY] Database Connection Pool
+        read-only:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            jdbc-url: jdbc:mysql://localhost:3307/mybatis?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+            username: root
+            password: 123456
+        # [CUD ONLY] Database Connection Pool 
+        cud-only:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            jdbc-url: jdbc:mysql://localhost:3307/mybatis?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+            username: root
+            password: 123456
+    sql:
+        init:
+            mode: always
+            schema-locations: classpath:database/schema-mysql.sql
+            data-locations: classpath:database/data-mysql.sql
