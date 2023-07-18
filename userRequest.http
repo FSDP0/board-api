@@ -1,6 +1,6 @@
 GET http://localhost:8000/users
 
-GET http://localhost:8000/users/:TestUser1
+GET http://localhost:8000/users/:1번사용자아이디
 
 POST http://localhost:8000/users
 Content-Type: application/json
@@ -8,6 +8,14 @@ Content-Type: application/json
     "userId": "TestUser11",
     "userName": "TestUserName1",
     "userPassword": "1234",
+    "userPhonenumber": "010-9887-8609"
+}
+
+PUT http://localhost:8000/users/:TestUser1
+Content-Type: application/json
+{
+    "userName": "TestUserName2",
+    "userPassword": "123455",
     "userPhonenumber": "010-9887-8609"
 }
 
