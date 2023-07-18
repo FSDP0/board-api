@@ -1,0 +1,22 @@
+GET http://localhost:8000/users
+
+GET http://localhost:8000/users/:TestUser1
+
+POST http://localhost:8000/users
+Content-Type: application/json
+{
+    "userId": "새로운사용자아이디",
+    "userName": "새로운사용자이름",
+    "userPassword": "NewPassword0000",
+    "userPhonenumber": "010-0000-0000"
+}
+
+PUT http://localhost:8000/users/:새로운사용자아이디
+Content-Type: application/json
+{
+    "userName": "수정된사용자이름",
+    "userPassword": "EditedPassword0000",
+    "userPhonenumber": "010-9999-9999"
+}
+
+DELETE http://localhost:8000/users/:새로운사용자아이디

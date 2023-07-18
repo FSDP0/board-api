@@ -23,6 +23,22 @@
         WHERE board_id = #{boardId}
     </select>
 
+    <select id="findBoard" parameterType="com.boardapp.boardapi.board.model.Board" resultMap="boardResultMap">
+        SELECT *
+        FROM board
+        <where>
+            <if test="boardId != null">
+                board_id = #{boardId}
+            </if>
+            <if test="writeId != null">
+                write_id = #{writeId}
+            </if>
+            <if test="modifyId != null">
+                modify_id = #{modifyId}
+            </if>
+        </where>
+    </select>
+
     <insert id="saveBoard" parameterType="com.boardapp.boardapi.board.model.Board">
         INSERT
         INTO board(
@@ -40,10 +56,12 @@
 
     <update id="updateBoard" parameterType="com.boardapp.boardapi.board.model.Board">
         UPDATE board 
-        SET board_title = #{boardTitle},
-            board_contents = #{boardContents},
-            modify_id = #{modifyId},
-            modify_date = #{modifyDate}
+        <set>
+            <if test="boardTitle != null">board_title = #{boardTitle},</if>
+            <if test="boardContents != null">board_contents = #{boardContents},</if>
+            <if test="modifyId != null">modify_id = #{modifyId},</if>
+            <if test="modifyDate != null">modify_date = #{modifyDate}</if>
+        </set>
         WHERE board_id = #{boardId}
     </update>
     
