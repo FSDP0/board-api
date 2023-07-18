@@ -8,6 +8,8 @@ public interface BoardService {
 
     Board findByBoardId(Long boardId);
 
+    Board findByQuery(Long boardId, String writeId, String modifyId);
+
     Integer saveBoard(Board dto);
 
     Integer updateBoard(Long boardId, Board dto);

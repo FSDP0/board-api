@@ -23,7 +23,7 @@
         WHERE board_id = #{boardId}
     </select>
 
-    <select id="findBoard" parameterType="com.boardapp.boardapi.board.model.Board" resultMap="boardResultMap">
+    <select id="findByQuery" parameterType="com.boardapp.boardapi.board.model.Board" resultMap="boardResultMap">
         SELECT *
         FROM board
         <where>

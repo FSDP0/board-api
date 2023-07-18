@@ -24,6 +24,11 @@ public class BoardDaoImpl implements BoardDao {
     }
 
     @Override
+    public Board findByQuery(Board board) {
+        return this.sqlSessionTemplate.selectOne(NAMESPACE + ".findByQuery", board);
+    }
+
+    @Override
     public Integer saveBoard(Board board) {
         return this.sqlSessionTemplate.insert(NAMESPACE + ".saveBoard", board);
     }

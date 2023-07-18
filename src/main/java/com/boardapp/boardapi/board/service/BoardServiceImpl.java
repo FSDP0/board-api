@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class BoardServiceImpl implements BoardService{
+public class BoardServiceImpl implements BoardService {
     private final BoardDao boardDao;
 
     @Override
@@ -21,6 +21,11 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public Board findByBoardId(Long boardId) {
         return this.boardDao.findByBoardId(boardId);
+    }
+
+    @Override
+    public Board findByQuery(Long boardId, String writeId, String modifyId) {
+        return this.boardDao.findByQuery(Board.builder().boardId(boardId).writeId(writeId).modifyId(modifyId).build());
     }
 
     @Override
@@ -45,4 +50,5 @@ public class BoardServiceImpl implements BoardService{
     public Integer deleteBoard(Long boardId) {
         return this.boardDao.deleteBoard(boardId);
     }
+
 }

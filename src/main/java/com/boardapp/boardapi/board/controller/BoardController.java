@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.boardapp.boardapi.board.model.Board;
 import com.boardapp.boardapi.board.service.BoardService;
@@ -27,6 +28,19 @@ public class BoardController {
     @GetMapping("/:{boardId}")
     private Board findByBoardId(@PathVariable Long boardId) {
         return this.boardService.findByBoardId(boardId);
+    }
+
+    @GetMapping("/query")
+    private Board findByQuery(
+        @RequestParam(required = false) Long boardId,
+        @RequestParam(required = false) String writeId,
+        @RequestParam(required = false) String modifyId
+    ) {
+        if(boardId == null && writeId == null && modifyId == null) {
+            return null;
+        }
+        
+        return this.boardService.findByQuery(boardId, writeId, modifyId);
     }
 
     @PostMapping

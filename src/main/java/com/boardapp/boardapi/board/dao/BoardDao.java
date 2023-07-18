@@ -8,6 +8,8 @@ public interface BoardDao {
 
     public Board findByBoardId(Long boardId);
 
+    public Board findByQuery(Board board);
+
     public Integer saveBoard(Board board);
 
     public Integer updateBoard(Board board);
