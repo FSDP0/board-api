@@ -7,15 +7,19 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+import com.boardapp.boardapi.board.model.BoardDto;
 import com.boardapp.boardapi.user.entity.User;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "board")
 public class Board {
     @Id
@@ -46,14 +50,15 @@ public class Board {
     @LastModifiedDate
     private Date modifyDate;
 
-    @Builder
-    public Board(Long id, String title, String contents, String creator, String editor) {
-        this.boardId = id;
-
-        this.boardTitle = title;
-        this.boardContents = contents;
-
-        this.creator = creator;
-        this.editor = editor;
+    public BoardDto toDto() {
+        return BoardDto.builder()
+                        .num(this.boardId)
+                        .title(this.boardTitle)
+                        .contents(this.boardContents)
+                        .writeId(this.creator)
+                        .modifyId(this.editor)
+                        .writeDate(this.writeDate)
+                        .modifyDate(this.modifyDate)
+                        .build();
     }
 }

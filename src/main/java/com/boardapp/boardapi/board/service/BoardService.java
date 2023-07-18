@@ -1,21 +1,14 @@
 package com.boardapp.boardapi.board.service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.boardapp.boardapi.board.entity.Board;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.boardapp.boardapi.board.model.BoardEditDto;
-import com.boardapp.boardapi.board.model.BoardResponseDto;
-import com.boardapp.boardapi.board.model.BoardSaveDto;
+import com.boardapp.boardapi.board.model.BoardDto;
 import com.boardapp.boardapi.board.repository.BoardRepository;
-import com.boardapp.boardapi.user.entity.User;
 import com.boardapp.boardapi.user.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
@@ -26,62 +19,30 @@ public class BoardService {
         this.userRepository = userRepository;
     }
 
-    public List<BoardResponseDto> getAllBoards() {
-        List<Board> boardList = this.boardRepository.findAllBoards();
+    public List<BoardDto> getAllBoards() {
+        Iterable<Board> boardList = this.boardRepository.findAll();
 
-        if (boardList.isEmpty()) {
-            log.error("Board list is empty ...");
-
-            return null;
-        }
-
-        List<BoardResponseDto> dtoList = new ArrayList<BoardResponseDto>();
+        List<BoardDto> dtoList = new ArrayList<BoardDto>();
 
         for (Board board : boardList) {
-            BoardResponseDto dto = BoardResponseDto.builder().num(board.getBoardId())
-                    .title(board.getBoardTitle()).contents(board.getBoardContents())
-                    .writeId(board.getCreator()).modifyId(board.getEditor())
-                    .writeDate(board.getWriteDate()).modifyDate(board.getModifyDate()).build();
-
-            dtoList.add(dto);
+            dtoList.add(board.toDto());
         }
 
         return dtoList;
     }
 
-    public BoardResponseDto getBoardById(Long id) {
-        Board board = this.boardRepository.findById(id).get();
-
-        if (board == null) {
-            return null;
-        }
-
-        BoardResponseDto dto = BoardResponseDto.builder().num(board.getBoardId())
-                .title(board.getBoardTitle()).contents(board.getBoardContents())
-                .writeId(board.getCreator()).modifyId(board.getEditor())
-                .writeDate(board.getWriteDate()).modifyDate(board.getModifyDate()).build();
-
-        return dto;
+    public BoardDto getBoardById(Long id) {
+        return this.boardRepository.findById(id).get().toDto();
     }
 
     @Transactional
-    public void saveBoard(BoardSaveDto dto) {
-
-        User user = this.userRepository.findById(dto.getWriteId()).get();
-
-        user.addCreateBoard(dto.toEntity());
-
+    public void saveBoard(BoardDto dto) {
         this.boardRepository.save(dto.toEntity());
     }
 
     @Transactional
-    public void updateBoard(Long id, BoardEditDto dto) {
-        User user = this.userRepository.findById(dto.getEditId()).get();
-
-        user.addEditBoard(dto.toEntity());
-
-        this.boardRepository.updateBoard(dto.getTitle(), dto.getContents(), dto.getEditId(),
-                Timestamp.valueOf(LocalDateTime.now()), id);
+    public void updateBoard(Long id, BoardDto dto) {
+        this.boardRepository.updateBoard(dto.toEntity(id));
     }
 
     @Transactional

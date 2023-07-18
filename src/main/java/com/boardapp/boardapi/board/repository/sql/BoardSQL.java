@@ -27,10 +27,10 @@ public class BoardSQL {
 
     public static final String UPDATE_BY_ID = """
             UPDATE board
-            SET board_title = :title,
-                board_contents = :contents,
-                modify_id = :editorId,
+            SET board_title = :boardTitle,
+                board_contents = :boardContents,
+                modify_id = :editor,
                 modify_date = :modifyDate
-            WHERE board_id = :id
+            WHERE board_id = :boardId
             """;
 }
