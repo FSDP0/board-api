@@ -36,7 +36,7 @@ class BoardApiApplicationTests {
 
 		this.boardDao.saveBoard(params);
 
-		Board entity = this.boardDao.findByBoardId(Long.valueOf(11));
+		Board entity = this.boardDao.findByBoardId(Long.valueOf(13));
 		
 		assertThat(entity.getBoardTitle()).isEqualTo("1번 게시글 제목");
 		assertThat(entity.getBoardContents()).isEqualTo("1번 게시글 내용");
