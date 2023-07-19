@@ -22,7 +22,7 @@ public class DatabaseConfig {
 
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
-    DataSource dataSource(){
+    DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
@@ -32,7 +32,7 @@ public class DatabaseConfig {
     }
 
     @Bean
-    SqlSessionFactory sqlSessionFactory(DataSource dataSource)throws Exception {
+    SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
         sqlSessionFactoryBean.setDataSource(dataSource);
@@ -45,5 +45,4 @@ public class DatabaseConfig {
     SqlSessionTemplate SqlSessionTemplate(SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
-
 }

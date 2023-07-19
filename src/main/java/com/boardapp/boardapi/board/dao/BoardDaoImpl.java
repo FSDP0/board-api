@@ -37,5 +37,4 @@ public class BoardDaoImpl implements BoardDao {
     public Integer deleteBoard(Long boardId) {
         return this.sqlSessionTemplate.delete(NAMESPACE + ".deleteBoard", boardId);
     }
-
 }
