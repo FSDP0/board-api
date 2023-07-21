@@ -1,0 +1,28 @@
+GET http://localhost:8000/users
+
+GET http://localhost:8000/users/:사용자1
+
+POST http://localhost:8000/users
+Content-Type: application/json
+
+{
+    "id": "사용자1",
+    "name": "Merry",
+    "password": "123456",
+    "phoneNumber": "010-0000-0000",
+    "address": "서울시 노원구",
+    "zipCode": "01683"
+}
+
+PUT http://localhost:8000/users/:사용자1
+Content-Type: application/json
+
+{
+    "name": "Petter",
+    "password": "000000",
+    "phoneNumber": "010-9999-9999",
+    "address": "서울시 강남구",
+    "zipCode": "01810"
+}
+
+DELETE http://localhost:8000/users/:사용자1

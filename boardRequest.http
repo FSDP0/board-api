@@ -1,0 +1,25 @@
+GET http://localhost:8000/boards
+
+GET http://localhost:8000/boards/:1
+
+POST http://localhost:8000/boards
+Content-Type: application/json
+
+{
+    "title": "새로운 게시글 제목",
+    "contents": "새로운 게시글 내용",
+    "writeId": "사용자1",
+    "writeName": "Merry"
+}
+
+PUT http://localhost:8000/boards/:1
+Content-Type: application/json
+
+{
+    "title": "수정된 게시글 제목",
+    "contents": "수정된 게시글 내용",
+    "editId": "수정자1",
+    "editName": "Petter"
+}
+
+DELETE http://localhost:8000/boards/:1
